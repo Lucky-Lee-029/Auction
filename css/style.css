@@ -181,6 +181,10 @@ li {
 
 body {
     line-height: 1.5;
+<<<<<<< HEAD
+=======
+    color: #fff;
+>>>>>>> 529e5854cca5b429dd4e78df9bb10ce38e39d4ed
     font-family: 'Lato', sans-serif;
 }
 
@@ -7175,6 +7179,7 @@ body:not(.device-touch):not(.device-sm):not(.device-xs) .product-overlay a {
 
 .quantity .qty {
     float: left;
+
     width: 100px;
     height: 40px;
     line-height: 40px;
@@ -12772,7 +12777,11 @@ blockquote.float-right {
 .owl-carousel.owl-loading {
     display: block;
     min-height: 100px;
+<<<<<<< HEAD
     background: url() no-repeat center center
+=======
+    background: url('images/preloader.gif') no-repeat center center
+>>>>>>> 529e5854cca5b429dd4e78df9bb10ce38e39d4ed
 }
 
 .owl-carousel .owl-refresh .owl-item {
@@ -14206,7 +14215,11 @@ body:not(.device-touch) #gotoTop {
     display: block;
     width: 100%;
     height: 100%;
+<<<<<<< HEAD
     background: url() center center no-repeat #FFF;
+=======
+    background: url("images/preloader.gif") center center no-repeat #FFF;
+>>>>>>> 529e5854cca5b429dd4e78df9bb10ce38e39d4ed
 }
 
 .preloader2 {
