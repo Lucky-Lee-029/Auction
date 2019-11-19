@@ -186,8 +186,6 @@ body.top-search-open #top-search-trigger > i { opacity: 0; }
 	margin-left: 10px;
 }
 
-#top-bar.dark { color: #FFF; }
-
 .owl-carousel .owl-nav [class*=owl-] { opacity: 1; }
 .owl-carousel .owl-nav .owl-next { right: -18px; }
 .owl-carousel .owl-nav .owl-prev { left: -18px; }
