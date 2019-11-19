@@ -1,0 +1,26 @@
+@media (min-width:992px) {
+    #product-carousel img {
+        height: 700px;
+    }
+    #about-to-end .card {
+        width: 18%;
+    }
+}
+
+@media (min-width:798px) and (max-width:991.98px) {
+    #product-carousel img {
+        height: 500px;
+    }
+    #about-to-end .card {
+        width: 30%;
+    }
+}
+
+@media (max-width:797.98px) {
+    #product-carousel img {
+        height: 300px;
+    }
+    #about-to-end .card {
+        width: 100%;
+    }
+}
