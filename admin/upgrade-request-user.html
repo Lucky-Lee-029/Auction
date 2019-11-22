@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+    <title>Auction</title>
+    <!-- chartist CSS -->
+    <link href="assets/node_modules/morrisjs/morris.css" rel="stylesheet">
+    <link href="dist/css/pages/ecommerce.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="dist/css/style.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="skin-default fixed-layout">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">Auction online</p>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <!-- ============================================================== -->
+                <!-- Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="dashboard.html">
+                        <b>
+                        </b>
+                        <!-- Logo text -->
+                        <span>
+                         <img src="../images/logo.png" alt="homepage" class="dark-logo" />
+                        </span>
+                    </a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav mr-auto">
+                        <!-- This is  -->
+                        <li class="nav-item"> <a class="nav-link nav-toggler d-block d-sm-none waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                        <li class="nav-item"> <a class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark" href="javascript:void(0)"><i class="icon-menu"></i></a> </li>
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item">
+                            <form class="app-search d-none d-md-block d-lg-block">
+                                <input type="text" class="form-control" placeholder="Search & enter">
+                            </form>
+                        </li>
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- User profile and search -->
+                    <!-- ============================================================== -->
+
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- User Profile-->
+                <div class="user-profile">
+                    <div class="user-pro-body">
+                        <div><img src="assets/images/users/2.jpg" alt="user-img" class="img-circle"></div>
+                        <div class="dropdown">
+                            <a href="javascript:void(0)" class="dropdown-toggle u-dropdown link hide-menu" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin action online <span class="caret"></span></a>
+                            <div class="dropdown-menu animated flipInY">
+                                <!-- text-->
+                                <a href="javascript:void(0)" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
+                                <!-- text-->
+                                <div class="dropdown-divider"></div>
+                                <!-- text-->
+                                <a href="login.html" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
+                                <!-- text-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li>
+                            <div class="hide-menu text-center">
+                                <div id="eco-spark"></div>
+                                <small>TOTAL EARNINGS - JUNE 2019</small>
+                                <h4>$2,478.00</h4>
+                            </div>
+                        </li>
+                        <li> <a class=" waves-effect waves-dark" href="#" aria-expanded="false"><i class="icon-speedometer"></i><span class="hide-menu">Dashboard</span></a>
+                        </li>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-layout-grid2"></i><span class="hide-menu">Product</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="app-calendar.html">Pending<span class="badge badge-pill badge-primary text-white ml-auto">25</span></a></li>
+                                <li><a href="app-calendar.html">Action</a></li>
+                                <li><a href="app-calendar.html">Success</a></li>
+                                <li><a href="app-calendar.html">Fail</a></li>
+                                <li><a href="app-calendar.html">Blocked</a></li>
+                            </ul>
+                        </li>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-palette"></i><span class="hide-menu">User</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="#">User</a></li>
+                                <li><a href="upgrade-request-user.html">Upgrade Request</a></li>
+                                <li><a href="seller-user.html">Seller</a></li>
+                            </ul>
+                        </li>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-palette"></i><span class="hide-menu">Seller</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="ui-cards.html">Seller</a></li>
+                                <li><a href="ui-cards.html">Seller blocked</a></li>
+
+                            </ul>
+                        </li>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-palette"></i><span class="hide-menu">Customer</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="ui-cards.html">Customer</a></li>
+                                <li><a href="ui-cards.html">Customer blocked</a></li>
+
+                            </ul>
+                        </li>
+                        <li> <a class="waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-palette"></i><span class="hide-menu">FAQS</span></a>
+                        </li>
+                        <li> <a class="waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-palette"></i><span class="hide-menu">Blog</span></a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h4 class="text-themecolor"></h4>
+                    </div>
+                    <div class="col-md-7 align-self-center text-right">
+                        <div class="d-flex justify-content-end align-items-center">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
+                                <li class="breadcrumb-item active">Upgrade Request</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Info box Content -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Upgrade Request</h4>
+                                <div class="table-responsive m-t-40">
+                                    <table id="myTable" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Account</th>
+                                                <th>Name</th>
+                                                <th>Detail</th>
+                                                <th>Accept</th>
+                                                <th>Decline</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Tiger Nixon</td>
+                                                <td>System Architect</td>
+                                                <td><a class="btn btn-primary" target="_blank" href="detail-user.html" role="button">Detail</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Garrett Winters</td>
+                                                <td>Accountant</td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ashton Cox</td>
+                                                <td>Junior Technical Author</td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cedric Kelly</td>
+                                                <td>Senior Javascript Developer</td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Airi Satou</td>
+                                                <td>Accountant</td>
+                                                <td><a class="btn btn-primary" target="_blank" href="detail-user.html" role="button">Detail</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Brielle Williamson</td>
+                                                <td>Integration Specialist</td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Herrod Chandler</td>
+                                                <td>Sales Assistant</td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Rhona Davidson</td>
+                                                <td>Integration Specialist</td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Colleen Hurst</td>
+                                                <td>Javascript Developer</td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Sonya Frost</td>
+                                                <td>Software Engineer</td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jena Gaines</td>
+                                                <td>Office Manager</td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Quinn Flynn</td>
+                                                <td>Support Lead</td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Charde Marshall</td>
+                                                <td>Regional Director</td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Haley Kennedy</td>
+                                                <td>Senior Marketing Designer</td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tatyana Fitzpatrick</td>
+                                                <td>Regional Director</td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Michael Silva</td>
+                                                <td>Marketing Designer</td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Paul Byrd</td>
+                                                <td>Chief Financial Officer (CFO)</td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Gloria Little</td>
+                                                <td>Systems Administrator</td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
+                                                <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
+                                            </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer class="footer">
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="assets/node_modules/jquery/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="assets/node_modules/popper/popper.min.js"></script>
+    <script src="assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="dist/js/perfect-scrollbar.jquery.min.js"></script>
+    <!--Wave Effects -->
+    <script src="dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="dist/js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="assets/node_modules/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <script src="assets/node_modules/sparkline/jquery.sparkline.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="dist/js/custom.min.js"></script>
+    <script src="assets/node_modules/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <!-- ============================================================== -->
+    <!-- This page plugins -->
+    <!-- ============================================================== -->
+    <!--morris JavaScript -->
+    <script src="assets/node_modules/raphael/raphael-min.js"></script>
+    <script src="assets/node_modules/morrisjs/morris.min.js"></script>
+    <!--Custom JavaScript -->
+
+    <!-- This is data table -->
+    <script src="assets/node_modules/datatables/jquery.dataTables.min.js"></script>
+    <!-- start - This is for export functionality only -->
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+    <!-- end - This is for export functionality only -->
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+            $(document).ready(function() {
+                var table = $('#example').DataTable({
+                    "columnDefs": [{
+                        "visible": false,
+                        "targets": 2
+                    }],
+                    "order": [
+                        [2, 'asc']
+                    ],
+                    "displayLength": 25,
+                    "drawCallback": function(settings) {
+                        var api = this.api();
+                        var rows = api.rows({
+                            page: 'current'
+                        }).nodes();
+                        var last = null;
+                        api.column(2, {
+                            page: 'current'
+                        }).data().each(function(group, i) {
+                            if (last !== group) {
+                                $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+                                last = group;
+                            }
+                        });
+                    }
+                });
+                // Order by the grouping
+                $('#example tbody').on('click', 'tr.group', function() {
+                    var currentOrder = table.order()[0];
+                    if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
+                        table.order([2, 'desc']).draw();
+                    } else {
+                        table.order([2, 'asc']).draw();
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
