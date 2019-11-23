@@ -22,4 +22,17 @@ $(document).ready(() => {
         1000);
     $(".carousel-control-next").click(() => $(".carousel").carousel("next"));
     $(".carousel-control-prev").click(() => $(".carousel").carousel("prev"));
+
+    var current = -1;
+    var listLevel1Menu = document.querySelectorAll('.menu-level-1 li');
+    var listLevel2Menu = document.querySelectorAll('.menu-level-2');
+    for (let i = 0; i < listLevel1Menu.length; i++) {
+        listLevel1Menu[i].addEventListener('mouseover', () => {
+            if (current != -1) {
+                listLevel2Menu[current].style.display = 'none';
+                listLevel2Menu[i].style.display = 'block';
+            }
+            current = i;
+        })
+    }
 });
