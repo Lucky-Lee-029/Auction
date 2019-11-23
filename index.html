@@ -207,6 +207,11 @@
                                                         <div>Dell</div>
                                                     </a>
                                                 </li>
+                                                <li class="p-1">
+                                                    <a href="List_product.html">
+                                                        <div>MSI</div>
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -603,18 +608,6 @@
     <script src="js/myjs.js"></script>
     <!-- ADD-ONS JS FILES -->
     <script>
-        var current = -1;
-        var listLevel1Menu = document.querySelectorAll('.menu-level-1 li');
-        var listLevel2Menu = document.querySelectorAll('.menu-level-2');
-        for (let i = 0; i < listLevel1Menu.length; i++) {
-            listLevel1Menu[i].addEventListener('mouseover', () => {
-                if (current != -1) {
-                    listLevel2Menu[current].style.display = 'none';
-                    listLevel2Menu[i].style.display = 'block';
-                }
-                current = i;
-            })
-        }
     </script>
 </body>
 
