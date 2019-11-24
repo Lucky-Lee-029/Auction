@@ -253,7 +253,7 @@
                 <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
-                <div class="row page-titles">
+                <!-- <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
                         <h4 class="text-themecolor"></h4>
                     </div>
@@ -265,7 +265,50 @@
                             </ol>
                         </div>
                     </div>
-                </div>
+                </div> -->
+                <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Add Description</h4>
+                                    <form action="" method="post" enctype="multipart/form-data">
+                                        <div class="form-body">
+                                            <div class="row p-t-20">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">ID</label>
+                                                        <input type="text" id="id" class="form-control" name="id" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Name Product</label>
+                                                        <input type="text" id="name" class="form-control" name="name" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Description</label>
+                                                        <textarea class="form-control" rows="8" name="description" id="description"></textarea>
+                                                        <script>
+                                                            CKEDITOR.replace('description');
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                        </div>
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i>Save</button>
+                                            <button type="reset" class="btn btn-inverse">Cancel</button>
+                                        </div>
+                                    </form>
+    
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
@@ -286,6 +329,7 @@
         <!-- footer -->
         <!-- ============================================================== -->
         <footer class="footer">
+            © 2018 Eliteadmin by themedesigner.in
         </footer>
         <!-- ============================================================== -->
         <!-- End footer -->
