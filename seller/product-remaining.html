@@ -11,6 +11,7 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../admin/assets/images/favicon.png">
     <title>Auction</title>
+    <script src="ckeditor/ckeditor.js"></script>
     <!-- chartist CSS -->
     <link href="../admin/assets/node_modules/morrisjs/morris.css" rel="stylesheet">
     <link href="../admin/dist/css/pages/ecommerce.css" rel="stylesheet">
@@ -165,7 +166,7 @@
                                 <li class="breadcrumb-item"><a href="javascript:void(0)">Product</a></li>
                                 <li class="breadcrumb-item active"> Remaining Product</li>
                             </ol>
-                            <a class="btn btn-info d-none d-lg-block m-l-15"  href="product-add.html" role="button"><i class="fa fa-plus-circle"></i> Create New</a>
+                            <a class="btn btn-info d-none d-lg-block m-l-15" href="product-add.html" role="button"><i class="fa fa-plus-circle"></i> Create New</a>
                         </div>
                     </div>
                 </div>
@@ -211,7 +212,7 @@
                                                 <td>6days 07:50:53</td>
                                                 <td>
                                                     <a href="#" class="col-12 btn btn-success mr-1">View</a>
-                                                    <a href="product-edit-description.html" class="col-12 btn btn-primary mr-1">Edit<br>description</a>
+                                                    <a href="#" data-toggle="modal" data-target="#exampleModalCenter" class="col-12 btn btn-primary mr-1">View<br>description</a>
                                                     <a href="#" class="col-12 btn btn-danger">Delete</a>
                                                 </td>
                                             </tr>
@@ -231,7 +232,7 @@
                                                 <td>6days 07:50:53</td>
                                                 <td>
                                                     <a href="#" class="col-12 btn btn-success mr-1">View</a>
-                                                    <a href="product-edit-description.html" class="col-12 btn btn-primary mr-1">Edit<br>description</a>
+                                                    <a href="#" data-toggle="modal" data-target="#exampleModalCenter" class="col-12 btn btn-primary mr-1">View<br>description</a>
                                                     <a href="#" class="col-12 btn btn-danger">Delete</a>
                                                 </td>
                                             </tr>
@@ -251,7 +252,7 @@
                                                 <td>6days 07:50:53</td>
                                                 <td>
                                                     <a href="#" class="col-12 btn btn-success mr-1">View</a>
-                                                    <a href="product-edit-description.html" class="col-12 btn btn-primary mr-1">Edit<br>description</a>
+                                                    <a href="#" data-toggle="modal" data-target="#exampleModalCenter" class="col-12 btn btn-primary mr-1">View<br>description</a>
                                                     <a href="#" class="col-12 btn btn-danger">Delete</a>
                                                 </td>
                                             </tr>
@@ -271,7 +272,7 @@
                                                 <td>6days 07:50:53</td>
                                                 <td>
                                                     <a href="#" class="col-12 btn btn-success mr-1">View</a>
-                                                    <a href="product-edit-description.html" class="col-12 btn btn-primary mr-1">Edit<br>description</a>
+                                                    <a href="#" data-toggle="modal" data-target="#exampleModalCenter" class="col-12 btn btn-primary mr-1">View<br>description</a>
                                                     <a href="#" class="col-12 btn btn-danger">Delete</a>
                                                 </td>
                                             </tr>
@@ -306,6 +307,34 @@
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">Description</label>
+                        <textarea class="form-control" rows="8" name="description" id="description">This is description for a product</textarea>
+                        <script>
+                            CKEDITOR.replace('description');
+                            CKEDITOR.config.readOnly = true;
+                        </script>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a href="product-edit-description.html"><button type="button" class="btn btn-primary">Append Description</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
