@@ -21,11 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Document Title
     ============================================= -->
-    <script>
-            $("#auction-list").on('click', '.btn btn-danger', function () {
-                $(this).closest('tr').remove();
-            });
-            </script>
+
     <title>Auction online</title>
 </head>
 
@@ -501,7 +497,7 @@
                                                                             <td>*****Son</td>
                                                                             <td>10,000,000</td>
                                                                             <td>
-                                                                                <button type="button" class="btn btn-danger" data-toggle="tooltip" data-original-title="Delete">Delete</button>
+                                                                                <button type="button" class="btn btn-danger delete" data-toggle="tooltip" data-original-title="Delete">Delete</button>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -509,7 +505,7 @@
                                                                             <td>*****Hai</td>
                                                                             <td>9,000,000</td>
                                                                             <td>
-                                                                                <button type="button" class="btn btn-danger" data-toggle="tooltip" data-original-title="Delete">Delete</button>
+                                                                                <button type="button" class="btn btn-danger delete" data-toggle="tooltip" data-original-title="Delete">Delete</button>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -517,7 +513,7 @@
                                                                             <td>*****Phuc</td>
                                                                             <td>8,000,000</td>
                                                                             <td>
-                                                                                <button type="button" class="btn btn-danger" data-toggle="tooltip" data-original-title="Delete">Delete</button>
+                                                                                <button type="button" class="btn btn-danger delete" data-toggle="tooltip" data-original-title="Delete">Delete</button>
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
@@ -697,8 +693,17 @@
     <!-- Footer Scripts
 	============================================= -->
     <script src="../js/functions.js"></script>
-    <script src="../js/myjs.js"></script>
+    <script src="../js/myjs.js"></script> 
     <!-- ADD-ONS JS FILES -->
+    <script>
+           
+    $(document).ready(function(){
+        $(".delete").on('click',function(){
+            $(this).parents('tr').first().remove();
+     });
+
+    });
+    </script>
 </body>
 
 </html>
