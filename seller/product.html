@@ -21,6 +21,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Document Title
     ============================================= -->
+    <script>
+            $("#auction-list").on('click', '.btn btn-danger', function () {
+                $(this).closest('tr').remove();
+            });
+            </script>
     <title>Auction online</title>
 </head>
 
@@ -481,37 +486,42 @@
                                                             <h4 class="card-title">Contact Emplyee list</h4>
                                                             <h6 class="card-subtitle"></h6>
                                                             <div class="table-responsive">
-                                                                <table id="demo-foo-addrow" class="table m-t-30 table-hover contact-list" data-page-size="10">
+                                                                <table id="auction-list" class="table m-t-30 table-hover contact-list" data-page-size="10">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th></th>
                                                                             <th>Time</th>
                                                                             <th>Bidder</th>
                                                                             <th>Price</th>
+                                                                            <th>Action</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td><input type='checkbox' class='case'/></td>
                                                                             <td>10/11/2019 10:43</td>
                                                                             <td>*****Son</td>
                                                                             <td>10,000,000</td>
+                                                                            <td>
+                                                                                <button type="button" class="btn btn-danger" data-toggle="tooltip" data-original-title="Delete">Delete</button>
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
-                                                                            <td><input type='checkbox' class='case'/></td>
                                                                             <td>10/11/2019 10:43</td>
                                                                             <td>*****Hai</td>
                                                                             <td>9,000,000</td>
+                                                                            <td>
+                                                                                <button type="button" class="btn btn-danger" data-toggle="tooltip" data-original-title="Delete">Delete</button>
+                                                                            </td>
                                                                         </tr>
                                                                         <tr>
-                                                                            <td><input type='checkbox' class='case'/></td>
                                                                             <td>10/11/2019 10:43</td>
                                                                             <td>*****Phuc</td>
                                                                             <td>8,000,000</td>
+                                                                            <td>
+                                                                                <button type="button" class="btn btn-danger" data-toggle="tooltip" data-original-title="Delete">Delete</button>
+                                                                            </td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
-                                                                <button type="button" class='delete'>Delete</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -689,8 +699,6 @@
     <script src="../js/functions.js"></script>
     <script src="../js/myjs.js"></script>
     <!-- ADD-ONS JS FILES -->
-    <script>
-    </script>
 </body>
 
 </html>
