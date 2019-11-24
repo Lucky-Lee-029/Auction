@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-    <title>Auction</title>
+    <title>Product-failed</title>
     <!-- chartist CSS -->
     <link href="assets/node_modules/morrisjs/morris.css" rel="stylesheet">
     <link href="dist/css/pages/ecommerce.css" rel="stylesheet">
@@ -271,9 +271,6 @@
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
                         <h4 class="text-themecolor"></h4>
@@ -282,104 +279,185 @@
                         <div class="d-flex justify-content-end align-items-center">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                                <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
-                                <li class="breadcrumb-item active">User's Detail</li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0)">Product</a></li>                                
+                                <li class="breadcrumb-item active">Fail</li>
                             </ol>
                         </div>
                     </div>
                 </div>
-                <!-- ============================================================== -->
-                <!-- End Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Info box Content -->
                 <div class="row">
-                    <div class="card mb-3">
-                        <img src="../images/client1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <td scope="row">Username: </td>
-                                        <td>abc.xyz</td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">Name:</td>
-                                        <td>Trần Lê Tí Chuột</td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">Email:</td>
-                                        <td>tranletichuot@abc.xyz</td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">Birthday: </td>
-                                        <td>01/01/1999</td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">Address:</td>
-                                        <td>123 Wall Street</td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">Role:</td>
-                                        <td>Bidder</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="col-12">
+                        <!-- Column -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Action Product</h4>
+                                <table id="myTable" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th data-sort-initial="true" data-toggle="true">Product Name</th>
+                                            <th>Seller name</th>
+                                            <th data-hide="phone, tablet">DOS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Shona</td>
+                                            <td>Woldt</td>
+                                            <td>3 Oct 2017</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lizzee</td>
+                                            <td>Goodlow</td>
+                                            <td>1 Nov 2014</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Isidra</td>
+                                            <td>Boudreaux</td>
+                                            <td>22 Jun 2014</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Doris</td>
+                                            <td>Michael</td>
+                                            <td>19 Apr 2013</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lauri</td>
+                                            <td>Hyland</td>
+                                            <td>15 Nov 2014</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maple</td>
+                                            <td>Halladay</td>
+                                            <td>30 Dec 2017</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lorraine</td>
+                                            <td>Mcgaughy</td>
+                                            <td>11 Nov 2014</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Judi</td>
+                                            <td>Badgett</td>
+                                            <td>23 Jun 2013</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Granville</td>
+                                            <td>Leonardo</td>
+                                            <td>19 Apr 2013</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lauri</td>
+                                            <td>Hyland</td>
+                                            <td>30 Dec 2017</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maple</td>
+                                            <td>Halladay</td>
+                                            <td>30 Dec 2017</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lorraine</td>
+                                            <td>Mcgaughy</td>
+                                            <td>11 Nov 2014</td>
+                                            <tr>
+                                                <td>Judi</td>
+                                                <td>Badgett</td>
+                                                <td>23 Jun 2013</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Granville</td>
+                                                <td>Leonardo</td>
+                                                <td>19 Apr 2013</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Lauri</td>
+                                                <td>Hyland</td>
+                                                <td>15 Nov 2014</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Easer</td>
+                                                <td>Dragoo</td>
+                                                <td>13 Dec 2014</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Maple</td>
+                                                <td>Halladay</td>
+                                                <td>30 Dec 2017</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Maria</td>
+                                                <td>Tangeli</td>
+                                                <td>21 May 2014</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Maple</td>
+                                                <td>Halladay</td>
+                                                <td>30 Dec 2017</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Easer</td>
+                                                <td>Dragoo</td>
+                                                <td>13 Dec 2014</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Maple</td>
+                                                <td>Halladay</td>
+                                                <td>30 Dec 2017</td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- ============================================================== -->
-
+                <!-- End Container fluid  -->
+                <!-- ============================================================== -->
             </div>
             <!-- ============================================================== -->
-            <!-- End Container fluid  -->
+            <!-- End Page wrapper  -->
             <!-- ============================================================== -->
         </div>
         <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
+        <!-- End Wrapper -->
         <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <footer class="footer">
+                    © 2018 Eliteadmin by themedesigner.in
+                </footer>
+                <!-- ============================================================== -->
+                <!-- End footer -->
+                <!-- ============================================================== -->
         <!-- ============================================================== -->
-        <!-- footer -->
+        <!-- All Jquery -->
         <!-- ============================================================== -->
-        <footer class="footer">
-            © 2018 Eliteadmin by themedesigner.in
-        </footer>
+        <script src="assets/node_modules/jquery/jquery-3.2.1.min.js"></script>
+        <!-- Bootstrap tether Core JavaScript -->
+        <script src="assets/node_modules/popper/popper.min.js"></script>
+        <script src="assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- slimscrollbar scrollbar JavaScript -->
+        <script src="dist/js/perfect-scrollbar.jquery.min.js"></script>
+        <!--Wave Effects -->
+        <script src="dist/js/waves.js"></script>
+        <!--Menu sidebar -->
+        <script src="dist/js/sidebarmenu.js"></script>
+        <!--stickey kit -->
+        <script src="assets/node_modules/sticky-kit-master/dist/sticky-kit.min.js"></script>
+        <script src="assets/node_modules/sparkline/jquery.sparkline.min.js"></script>
+        <!--Custom JavaScript -->
+        <script src="dist/js/custom.min.js"></script>
+        <script src="assets/node_modules/jquery-sparkline/jquery.sparkline.min.js"></script>
         <!-- ============================================================== -->
-        <!-- End footer -->
+        <!-- This page plugins -->
         <!-- ============================================================== -->
-    </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="assets/node_modules/jquery/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="assets/node_modules/popper/popper.min.js"></script>
-    <script src="assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="dist/js/perfect-scrollbar.jquery.min.js"></script>
-    <!--Wave Effects -->
-    <script src="dist/js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="dist/js/sidebarmenu.js"></script>
-    <!--stickey kit -->
-    <script src="assets/node_modules/sticky-kit-master/dist/sticky-kit.min.js"></script>
-    <script src="assets/node_modules/sparkline/jquery.sparkline.min.js"></script>
-    <!--Custom JavaScript -->
-    <script src="dist/js/custom.min.js"></script>
-    <script src="assets/node_modules/jquery-sparkline/jquery.sparkline.min.js"></script>
-    <!-- ============================================================== -->
-    <!-- This page plugins -->
-    <!-- ============================================================== -->
-    <!--morris JavaScript -->
-    <script src="assets/node_modules/raphael/raphael-min.js"></script>
-    <script src="assets/node_modules/morrisjs/morris.min.js"></script>
-    <!--Custom JavaScript -->
-
-    <!-- This is data table -->
-    <script src="assets/node_modules/datatables/jquery.dataTables.min.js"></script>
+        <!--morris JavaScript -->
+        <script src="assets/node_modules/raphael/raphael-min.js"></script>
+        <script src="assets/node_modules/morrisjs/morris.min.js"></script>
+        <!--Custom JavaScript -->
+        <script src="dist/js/ecom-dashboard.js"></script>
+        <script src="assets/node_modules/datatables/jquery.dataTables.min.js"></script>
     <!-- start - This is for export functionality only -->
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
@@ -390,47 +468,46 @@
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
     <!-- end - This is for export functionality only -->
     <script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
         $(document).ready(function() {
-            $('#myTable').DataTable();
-            $(document).ready(function() {
-                var table = $('#example').DataTable({
-                    "columnDefs": [{
-                        "visible": false,
-                        "targets": 2
-                    }],
-                    "order": [
-                        [2, 'asc']
-                    ],
-                    "displayLength": 25,
-                    "drawCallback": function(settings) {
-                        var api = this.api();
-                        var rows = api.rows({
-                            page: 'current'
-                        }).nodes();
-                        var last = null;
-                        api.column(2, {
-                            page: 'current'
-                        }).data().each(function(group, i) {
-                            if (last !== group) {
-                                $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
-                                last = group;
-                            }
-                        });
-                    }
-                });
-                // Order by the grouping
-                $('#example tbody').on('click', 'tr.group', function() {
-                    var currentOrder = table.order()[0];
-                    if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
-                        table.order([2, 'desc']).draw();
-                    } else {
-                        table.order([2, 'asc']).draw();
-                    }
-                });
+            var table = $('#example').DataTable({
+                "columnDefs": [{
+                    "visible": false,
+                    "targets": 2
+                }],
+                "order": [
+                    [2, 'asc']
+                ],
+                "displayLength": 25,
+                "drawCallback": function(settings) {
+                    var api = this.api();
+                    var rows = api.rows({
+                        page: 'current'
+                    }).nodes();
+                    var last = null;
+                    api.column(2, {
+                        page: 'current'
+                    }).data().each(function(group, i) {
+                        if (last !== group) {
+                            $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+                            last = group;
+                        }
+                    });
+                }
+            });
+            // Order by the grouping
+            $('#example tbody').on('click', 'tr.group', function() {
+                var currentOrder = table.order()[0];
+                if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
+                    table.order([2, 'desc']).draw();
+                } else {
+                    table.order([2, 'asc']).draw();
+                }
             });
         });
+    });
     </script>
-
 </body>
 
 </html>
