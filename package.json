@@ -1,0 +1,24 @@
+{
+  "name": "auction",
+  "version": "1.0.0",
+  "description": "Lap-trinh-ung-dung-Web",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lucky-Lee-029/Auction.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lucky-Lee-029/Auction/issues"
+  },
+  "homepage": "https://github.com/Lucky-Lee-029/Auction#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "mysql": "^2.17.1"
+  }
+}
