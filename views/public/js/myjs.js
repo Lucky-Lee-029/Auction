@@ -25,7 +25,7 @@ $(document).ready(() => {
 
     var current = -1;
     var listLevel1Menu = document.querySelectorAll('.menu-level-1 li');
-    var listLevel2Menu = document.querySelectorAll('.menu-level-2');
+    var listLevel2Menu = document.querySelectorAll('.menu-level-2 > div');
     for (let i = 0; i < listLevel1Menu.length; i++) {
         listLevel1Menu[i].addEventListener('mouseover', () => {
             if (current != -1) {
