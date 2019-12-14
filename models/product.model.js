@@ -26,6 +26,5 @@ module.exports = {
         return db.patch('products', entity, condition);
     },
 
-    productImage: (id) => db.load(`select * from products JOIN product_images WHERE product_images.product_id = ${id} `),
-
+    productImage: id => db.load(`select * from products JOIN product_images WHERE product_images.product_id = ${id} `),   
 }

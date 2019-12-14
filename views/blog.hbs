@@ -1,721 +1,371 @@
-<!DOCTYPE html>
-<html dir="ltr" lang="en-US">
+<section id="content">
 
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="author" content="SemiColonWeb" />
+    <div class="content-wrap">
 
-    <!-- Stylesheets
-    ============================================= -->
-    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400i,700%7CMontserrat:300,400,500,600,700%7CMerriweather:300,400,300i,400i" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="css/style.css" type="text/css" />
-    <link rel="stylesheet" href="css/dark.css" type="text/css" />
-    <link rel="stylesheet" href="demos/shop/shop.css" type="text/css" />
-    <!-- <link rel="stylesheet" href="demos/shop/css/fonts.css" type="text/css" /> -->
-    <!-- <link rel="stylesheet" href="css/font-icons.css" type="text/css" /> -->
-    <!-- <link rel="stylesheet" href="css/animate.css" type="text/css" /> -->
-    <!-- <link rel="stylesheet" href="css/magnific-popup.css" type="text/css" /> -->
-    <!-- <link rel="stylesheet" href="css/responsive.css" type="text/css" /> -->
-    <link rel="stylesheet" href="demos/shop/css/fonts.css" type="text/css" />
-    <link rel="stylesheet" href="css/font-icons.css" type="text/css" />
-    <link rel="stylesheet" href="css/animate.css" type="text/css" />
-    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
-    <link rel="stylesheet" href="css/responsive.css" type="text/css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="css/colors.php?color=000000" type="text/css" />
-    <!-- Document Title
-    ============================================= -->
-    <title>Auction online</title>
-</head>
+        <div class="container clearfix">
 
-<body class="stretched">
-    <!-- Document Wrapper
-	============================================= -->
-    <div id="wrapper" class="clearfix">
-        <!-- Login Modal -->
-        <div class="modal1 mfp-hide" id="modal-register">
-            <div class="card divcenter" style="max-width: 540px;">
-                <div class="card-header py-3 nobg center">
-                    <h3 class="mb-0 t400">Hello, Welcome Action Online</h3>
-                </div>
-                <div class="card-body divcenter py-5" style="max-width: 70%;">
+            <!-- Post Content
+            ============================================= -->
+            <div class="postcontent nobottommargin col_last clearfix">
 
-                    <a href="#" class="button button-large btn-block si-colored si-facebook nott t400 ls0 center nomargin"><i class="icon-facebook-sign"></i> Log in with Facebook</a>
+                <!-- Posts
+                ============================================= -->
+                <div id="posts">
 
-                    <div class="divider divider-center"><span class="position-relative" style="top: -2px">OR</span></div>
-
-                    <form id="login-form" name="login-form" class="nobottommargin row" action="#" method="post">
-
-                        <div class="col-12">
-                            <input type="text" id="login-form-username" name="login-form-username" value="" class="form-control not-dark" placeholder="Username" />
+                    <div class="entry clearfix">
+                        <div class="entry-image">
+                            <a href="images/blog/full/17.jpg" data-lightbox="image"><img class="image_fade" src="images/blog/standard/17.jpg" alt="Standard Post with Image"></a>
                         </div>
-
-                        <div class="col-12 mt-4">
-                            <input type="password" id="login-form-password" name="login-form-password" value="" class="form-control not-dark" placeholder="Password" />
+                        <div class="entry-title">
+                            <h2><a href="blog-single.html">This is a Standard post with a Preview Image</a></h2>
                         </div>
-
-                        <div class="col-12">
-                            <a href="#" class="fright text-dark t300 mt-2">Forgot Password?</a>
+                        <ul class="entry-meta clearfix">
+                            <li><i class="icon-calendar3"></i> 10th February 2014</li>
+                            <li><a href="#"><i class="icon-user"></i> admin</a></li>
+                            <li><i class="icon-folder-open"></i> <a href="#">General</a>, <a href="#">Media</a></li>
+                            <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 13 Comments</a></li>
+                            <li><a href="#"><i class="icon-camera-retro"></i></a></li>
+                        </ul>
+                        <div class="entry-content">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, asperiores quod est tenetur in. Eligendi, deserunt, blanditiis est quisquam doloribus voluptate id aperiam ea ipsum magni aut perspiciatis rem voluptatibus
+                                officia eos rerum deleniti quae nihil facilis repellat atque vitae voluptatem libero at eveniet veritatis ab facere.</p>
+                            <a href="blog-single.html" class="more-link">Read More</a>
                         </div>
-
-                        <div class="col-12 mt-4">
-                            <button class="button btn-block nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="card-footer py-4 center">
-                    <p class="mb-0">Don't have an account? <a href="guest/Register.html"><u>Sign up</u></a></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Top Bar
-		============================================= -->
-        <div id="top-bar" class="dark" style="background-color: #a3a5a7;">
-
-            <div class="container clearfix">
-
-                <div class="row justify-content-between">
-
-                    <div class="col-lg-5 nobottommargin">
-
-                        <p class="nobottommargin d-flex justify-content-center justify-content-lg-start"><strong>Free Shipping on Order above $99. Easy Returns.</strong></p>
-
                     </div>
 
-                    <div class="col-lg-7 d-none d-lg-flex justify-content-end">
-
-                        <!-- Top Links
-						============================================= -->
-                        <div class="top-links">
-                            <ul>
-                                <li><a href="About.html">About</a></li>
-                                <li><a href="faq.html">FAQS</a></li>
-                                <li><a href="blog.html">Blogs</a></li>
-                                <li><a href="#">EN</a>
-                                    <ul>
-                                        <li>
-                                            <a href="#"><img src="images/french.png" alt="French"> FR</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><img src="images/italian.png" alt="Italian"> IT</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><img src="images/german.png" alt="German"> DE</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li></li>
-                            </ul>
+                    <div class="entry clearfix">
+                        <div class="entry-image">
+                            <iframe src="http://player.vimeo.com/video/87701971" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                         </div>
-                        <!-- .top-links end -->
-
-                        <!-- Top Social
-						============================================= -->
-                        <div id="top-social">
-                            <ul>
-                                <li><a href="#" class="si-facebook"><span class="ts-icon"><i class="icon-facebook"></i></span><span class="ts-text">Facebook</span></a></li>
-                                <li><a href="#" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span><span class="ts-text">Instagram</span></a></li>
-                                <li><a href="tel:+91.11.85412542" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">+91.11.85412542</span></a></li>
-                                <li><a href="mailto:info@canvas.com" class="si-email3"><span class="ts-icon"><i class="icon-envelope-alt"></i></span><span class="ts-text">info@canvas.com</span></a></li>
-                            </ul>
+                        <div class="entry-title">
+                            <h2><a href="blog-single-full.html">This is a Standard post with an Embedded Video</a></h2>
                         </div>
-                        <!-- #top-social end -->
-
+                        <ul class="entry-meta clearfix">
+                            <li><i class="icon-calendar3"></i> 16th February 2014</li>
+                            <li><a href="#"><i class="icon-user"></i> admin</a></li>
+                            <li><i class="icon-folder-open"></i> <a href="#">Videos</a>, <a href="#">News</a></li>
+                            <li><a href="blog-single-full.html#comments"><i class="icon-comments"></i> 19 Comments</a></li>
+                            <li><a href="#"><i class="icon-film"></i></a></li>
+                        </ul>
+                        <div class="entry-content">
+                            <p>Asperiores, tenetur, blanditiis, quaerat odit ex exercitationem pariatur quibusdam veritatis quisquam laboriosam esse beatae hic perferendis velit deserunt soluta iste repellendus officia in neque veniam debitis placeat
+                                quo unde reprehenderit eum facilis vitae. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil, reprehenderit!</p>
+                            <a href="blog-single-full.html" class="more-link">Read More</a>
+                        </div>
                     </div>
-                </div>
 
-            </div>
-
-        </div>
-
-        <!-- Header
-		============================================= -->
-        <header id="header" class="full-header clearfix">
-
-            <div id="header-wrap">
-
-                <div class="container clearfix">
-
-                    <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
-
-                    <!-- Logo
-					============================================= -->
-                    <div id="logo">
-                        <a href="index.html" class="standard-logo"><img src="images/logo.png" alt="Auction Logo" class="p-3"></a>
-                    </div>
-                    <!-- #logo end -->
-
-                    <!-- Primary Navigation
-					============================================= -->
-                    <nav id="primary-menu" class="style-2 with-arrows">
-
-                        <ul>
-                            <li class="current">
-                                <a href="Index.html">
-                                    <div>Home</div>
-                                </a>
-                            </li>
-                            <!-- Mega Menu
-							============================================= -->
-
-                            <li>
-                                <a href="List_product.html">
-                                    <div>Product</div>
-                                </a>
-                                <div class="mega-menu-content style-2 clearfix row">
-                                    <div>
-                                        <ul class="menu-level-1">
-                                            <li class="p-1">
-                                                <a href="List_product.html">
-                                                    <div>Mobile Phone</div>
-                                                </a>
-                                            </li>
-                                            <li class="p-1">
-                                                <a href="List_product.html">
-                                                    <div>Laptop</div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <div class="menu-level-2" style="display:none">
-                                            <ul>
-                                                <li class="p-1">
-                                                    <a href="List_product.html">
-                                                        <div>IPorn</div>
-                                                    </a>
-                                                </li>
-                                                <li class="p-1">
-                                                    <a href="List_product.html">
-                                                        <div>Samsung</div>
-                                                    </a>
-                                                </li>
-                                            </ul>
+                    <div class="entry clearfix">
+                        <div class="entry-image">
+                            <div class="fslider" data-arrows="false" data-lightbox="gallery">
+                                <div class="flexslider">
+                                    <div class="slider-wrap">
+                                        <div class="slide">
+                                            <a href="images/blog/full/10.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/standard/10.jpg" alt="Standard Post with Gallery"></a>
                                         </div>
-                                        <div class="menu-level-2" style="display:none">
-                                            <ul>
-                                                <li class="p-1">
-                                                    <a href="List_product.html">
-                                                        <div>Asus</div>
-                                                    </a>
-                                                </li>
-                                                <li class="p-1">
-                                                    <a href="List_product.html">
-                                                        <div>Dell</div>
-                                                    </a>
-                                                </li>
-                                                <li class="p-1">
-                                                    <a href="List_product.html">
-                                                        <div>MSI</div>
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                        <div class="slide">
+                                            <a href="images/blog/full/20.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/standard/20.jpg" alt="Standard Post with Gallery"></a>
+                                        </div>
+                                        <div class="slide">
+                                            <a href="images/blog/full/21.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/standard/21.jpg" alt="Standard Post with Gallery"></a>
                                         </div>
                                     </div>
-
                                 </div>
-                            </li>
-                            <!-- .mega-menu end -->
-                            <li>
-                                <a href="About.html">
-                                    <div>About Us</div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="Contact.html">
-                                    <div>Contact</div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="FAQ.html">
-                                    <div>FAQS</div>
-                                </a>
-                            </li>
+                            </div>
+                        </div>
+                        <div class="entry-title">
+                            <h2><a href="blog-single-small.html">This is a Standard post with a Slider Gallery</a></h2>
+                        </div>
+                        <ul class="entry-meta clearfix">
+                            <li><i class="icon-calendar3"></i> 24th February 2014</li>
+                            <li><a href="#"><i class="icon-user"></i> admin</a></li>
+                            <li><i class="icon-folder-open"></i> <a href="#">Gallery</a>, <a href="#">Media</a></li>
+                            <li><a href="blog-single-small.html#comments"><i class="icon-comments"></i> 21 Comments</a></li>
+                            <li><a href="#"><i class="icon-picture"></i></a></li>
+                        </ul>
+                        <div class="entry-content">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, voluptatem, dolorem animi nisi autem blanditiis enim culpa reiciendis et explicabo tenetur voluptate rerum molestiae eaque possimus exercitationem eligendi
+                                fuga. Maiores, sunt eveniet doloremque porro hic exercitationem distinctio sequi adipisci. Nulla, fuga perferendis voluptatum beatae voluptate architecto laboriosam provident deserunt. Saepe!</p>
+                            <a href="blog-single-small.html" class="more-link">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="entry clearfix">
+                        <div class="entry-image">
+                            <blockquote>
+                                <p>"When you are courting a nice girl an hour seems like a second. When you sit on a red-hot cinder a second seems like an hour. That's relativity."</p>
+                                <footer>Albert Einstein</footer>
+                            </blockquote>
+                        </div>
+                        <ul class="entry-meta clearfix">
+                            <li><i class="icon-calendar3"></i> 3rd March 2014</li>
+                            <li><a href="#"><i class="icon-user"></i> admin</a></li>
+                            <li><i class="icon-folder-open"></i> <a href="#">Quotes</a>, <a href="#">People</a></li>
+                            <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 23 Comments</a></li>
+                            <li><a href="#"><i class="icon-quote-left"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="entry clearfix">
+                        <div class="entry-image clearfix">
+                            <div class="portfolio-single-image masonry-thumbs grid-6" data-big="3" data-lightbox="gallery">
+                                <a href="images/blog/full/2.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/small/2.jpg" alt=""></a>
+                                <a href="images/blog/full/3.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/small/3.jpg" alt=""></a>
+                                <a href="images/blog/full/6-1.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/small/6-1.jpg" alt=""></a>
+                                <a href="images/blog/full/6-2.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/small/6-2.jpg" alt=""></a>
+                                <a href="images/blog/full/12.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/small/12.jpg" alt=""></a>
+                                <a href="images/blog/full/12-1.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/small/12-1.jpg" alt=""></a>
+                                <a href="images/blog/full/13.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/small/13.jpg" alt=""></a>
+                                <a href="images/blog/full/18.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/small/18.jpg" alt=""></a>
+                                <a href="images/blog/full/19.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/small/19.jpg" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="entry-title">
+                            <h2><a href="blog-single-thumbs.html">This is a Standard post with Masonry Thumbs Gallery</a></h2>
+                        </div>
+                        <ul class="entry-meta clearfix">
+                            <li><i class="icon-calendar3"></i> 3rd March 2014</li>
+                            <li><a href="#"><i class="icon-user"></i> admin</a></li>
+                            <li><i class="icon-folder-open"></i> <a href="#">Gallery</a>, <a href="#">Media</a></li>
+                            <li><a href="blog-single-thumbs.html#comments"><i class="icon-comments"></i> 21 Comments</a></li>
+                            <li><a href="#"><i class="icon-picture"></i></a></li>
+                        </ul>
+                        <div class="entry-content">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, voluptatem, dolorem animi nisi autem blanditiis enim culpa reiciendis et explicabo tenetur voluptate rerum molestiae eaque possimus exercitationem eligendi
+                                fuga. Maiores, sunt eveniet doloremque porro hic exercitationem distinctio sequi adipisci. Nulla, fuga perferendis voluptatum beatae voluptate architecto laboriosam provident deserunt. Saepe!</p>
+                            <a href="blog-single-thumbs.html" class="more-link">Read More</a>
+                        </div>
+                    </div>
+
+                    <div class="entry clearfix">
+                        <div class="entry-image">
+                            <a href="http://themeforest.net" class="entry-link" target="_blank">
+                                Themeforest.net
+                                <span>- http://themeforest.net</span>
+                            </a>
+                        </div>
+                        <ul class="entry-meta clearfix">
+                            <li><i class="icon-calendar3"></i> 17th March 2014</li>
+                            <li><a href="#"><i class="icon-user"></i> admin</a></li>
+                            <li><i class="icon-folder-open"></i> <a href="#">Links</a>, <a href="#">Suggestions</a></li>
+                            <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 26 Comments</a></li>
+                            <li><a href="#"><i class="icon-link"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="entry clearfix">
+                        <div class="entry-image">
+                            <div class="card">
+                                <div class="card-body">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, fuga optio voluptatibus saepe tenetur aliquam debitis eos accusantium! Vitae, hic, atque aliquid repellendus accusantium laudantium minus eaque quibusdam ratione sapiente.
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="entry-meta clearfix">
+                            <li><i class="icon-calendar3"></i> 21st March 2014</li>
+                            <li><a href="#"><i class="icon-user"></i> admin</a></li>
+                            <li><i class="icon-folder-open"></i> <a href="#">Status</a>, <a href="#">News</a></li>
+                            <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 11 Comments</a></li>
+                            <li><a href="#"><i class="icon-align-justify2"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="entry clearfix">
+                        <div class="entry-image clearfix">
+                            <iframe width="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/115823769&amp;auto_play=false&amp;hide_related=true&amp;visual=true"></iframe>
+                        </div>
+                        <div class="entry-title">
+                            <h2><a href="blog-single.html">This is an Embedded Audio Post</a></h2>
+                        </div>
+                        <ul class="entry-meta clearfix">
+                            <li><i class="icon-calendar3"></i> 28th April 2014</li>
+                            <li><a href="#"><i class="icon-user"></i> admin</a></li>
+                            <li><i class="icon-folder-open"></i> <a href="#">Audio</a>, <a href="#">General</a></li>
+                            <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 16 Comments</a></li>
+                            <li><a href="#"><i class="icon-music2"></i></a></li>
+                        </ul>
+                        <div class="entry-content">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, voluptatem, dolorem animi nisi autem blanditiis enim culpa reiciendis et explicabo tenetur voluptate rerum molestiae eaque possimus exercitationem eligendi
+                                fuga. Maiores, sunt eveniet doloremque porro hic exercitationem distinctio sequi adipisci. Nulla, fuga perferendis voluptatum beatae voluptate architecto laboriosam provident deserunt. Saepe!</p>
+                            <a href="blog-single.html" class="more-link">Read More</a>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- #posts end -->
+
+                <!-- Pagination
+                ============================================= -->
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <a href="#" class="btn btn-outline-secondary float-left">&larr; Older</a>
+                        <a href="#" class="btn btn-outline-dark float-right">Newer &rarr;</a>
+                    </div>
+                </div>
+                <!-- .pager end -->
+
+            </div>
+            <!-- .postcontent end -->
+
+            <!-- Sidebar
+            ============================================= -->
+            <div class="sidebar nobottommargin clearfix">
+                <div class="sidebar-widgets-wrap">
+
+                    <div class="widget widget-twitter-feed clearfix">
+
+                        <h4>Twitter Feed</h4>
+                        <ul class="iconlist twitter-feed" data-username="envato" data-count="2">
+                            <li></li>
                         </ul>
 
-                        <!-- Top Search
-						============================================= -->
-                        <div id="top-search">
-                            <a href="#" id="top-search-trigger"><i class="icon-line-search"></i><i class="icon-line-cross"></i></a>
-                            <form action="search.html" method="get">
-                                <input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
-                            </form>
-                        </div>
-                        <!-- #top-search end -->
-
-                        <!-- Top Cart
-						============================================= -->
-
-                        <!-- Top Search
-						============================================= -->
-                        <div id="top-account">
-                            <a href="#modal-register" data-lightbox="inline"><i class="icon-line2-user mr-1 position-relative" style="top: 1px;"></i><span class="d-none d-sm-inline-block font-primary t500">Login</span></a>
-                        </div>
-                        <!-- #top-search end -->
-
-                    </nav>
-                    <!-- #primary-menu end -->
-
-                </div>
-
-            </div>
-
-        </header>
-        <!-- #header end -->
-
-        <!-- Page Title
-		============================================= -->
-        <section id="page-title">
-
-            <div class="container clearfix">
-                <h1>Blog</h1>
-                <span>Our Latest News</span>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Blog</li>
-                </ol>
-            </div>
-
-        </section>
-        <!-- #page-title end -->
-
-        <!-- Content
-		============================================= -->
-        <section id="content">
-
-            <div class="content-wrap">
-
-                <div class="container clearfix">
-
-                    <!-- Post Content
-					============================================= -->
-                    <div class="postcontent nobottommargin col_last clearfix">
-
-                        <!-- Posts
-						============================================= -->
-                        <div id="posts">
-
-                            <div class="entry clearfix">
-                                <div class="entry-image">
-                                    <a href="images/blog/full/17.jpg" data-lightbox="image"><img class="image_fade" src="images/blog/standard/17.jpg" alt="Standard Post with Image"></a>
-                                </div>
-                                <div class="entry-title">
-                                    <h2><a href="blog-single.html">This is a Standard post with a Preview Image</a></h2>
-                                </div>
-                                <ul class="entry-meta clearfix">
-                                    <li><i class="icon-calendar3"></i> 10th February 2014</li>
-                                    <li><a href="#"><i class="icon-user"></i> admin</a></li>
-                                    <li><i class="icon-folder-open"></i> <a href="#">General</a>, <a href="#">Media</a></li>
-                                    <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 13 Comments</a></li>
-                                    <li><a href="#"><i class="icon-camera-retro"></i></a></li>
-                                </ul>
-                                <div class="entry-content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, asperiores quod est tenetur in. Eligendi, deserunt, blanditiis est quisquam doloribus voluptate id aperiam ea ipsum magni aut perspiciatis rem voluptatibus
-                                        officia eos rerum deleniti quae nihil facilis repellat atque vitae voluptatem libero at eveniet veritatis ab facere.</p>
-                                    <a href="blog-single.html" class="more-link">Read More</a>
-                                </div>
-                            </div>
-
-                            <div class="entry clearfix">
-                                <div class="entry-image">
-                                    <iframe src="http://player.vimeo.com/video/87701971" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                                </div>
-                                <div class="entry-title">
-                                    <h2><a href="blog-single-full.html">This is a Standard post with an Embedded Video</a></h2>
-                                </div>
-                                <ul class="entry-meta clearfix">
-                                    <li><i class="icon-calendar3"></i> 16th February 2014</li>
-                                    <li><a href="#"><i class="icon-user"></i> admin</a></li>
-                                    <li><i class="icon-folder-open"></i> <a href="#">Videos</a>, <a href="#">News</a></li>
-                                    <li><a href="blog-single-full.html#comments"><i class="icon-comments"></i> 19 Comments</a></li>
-                                    <li><a href="#"><i class="icon-film"></i></a></li>
-                                </ul>
-                                <div class="entry-content">
-                                    <p>Asperiores, tenetur, blanditiis, quaerat odit ex exercitationem pariatur quibusdam veritatis quisquam laboriosam esse beatae hic perferendis velit deserunt soluta iste repellendus officia in neque veniam debitis placeat
-                                        quo unde reprehenderit eum facilis vitae. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil, reprehenderit!</p>
-                                    <a href="blog-single-full.html" class="more-link">Read More</a>
-                                </div>
-                            </div>
-
-                            <div class="entry clearfix">
-                                <div class="entry-image">
-                                    <div class="fslider" data-arrows="false" data-lightbox="gallery">
-                                        <div class="flexslider">
-                                            <div class="slider-wrap">
-                                                <div class="slide">
-                                                    <a href="images/blog/full/10.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/standard/10.jpg" alt="Standard Post with Gallery"></a>
-                                                </div>
-                                                <div class="slide">
-                                                    <a href="images/blog/full/20.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/standard/20.jpg" alt="Standard Post with Gallery"></a>
-                                                </div>
-                                                <div class="slide">
-                                                    <a href="images/blog/full/21.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/standard/21.jpg" alt="Standard Post with Gallery"></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="entry-title">
-                                    <h2><a href="blog-single-small.html">This is a Standard post with a Slider Gallery</a></h2>
-                                </div>
-                                <ul class="entry-meta clearfix">
-                                    <li><i class="icon-calendar3"></i> 24th February 2014</li>
-                                    <li><a href="#"><i class="icon-user"></i> admin</a></li>
-                                    <li><i class="icon-folder-open"></i> <a href="#">Gallery</a>, <a href="#">Media</a></li>
-                                    <li><a href="blog-single-small.html#comments"><i class="icon-comments"></i> 21 Comments</a></li>
-                                    <li><a href="#"><i class="icon-picture"></i></a></li>
-                                </ul>
-                                <div class="entry-content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, voluptatem, dolorem animi nisi autem blanditiis enim culpa reiciendis et explicabo tenetur voluptate rerum molestiae eaque possimus exercitationem eligendi
-                                        fuga. Maiores, sunt eveniet doloremque porro hic exercitationem distinctio sequi adipisci. Nulla, fuga perferendis voluptatum beatae voluptate architecto laboriosam provident deserunt. Saepe!</p>
-                                    <a href="blog-single-small.html" class="more-link">Read More</a>
-                                </div>
-                            </div>
-
-                            <div class="entry clearfix">
-                                <div class="entry-image">
-                                    <blockquote>
-                                        <p>"When you are courting a nice girl an hour seems like a second. When you sit on a red-hot cinder a second seems like an hour. That's relativity."</p>
-                                        <footer>Albert Einstein</footer>
-                                    </blockquote>
-                                </div>
-                                <ul class="entry-meta clearfix">
-                                    <li><i class="icon-calendar3"></i> 3rd March 2014</li>
-                                    <li><a href="#"><i class="icon-user"></i> admin</a></li>
-                                    <li><i class="icon-folder-open"></i> <a href="#">Quotes</a>, <a href="#">People</a></li>
-                                    <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 23 Comments</a></li>
-                                    <li><a href="#"><i class="icon-quote-left"></i></a></li>
-                                </ul>
-                            </div>
-
-                            <div class="entry clearfix">
-                                <div class="entry-image clearfix">
-                                    <div class="portfolio-single-image masonry-thumbs grid-6" data-big="3" data-lightbox="gallery">
-                                        <a href="images/blog/full/2.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/small/2.jpg" alt=""></a>
-                                        <a href="images/blog/full/3.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/small/3.jpg" alt=""></a>
-                                        <a href="images/blog/full/6-1.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/small/6-1.jpg" alt=""></a>
-                                        <a href="images/blog/full/6-2.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/small/6-2.jpg" alt=""></a>
-                                        <a href="images/blog/full/12.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/small/12.jpg" alt=""></a>
-                                        <a href="images/blog/full/12-1.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/small/12-1.jpg" alt=""></a>
-                                        <a href="images/blog/full/13.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/small/13.jpg" alt=""></a>
-                                        <a href="images/blog/full/18.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/small/18.jpg" alt=""></a>
-                                        <a href="images/blog/full/19.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/small/19.jpg" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="entry-title">
-                                    <h2><a href="blog-single-thumbs.html">This is a Standard post with Masonry Thumbs Gallery</a></h2>
-                                </div>
-                                <ul class="entry-meta clearfix">
-                                    <li><i class="icon-calendar3"></i> 3rd March 2014</li>
-                                    <li><a href="#"><i class="icon-user"></i> admin</a></li>
-                                    <li><i class="icon-folder-open"></i> <a href="#">Gallery</a>, <a href="#">Media</a></li>
-                                    <li><a href="blog-single-thumbs.html#comments"><i class="icon-comments"></i> 21 Comments</a></li>
-                                    <li><a href="#"><i class="icon-picture"></i></a></li>
-                                </ul>
-                                <div class="entry-content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, voluptatem, dolorem animi nisi autem blanditiis enim culpa reiciendis et explicabo tenetur voluptate rerum molestiae eaque possimus exercitationem eligendi
-                                        fuga. Maiores, sunt eveniet doloremque porro hic exercitationem distinctio sequi adipisci. Nulla, fuga perferendis voluptatum beatae voluptate architecto laboriosam provident deserunt. Saepe!</p>
-                                    <a href="blog-single-thumbs.html" class="more-link">Read More</a>
-                                </div>
-                            </div>
-
-                            <div class="entry clearfix">
-                                <div class="entry-image">
-                                    <a href="http://themeforest.net" class="entry-link" target="_blank">
-										Themeforest.net
-										<span>- http://themeforest.net</span>
-									</a>
-                                </div>
-                                <ul class="entry-meta clearfix">
-                                    <li><i class="icon-calendar3"></i> 17th March 2014</li>
-                                    <li><a href="#"><i class="icon-user"></i> admin</a></li>
-                                    <li><i class="icon-folder-open"></i> <a href="#">Links</a>, <a href="#">Suggestions</a></li>
-                                    <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 26 Comments</a></li>
-                                    <li><a href="#"><i class="icon-link"></i></a></li>
-                                </ul>
-                            </div>
-
-                            <div class="entry clearfix">
-                                <div class="entry-image">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, fuga optio voluptatibus saepe tenetur aliquam debitis eos accusantium! Vitae, hic, atque aliquid repellendus accusantium laudantium minus eaque quibusdam ratione sapiente.
-                                        </div>
-                                    </div>
-                                </div>
-                                <ul class="entry-meta clearfix">
-                                    <li><i class="icon-calendar3"></i> 21st March 2014</li>
-                                    <li><a href="#"><i class="icon-user"></i> admin</a></li>
-                                    <li><i class="icon-folder-open"></i> <a href="#">Status</a>, <a href="#">News</a></li>
-                                    <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 11 Comments</a></li>
-                                    <li><a href="#"><i class="icon-align-justify2"></i></a></li>
-                                </ul>
-                            </div>
-
-                            <div class="entry clearfix">
-                                <div class="entry-image clearfix">
-                                    <iframe width="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/115823769&amp;auto_play=false&amp;hide_related=true&amp;visual=true"></iframe>
-                                </div>
-                                <div class="entry-title">
-                                    <h2><a href="blog-single.html">This is an Embedded Audio Post</a></h2>
-                                </div>
-                                <ul class="entry-meta clearfix">
-                                    <li><i class="icon-calendar3"></i> 28th April 2014</li>
-                                    <li><a href="#"><i class="icon-user"></i> admin</a></li>
-                                    <li><i class="icon-folder-open"></i> <a href="#">Audio</a>, <a href="#">General</a></li>
-                                    <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 16 Comments</a></li>
-                                    <li><a href="#"><i class="icon-music2"></i></a></li>
-                                </ul>
-                                <div class="entry-content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, voluptatem, dolorem animi nisi autem blanditiis enim culpa reiciendis et explicabo tenetur voluptate rerum molestiae eaque possimus exercitationem eligendi
-                                        fuga. Maiores, sunt eveniet doloremque porro hic exercitationem distinctio sequi adipisci. Nulla, fuga perferendis voluptatum beatae voluptate architecto laboriosam provident deserunt. Saepe!</p>
-                                    <a href="blog-single.html" class="more-link">Read More</a>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- #posts end -->
-
-                        <!-- Pagination
-						============================================= -->
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <a href="#" class="btn btn-outline-secondary float-left">&larr; Older</a>
-                                <a href="#" class="btn btn-outline-dark float-right">Newer &rarr;</a>
-                            </div>
-                        </div>
-                        <!-- .pager end -->
+                        <a href="#" class="btn btn-secondary btn-sm fright">Follow Us on Twitter</a>
 
                     </div>
-                    <!-- .postcontent end -->
 
-                    <!-- Sidebar
-					============================================= -->
-                    <div class="sidebar nobottommargin clearfix">
-                        <div class="sidebar-widgets-wrap">
+                    <div class="widget clearfix">
 
-                            <div class="widget widget-twitter-feed clearfix">
+                        <h4>Flickr Photostream</h4>
+                        <div id="flickr-widget" class="flickr-feed masonry-thumbs" data-id="613394@N22" data-count="16" data-type="group" data-lightbox="gallery"></div>
 
-                                <h4>Twitter Feed</h4>
-                                <ul class="iconlist twitter-feed" data-username="envato" data-count="2">
-                                    <li></li>
-                                </ul>
+                    </div>
 
-                                <a href="#" class="btn btn-secondary btn-sm fright">Follow Us on Twitter</a>
+                    <div class="widget clearfix">
 
-                            </div>
+                        <div class="tabs nobottommargin clearfix" id="sidebar-tabs">
 
-                            <div class="widget clearfix">
+                            <ul class="tab-nav clearfix">
+                                <li><a href="#tabs-1">Popular</a></li>
+                                <li><a href="#tabs-2">Recent</a></li>
+                                <li><a href="#tabs-3"><i class="icon-comments-alt norightmargin"></i></a></li>
+                            </ul>
 
-                                <h4>Flickr Photostream</h4>
-                                <div id="flickr-widget" class="flickr-feed masonry-thumbs" data-id="613394@N22" data-count="16" data-type="group" data-lightbox="gallery"></div>
+                            <div class="tab-container">
 
-                            </div>
+                                <div class="tab-content clearfix" id="tabs-1">
+                                    <div id="popular-post-list-sidebar">
 
-                            <div class="widget clearfix">
-
-                                <div class="tabs nobottommargin clearfix" id="sidebar-tabs">
-
-                                    <ul class="tab-nav clearfix">
-                                        <li><a href="#tabs-1">Popular</a></li>
-                                        <li><a href="#tabs-2">Recent</a></li>
-                                        <li><a href="#tabs-3"><i class="icon-comments-alt norightmargin"></i></a></li>
-                                    </ul>
-
-                                    <div class="tab-container">
-
-                                        <div class="tab-content clearfix" id="tabs-1">
-                                            <div id="popular-post-list-sidebar">
-
-                                                <div class="spost clearfix">
-                                                    <div class="entry-image">
-                                                        <a href="#" class="nobg"><img class="rounded-circle" src="images/magazine/small/3.jpg" alt=""></a>
-                                                    </div>
-                                                    <div class="entry-c">
-                                                        <div class="entry-title">
-                                                            <h4><a href="#">Debitis nihil placeat, illum est nisi</a></h4>
-                                                        </div>
-                                                        <ul class="entry-meta">
-                                                            <li><i class="icon-comments-alt"></i> 35 Comments</li>
-                                                        </ul>
-                                                    </div>
+                                        <div class="spost clearfix">
+                                            <div class="entry-image">
+                                                <a href="#" class="nobg"><img class="rounded-circle" src="images/magazine/small/3.jpg" alt=""></a>
+                                            </div>
+                                            <div class="entry-c">
+                                                <div class="entry-title">
+                                                    <h4><a href="#">Debitis nihil placeat, illum est nisi</a></h4>
                                                 </div>
-
-                                                <div class="spost clearfix">
-                                                    <div class="entry-image">
-                                                        <a href="#" class="nobg"><img class="rounded-circle" src="images/magazine/small/2.jpg" alt=""></a>
-                                                    </div>
-                                                    <div class="entry-c">
-                                                        <div class="entry-title">
-                                                            <h4><a href="#">Elit Assumenda vel amet dolorum quasi</a></h4>
-                                                        </div>
-                                                        <ul class="entry-meta">
-                                                            <li><i class="icon-comments-alt"></i> 24 Comments</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <div class="spost clearfix">
-                                                    <div class="entry-image">
-                                                        <a href="#" class="nobg"><img class="rounded-circle" src="images/magazine/small/1.jpg" alt=""></a>
-                                                    </div>
-                                                    <div class="entry-c">
-                                                        <div class="entry-title">
-                                                            <h4><a href="#">Lorem ipsum dolor sit amet, consectetur</a></h4>
-                                                        </div>
-                                                        <ul class="entry-meta">
-                                                            <li><i class="icon-comments-alt"></i> 19 Comments</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
+                                                <ul class="entry-meta">
+                                                    <li><i class="icon-comments-alt"></i> 35 Comments</li>
+                                                </ul>
                                             </div>
                                         </div>
-                                        <div class="tab-content clearfix" id="tabs-2">
-                                            <div id="recent-post-list-sidebar">
 
-                                                <div class="spost clearfix">
-                                                    <div class="entry-image">
-                                                        <a href="#" class="nobg"><img class="rounded-circle" src="images/magazine/small/1.jpg" alt=""></a>
-                                                    </div>
-                                                    <div class="entry-c">
-                                                        <div class="entry-title">
-                                                            <h4><a href="#">Lorem ipsum dolor sit amet, consectetur</a></h4>
-                                                        </div>
-                                                        <ul class="entry-meta">
-                                                            <li>10th July 2014</li>
-                                                        </ul>
-                                                    </div>
+                                        <div class="spost clearfix">
+                                            <div class="entry-image">
+                                                <a href="#" class="nobg"><img class="rounded-circle" src="images/magazine/small/2.jpg" alt=""></a>
+                                            </div>
+                                            <div class="entry-c">
+                                                <div class="entry-title">
+                                                    <h4><a href="#">Elit Assumenda vel amet dolorum quasi</a></h4>
                                                 </div>
-
-                                                <div class="spost clearfix">
-                                                    <div class="entry-image">
-                                                        <a href="#" class="nobg"><img class="rounded-circle" src="images/magazine/small/2.jpg" alt=""></a>
-                                                    </div>
-                                                    <div class="entry-c">
-                                                        <div class="entry-title">
-                                                            <h4><a href="#">Elit Assumenda vel amet dolorum quasi</a></h4>
-                                                        </div>
-                                                        <ul class="entry-meta">
-                                                            <li>10th July 2014</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <div class="spost clearfix">
-                                                    <div class="entry-image">
-                                                        <a href="#" class="nobg"><img class="rounded-circle" src="images/magazine/small/3.jpg" alt=""></a>
-                                                    </div>
-                                                    <div class="entry-c">
-                                                        <div class="entry-title">
-                                                            <h4><a href="#">Debitis nihil placeat, illum est nisi</a></h4>
-                                                        </div>
-                                                        <ul class="entry-meta">
-                                                            <li>10th July 2014</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
+                                                <ul class="entry-meta">
+                                                    <li><i class="icon-comments-alt"></i> 24 Comments</li>
+                                                </ul>
                                             </div>
                                         </div>
-                                        <div class="tab-content clearfix" id="tabs-3">
-                                            <div id="recent-post-list-sidebar">
 
-                                                <div class="spost clearfix">
-                                                    <div class="entry-image">
-                                                        <a href="#" class="nobg"><img class="rounded-circle" src="images/icons/avatar.jpg" alt=""></a>
-                                                    </div>
-                                                    <div class="entry-c">
-                                                        <strong>John Doe:</strong> Veritatis recusandae sunt repellat distinctio...
-                                                    </div>
+                                        <div class="spost clearfix">
+                                            <div class="entry-image">
+                                                <a href="#" class="nobg"><img class="rounded-circle" src="images/magazine/small/1.jpg" alt=""></a>
+                                            </div>
+                                            <div class="entry-c">
+                                                <div class="entry-title">
+                                                    <h4><a href="#">Lorem ipsum dolor sit amet, consectetur</a></h4>
                                                 </div>
-
-                                                <div class="spost clearfix">
-                                                    <div class="entry-image">
-                                                        <a href="#" class="nobg"><img class="rounded-circle" src="images/icons/avatar.jpg" alt=""></a>
-                                                    </div>
-                                                    <div class="entry-c">
-                                                        <strong>Mary Jane:</strong> Possimus libero, earum officia architecto maiores....
-                                                    </div>
-                                                </div>
-
-                                                <div class="spost clearfix">
-                                                    <div class="entry-image">
-                                                        <a href="#" class="nobg"><img class="rounded-circle" src="images/icons/avatar.jpg" alt=""></a>
-                                                    </div>
-                                                    <div class="entry-c">
-                                                        <strong>Site Admin:</strong> Deleniti magni labore laboriosam odio...
-                                                    </div>
-                                                </div>
-
+                                                <ul class="entry-meta">
+                                                    <li><i class="icon-comments-alt"></i> 19 Comments</li>
+                                                </ul>
                                             </div>
                                         </div>
 
                                     </div>
-
                                 </div>
+                                <div class="tab-content clearfix" id="tabs-2">
+                                    <div id="recent-post-list-sidebar">
 
-                            </div>
-
-                            <div class="widget clearfix">
-
-                                <h4>Portfolio Carousel</h4>
-                                <div id="oc-portfolio-sidebar" class="owl-carousel carousel-widget" data-items="1" data-margin="10" data-loop="true" data-nav="false" data-autoplay="5000">
-
-                                    <div class="oc-item">
-                                        <div class="iportfolio">
-                                            <div class="portfolio-image">
-                                                <a href="#">
-                                                    <img src="images/portfolio/4/3.jpg" alt="Mac Sunglasses">
-                                                </a>
-                                                <div class="portfolio-overlay">
-                                                    <a href="http://vimeo.com/89396394" class="center-icon" data-lightbox="iframe"><i class="icon-line-play"></i></a>
-                                                </div>
+                                        <div class="spost clearfix">
+                                            <div class="entry-image">
+                                                <a href="#" class="nobg"><img class="rounded-circle" src="images/magazine/small/1.jpg" alt=""></a>
                                             </div>
-                                            <div class="portfolio-desc center nobottompadding">
-                                                <h3><a href="portfolio-single-video.html">Mac Sunglasses</a></h3>
-                                                <span><a href="#">Graphics</a>, <a href="#">UI Elements</a></span>
+                                            <div class="entry-c">
+                                                <div class="entry-title">
+                                                    <h4><a href="#">Lorem ipsum dolor sit amet, consectetur</a></h4>
+                                                </div>
+                                                <ul class="entry-meta">
+                                                    <li>10th July 2014</li>
+                                                </ul>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="oc-item">
-                                        <div class="iportfolio">
-                                            <div class="portfolio-image">
-                                                <a href="portfolio-single.html">
-                                                    <img src="images/portfolio/4/1.jpg" alt="Open Imagination">
-                                                </a>
-                                                <div class="portfolio-overlay">
-                                                    <a href="images/blog/full/1.jpg" class="center-icon" data-lightbox="image"><i class="icon-line-plus"></i></a>
-                                                </div>
+                                        <div class="spost clearfix">
+                                            <div class="entry-image">
+                                                <a href="#" class="nobg"><img class="rounded-circle" src="images/magazine/small/2.jpg" alt=""></a>
                                             </div>
-                                            <div class="portfolio-desc center nobottompadding">
-                                                <h3><a href="portfolio-single.html">Open Imagination</a></h3>
-                                                <span><a href="#">Media</a>, <a href="#">Icons</a></span>
+                                            <div class="entry-c">
+                                                <div class="entry-title">
+                                                    <h4><a href="#">Elit Assumenda vel amet dolorum quasi</a></h4>
+                                                </div>
+                                                <ul class="entry-meta">
+                                                    <li>10th July 2014</li>
+                                                </ul>
                                             </div>
                                         </div>
-                                    </div>
 
+                                        <div class="spost clearfix">
+                                            <div class="entry-image">
+                                                <a href="#" class="nobg"><img class="rounded-circle" src="images/magazine/small/3.jpg" alt=""></a>
+                                            </div>
+                                            <div class="entry-c">
+                                                <div class="entry-title">
+                                                    <h4><a href="#">Debitis nihil placeat, illum est nisi</a></h4>
+                                                </div>
+                                                <ul class="entry-meta">
+                                                    <li>10th July 2014</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
+                                <div class="tab-content clearfix" id="tabs-3">
+                                    <div id="recent-post-list-sidebar">
 
-                            </div>
+                                        <div class="spost clearfix">
+                                            <div class="entry-image">
+                                                <a href="#" class="nobg"><img class="rounded-circle" src="images/icons/avatar.jpg" alt=""></a>
+                                            </div>
+                                            <div class="entry-c">
+                                                <strong>John Doe:</strong> Veritatis recusandae sunt repellat distinctio...
+                                            </div>
+                                        </div>
 
-                            <div class="widget clearfix">
+                                        <div class="spost clearfix">
+                                            <div class="entry-image">
+                                                <a href="#" class="nobg"><img class="rounded-circle" src="images/icons/avatar.jpg" alt=""></a>
+                                            </div>
+                                            <div class="entry-c">
+                                                <strong>Mary Jane:</strong> Possimus libero, earum officia architecto maiores....
+                                            </div>
+                                        </div>
 
-                                <h4>Tag Cloud</h4>
-                                <div class="tagcloud">
-                                    <a href="#">general</a>
-                                    <a href="#">videos</a>
-                                    <a href="#">music</a>
-                                    <a href="#">media</a>
-                                    <a href="#">photography</a>
-                                    <a href="#">parallax</a>
-                                    <a href="#">ecommerce</a>
-                                    <a href="#">terms</a>
-                                    <a href="#">coupons</a>
-                                    <a href="#">modern</a>
+                                        <div class="spost clearfix">
+                                            <div class="entry-image">
+                                                <a href="#" class="nobg"><img class="rounded-circle" src="images/icons/avatar.jpg" alt=""></a>
+                                            </div>
+                                            <div class="entry-c">
+                                                <strong>Site Admin:</strong> Deleniti magni labore laboriosam odio...
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
 
                             </div>
@@ -723,155 +373,75 @@
                         </div>
 
                     </div>
-                    <!-- .sidebar end -->
 
-                </div>
+                    <div class="widget clearfix">
 
-            </div>
+                        <h4>Portfolio Carousel</h4>
+                        <div id="oc-portfolio-sidebar" class="owl-carousel carousel-widget" data-items="1" data-margin="10" data-loop="true" data-nav="false" data-autoplay="5000">
 
-        </section>
-        <!-- #content end -->
-
-
-        <!-- Footer
-		============================================= -->
-        <footer id="footer" class="nobg noborder">
-
-            <div class="container clearfix">
-
-                <!-- Footer Widgets
-				============================================= -->
-                <div class="footer-widgets-wrap pb-3 border-bottom clearfix">
-
-                    <div class="row">
-
-                        <div class="col-lg-2 col-md-3 col-6">
-                            <div class="widget clearfix">
-
-                                <h4 class="ls0 mb-3 nott">Features</h4>
-
-                                <ul class="list-unstyled iconlist ml-0">
-                                    <li><a href="#">Help Center</a></li>
-                                    <li><a href="#">Paid with Moblie</a></li>
-                                    <li><a href="#">Status</a></li>
-                                    <li><a href="#">Changelog</a></li>
-                                    <li><a href="#">Contact Support</a></li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-3 col-6">
-                            <div class="widget clearfix">
-
-                                <h4 class="ls0 mb-3 nott">Support</h4>
-
-                                <ul class="list-unstyled iconlist ml-0">
-                                    <li><a href="#">Home</a></li>
-                                    <li><a href="#">About</a></li>
-                                    <li><a href="#">FAQs</a></li>
-                                    <li><a href="#">Support</a></li>
-                                    <li><a href="#">Contact</a></li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-3 col-6">
-                            <div class="widget clearfix">
-
-                                <h4 class="ls0 mb-3 nott">Trending</h4>
-
-                                <ul class="list-unstyled iconlist ml-0">
-                                    <li><a href="#">Shop</a></li>
-                                    <li><a href="#">Portfolio</a></li>
-                                    <li><a href="#">Blog</a></li>
-                                    <li><a href="#">Events</a></li>
-                                    <li><a href="#">Forums</a></li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-3 col-6">
-                            <div class="widget clearfix">
-
-                                <h4 class="ls0 mb-3 nott">Get to Know us</h4>
-
-                                <ul class="list-unstyled iconlist ml-0">
-                                    <li><a href="#">Corporate</a></li>
-                                    <li><a href="#">Agency</a></li>
-                                    <li><a href="#">eCommerce</a></li>
-                                    <li><a href="#">Personal</a></li>
-                                    <li><a href="#">OnePage</a></li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-8">
-                            <div class="widget clearfix">
-
-                                <h4 class="ls0 mb-3 nott">Subscribe Now</h4>
-                                <div class="widget subscribe-widget mt-2 clearfix">
-                                    <p class="mb-4"><strong>Subscribe</strong> to Our Newsletter to get Important News, Amazing Offers &amp; Inside Scoops:</p>
-                                    <div class="widget-subscribe-form-result"></div>
-                                    <form id="widget-subscribe-form" action="include/subscribe.php" method="post" class="mt-1 nobottommargin d-flex">
-                                        <input type="email" id="widget-subscribe-form-email" name="widget-subscribe-form-email" class="form-control sm-form-control required email" placeholder="Enter your Email Address">
-
-                                        <button class="button nott t400 ml-1 my-0" type="submit">Subscribe Now</button>
-                                    </form>
+                            <div class="oc-item">
+                                <div class="iportfolio">
+                                    <div class="portfolio-image">
+                                        <a href="#">
+                                            <img src="images/portfolio/4/3.jpg" alt="Mac Sunglasses">
+                                        </a>
+                                        <div class="portfolio-overlay">
+                                            <a href="http://vimeo.com/89396394" class="center-icon" data-lightbox="iframe"><i class="icon-line-play"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="portfolio-desc center nobottompadding">
+                                        <h3><a href="portfolio-single-video.html">Mac Sunglasses</a></h3>
+                                        <span><a href="#">Graphics</a>, <a href="#">UI Elements</a></span>
+                                    </div>
                                 </div>
-
                             </div>
+
+                            <div class="oc-item">
+                                <div class="iportfolio">
+                                    <div class="portfolio-image">
+                                        <a href="portfolio-single.html">
+                                            <img src="images/portfolio/4/1.jpg" alt="Open Imagination">
+                                        </a>
+                                        <div class="portfolio-overlay">
+                                            <a href="images/blog/full/1.jpg" class="center-icon" data-lightbox="image"><i class="icon-line-plus"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="portfolio-desc center nobottompadding">
+                                        <h3><a href="portfolio-single.html">Open Imagination</a></h3>
+                                        <span><a href="#">Media</a>, <a href="#">Icons</a></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="widget clearfix">
+
+                        <h4>Tag Cloud</h4>
+                        <div class="tagcloud">
+                            <a href="#">general</a>
+                            <a href="#">videos</a>
+                            <a href="#">music</a>
+                            <a href="#">media</a>
+                            <a href="#">photography</a>
+                            <a href="#">parallax</a>
+                            <a href="#">ecommerce</a>
+                            <a href="#">terms</a>
+                            <a href="#">coupons</a>
+                            <a href="#">modern</a>
                         </div>
 
                     </div>
 
                 </div>
-                <!-- .footer-widgets-wrap end -->
 
             </div>
+            <!-- .sidebar end -->
 
-            <!-- Copyrights
-			============================================= -->
-            <div id="copyrights" class="nobg">
+        </div>
 
-                <div class="container clearfix">
-
-                    <div class="row justify-content-between align-items-center">
-                        <div class="col-md-6">
-                            Copyrights &copy; 2014 All Rights Reserved by Canvas Inc.<br>
-                            <div class="copyright-links"><a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a></div>
-                        </div>
-
-                        <div class="col-md-6 d-md-flex flex-md-column align-items-md-end mt-4 mt-md-0">
-                            <div class="copyrights-menu copyright-links clearfix">
-                                <a href="#">About</a>/<a href="#">Features</a>/<a href="#">FAQs</a>/<a href="#">Contact</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-            <!-- #copyrights end -->
-
-
-        </footer>
     </div>
 
-
-
-
-    <!-- External JavaScripts
-	============================================= -->
-    <script src="js/jquery.js"></script>
-    <script src="js/plugins.js"></script>
-
-    <!-- Footer Scripts
-	============================================= -->
-    <script src="js/functions.js"></script>
-    <script src="js/myjs.js"></script>
-    <!-- ADD-ONS JS FILES -->
-    <script>
-    </script>
-</body>
-
-</html>
+</section>
