@@ -18,4 +18,8 @@ route.get('/category/:id', async(req, res) => {
     const data = await productModel.productCategory(id);
     res.render('list_product', { data });;
 })
+
+route.get('/admin',(req, res)=>{
+    res.render('admin/action',{layout: 'admin'});
+})
 module.exports = route;
