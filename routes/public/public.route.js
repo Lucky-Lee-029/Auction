@@ -20,6 +20,6 @@ route.get('/category/:id', async(req, res) => {
 })
 
 route.get('/admin',(req, res)=>{
-    res.render('admin/action',{layout: 'admin'});
+    res.render('admin/dashboard',{layout: 'admin'});
 })
 module.exports = route;

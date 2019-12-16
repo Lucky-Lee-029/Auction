@@ -7,6 +7,8 @@ module.exports = {
 
     all: () => db.load(`select * from products`),
 
+    actionProduct: () => db.load(`select * from products WHERE `),
+
     single: id => db.load(`select * from products where id= ${id}`),
 
     countByCate: async id => {

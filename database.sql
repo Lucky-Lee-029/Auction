@@ -209,20 +209,36 @@ DROP TABLE IF EXISTS `admin_managers`;
 CREATE TABLE `admin_managers` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `icon` varchar(20) COLLATE utf8_unicode_ci,
   `parent_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `admin_managers_parent_id_foreign` (`parent_id`),
   CONSTRAINT `admin_managers_parent_id_foreign` FOREIGN KEY (`parent_id`) REFERENCES `admin_managers` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `admin_managers` (`name`, `parent_id`) VALUES
-('Product', NULL);
+INSERT INTO `admin_managers` (`name`, `icon`, `parent_id`) VALUES
+('Dashboard', 'icon-speedometer',  NULL),
+('Product', 'ti-layout-grid2', NULL),
+('User','ti-user', NULL),
+('Category', 'ti-palette', NULL),
+('FAQ', 'ti-star', NULL),
+('Slider', ' ti-layout-slider', NULL),
+('Pending', NULL, 2),
+('Action', NULL, 2),
+('Success', NULL, 2),
+('Fail', NULL, 2),
+('Blocked', NULL, 2),
+('Seller', NULL, 3),
+('Bidder', NULL, 3),
+('Upgrade Request', NULL, 3),
+('Blocked Bidder', NULL, 3),
+('Blocked Seller', NULL, 3);
 
 DROP TABLE IF EXISTS `seller_managers`;
 CREATE TABLE `seller_managers` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
-  `icon` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `icon` varchar(20) COLLATE utf8_unicode_ci,
   `parent_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `seller_managers_parent_id_foreign` (`parent_id`),

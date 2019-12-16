@@ -26,7 +26,17 @@ app.use(async(req, res, next) => {
     res.locals.cate = { parent: data, child }
     next();
 })
-
+app.use(async(req, res, next) => {
+    var data = [];
+    data=await adminModel.parentManager();
+    var child = [];
+    for (parent of data) {
+        child.push(await adminModel.childManager(parent.id));
+    }
+    console.log(child);
+    res.locals.admin = { parent: data, child }
+    next();
+})
 //User route
 app.use('/', require('./routes/public/public.route'))
 app.use(function(err, req, res, next) {
