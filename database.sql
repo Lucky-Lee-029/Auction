@@ -40,7 +40,7 @@ INSERT INTO `sellers` (`seller_id`, `created_at`, `expiry_date`) VALUES
 
 DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT ,
   `seller_id` int(10) unsigned NOT NULL,
   `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
   `price_start` int(11) DEFAULT NULL,
@@ -48,14 +48,15 @@ CREATE TABLE `products` (
   `buy_now` int(11) DEFAULT NULL,
   `step` int(11) DEFAULT NULL,
   `duration` timestamp NULL DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0: fail, 1: success, 2: spending, 3: cancel',
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `sellers_seller_id_foreign` (`seller_id`),
   CONSTRAINT `sellers_seller_id_foreign` FOREIGN KEY (`seller_id`) REFERENCES `sellers` (`seller_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `products` (`id`, `seller_id` ,`name`, `price_start`, `price_end`, `buy_now`, `step`, `duration`, `created_at`) VALUES
-(1, 1,'laptop msi gv62' , 10000000, 20000000, 20000000 ,100000 ,'duration' , '2019-12-4 03:05:09');
+INSERT INTO `products` (`id`, `seller_id` ,`name`, `price_start`, `price_end`, `buy_now`, `step`, `duration`,`status`, `created_at`) VALUES
+(1, 1,'laptop msi gv62' , 10000000, 20000000, 20000000 ,100000 ,'duration' ,'1', '2019-12-4 03:05:09');
 
 DROP TABLE IF EXISTS `product_images`;
 CREATE TABLE `product_images` (
@@ -208,27 +209,68 @@ DROP TABLE IF EXISTS `admin_managers`;
 CREATE TABLE `admin_managers` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `icon` varchar(20) COLLATE utf8_unicode_ci,
   `parent_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `admin_managers_parent_id_foreign` (`parent_id`),
   CONSTRAINT `admin_managers_parent_id_foreign` FOREIGN KEY (`parent_id`) REFERENCES `admin_managers` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `admin_managers` (`name`, `parent_id`) VALUES
-('Product', NULL);
+INSERT INTO `admin_managers` (`name`, `icon`, `parent_id`) VALUES
+('Dashboard', 'icon-speedometer',  NULL),
+('Product', 'ti-layout-grid2', NULL),
+('User','ti-user', NULL),
+('Category', 'ti-palette', NULL),
+('FAQ', 'ti-star', NULL),
+('Slider', ' ti-layout-slider', NULL),
+('Pending', NULL, 2),
+('Action', NULL, 2),
+('Success', NULL, 2),
+('Fail', NULL, 2),
+('Blocked', NULL, 2),
+('Seller', NULL, 3),
+('Bidder', NULL, 3),
+('Upgrade Request', NULL, 3),
+('Blocked Bidder', NULL, 3),
+('Blocked Seller', NULL, 3);
 
 DROP TABLE IF EXISTS `seller_managers`;
 CREATE TABLE `seller_managers` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `icon` varchar(20) COLLATE utf8_unicode_ci,
   `parent_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `seller_managers_parent_id_foreign` (`parent_id`),
   CONSTRAINT `seller_managers_parent_id_foreign` FOREIGN KEY (`parent_id`) REFERENCES `seller_managers` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `seller_managers` (`name`, `parent_id`) VALUES
-('Product', NULL);
+INSERT INTO `seller_managers` (`name`, `icon`, `parent_id`) VALUES
+('Dashboard', 'icon-speedometer',  NULL),
+('Product', 'ti-layout-grid2', NULL),
+('User','ti-user', NULL),
+('Category', 'ti-palette', NULL),
+('FAQ', 'ti-star', NULL),
+('Slider', ' ti-layout-slider', NULL),
+('Pending', NULL, 2),
+('Action', NULL, 2),
+('Success', NULL, 2),
+('Fail', NULL, 2),
+('Blocked', NULL, 2),
+('Seller', NULL, 3),
+('Bidder', NULL, 3),
+('Upgrade Request', NULL, 3),
+('Blocked Bidder', NULL, 3),
+('Blocked Seller', NULL, 3);
+
+DROP TABLE IF EXISTS `upgrade_requests`;
+CREATE TABLE `upgrade_requests` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `bidder_id` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `upgrade_requests_bidder_id_foreign` (`bidder_id`),
+  CONSTRAINT `upgrade_requests_bidder_id_foreign` FOREIGN KEY (`bidder_id`) REFERENCES `bidders` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
