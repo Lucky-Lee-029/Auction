@@ -5,7 +5,8 @@
         "port": 3306,
         "user": "root",
         "password": "",
-        "database": "auction"
+        "database": "auction",
+        "inseecureAuth": true
     },
     "paginate": {
         "limit": 6
