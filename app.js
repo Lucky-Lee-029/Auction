@@ -33,7 +33,6 @@ app.use(async(req, res, next) => {
     for (parent of data) {
         child.push(await adminModel.childManager(parent.id));
     }
-    console.log(child);
     res.locals.admin = { parent: data, child }
     next();
 })
