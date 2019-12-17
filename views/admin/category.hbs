@@ -1,0 +1,96 @@
+<div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h4 class="text-themecolor"></h4>
+                    </div>
+                    <div class="col-md-7 align-self-center text-right">
+                        <div class="d-flex justify-content-end align-items-center">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                <li class="breadcrumb-item active">Category</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Info box Content -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>ADD Category</h4>
+                
+                                <form method="post" action="">
+                                    <div class="form-group">
+                                        <label>Name category</label>
+                                        <input type="text" name="category" class="form-control" value="">
+                                    </div>
+                                    <div class="form-group">
+                                            <label class="control-label" >Parent category</label>
+                                            <select name="parent_id" class="form-control">
+                                                <option value="0">Select</option>
+                                                <option value="mobile">Mobile</option>
+                                                <option value="laptop">Laptop</option>                                                
+                                            </select>
+                                        </div>
+                                    <button type="submit" class="btn btn-info">ADD</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card">
+                            
+                            <div class="card-body">
+                                <h4 class="card-title">Category</h4>
+                                <div class="table-responsive m-t-40">
+                                    <table id="myTable" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Category</th>
+                                                <th>Parent</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Mobile</td>
+                                                <td>NULL</td>
+                                                <th>
+                                                    <button type="button" class="btn btn-primary">Edit</button>
+                                                    <button type="button" class="btn btn-danger">Delete</button>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Laptop</td>
+                                                <td>NULL</td>
+                                                <th>
+                                                    <button type="button" class="btn btn-primary">Edit</button>
+                                                    <button type="button" class="btn btn-danger">Delete</button>
+                                                </th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+        </div>
