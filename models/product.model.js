@@ -3,14 +3,14 @@ const config = require('../config/default.json');
 
 //product model
 module.exports = {
-    productCategory: (id) => db.load(`select * from products JOIN product_categories WHERE product_categories.product_cate = ${id} `),
+    productCategory: (id) => db.load(`select * from products JOIN product_categories WHERE product_categories.category_id = ${id} `),
 
     all: () => db.load(`select * from products`),
 
     single: id => db.load(`select * from products where id= ${id}`),
 
     countByCate: async id => {
-        const rows = await db.load(`select count(*) as total from products JOIN product_categories WHERE product_categories.product_cate = ${id} `)
+        const rows = await db.load(`select count(*) as total from products JOIN product_categories WHERE product_categories.category_id = ${id} `)
         return rows[0].total;
     },
 
