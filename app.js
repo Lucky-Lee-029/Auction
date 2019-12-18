@@ -41,9 +41,14 @@ app.use(async(req, res, next) => {
     })
     //User route
 app.use('/', require('./routes/public/public.route'))
+
+// app.use('/admin',require('./routes/admin/admin.route'))
+
+
 app.use(function(err, req, res, next) {
     res.render('errors')
 });
+
 //Listen at PORT
 app.listen(PORT, () => {
     console.log(`Listening Port: ${PORT}`);
