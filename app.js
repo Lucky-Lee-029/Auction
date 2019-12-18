@@ -11,7 +11,8 @@ const PORT = process.env.PORT | 3000;
 //View engine
 app.engine('hbs', exphbs({
     helpers: {
-        section: express_handlebars_sections()
+        section: express_handlebars_sections(),
+        formatName: (name) => name.toLowerCase().split(' ').join('')
     }
 }));
 app.set('view engine', 'hbs');
@@ -19,24 +20,26 @@ app.set('view engine', 'hbs');
 app.use(express.static(__dirname + '/views/public'))
 app.use(async(req, res, next) => {
     var data = await categoryModel.parentCategory();
-    var child = [];
     for (parent of data) {
-        child.push(await categoryModel.childCategory(parent.id));
+        let children = await categoryModel.childCategory(parent.id);
+        parent.hasChild = children.length;
+        parent.children = children
     }
-    res.locals.cate = { parent: data, child }
+    res.locals.cate = { parent: data };
     next();
 })
 app.use(async(req, res, next) => {
-    var data = [];
-    data=await adminModel.parentManager();
-    var child = [];
-    for (parent of data) {
-        child.push(await adminModel.childManager(parent.id));
-    }
-    res.locals.admin = { parent: data, child }
-    next();
-})
-//User route
+        var data = [];
+        data = await adminModel.parentManager();
+        for (parent of data) {
+            let children = await adminModel.childManager(parent.id)
+            parent.hasChild = children.length;
+            parent.children = children;
+        }
+        res.locals.admin = { parent: data }
+        next();
+    })
+    //User route
 app.use('/', require('./routes/public/public.route'))
 app.use(function(err, req, res, next) {
     res.render('errors')

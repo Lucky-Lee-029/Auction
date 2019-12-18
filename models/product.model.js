@@ -3,7 +3,7 @@ const config = require('../config/default.json');
 
 //product model
 module.exports = {
-    productCategory: (id) => db.load(`select * from products JOIN product_categories WHERE product_categories.product_cate = ${id} `),
+    productCategory: (id) => db.load(`select * from products JOIN product_categories WHERE product_categories.category_id = ${id} `),
 
     all: () => db.load(`select * from products`),
 
@@ -18,7 +18,7 @@ module.exports = {
 
     add: entity => db.add('products', entity),
 
-    del: id_product => db.del('products', { id: id_product}),
+    del: id_product => db.del('products', { id: id_product }),
 
     patch: entity => {
         const condition = { id: entity.id };
@@ -26,5 +26,5 @@ module.exports = {
         return db.patch('products', entity, condition);
     },
 
-    productImage: id => db.load(`select * from products JOIN product_images WHERE product_images.product_id = ${id} `),   
+    productImage: id => db.load(`select * from products JOIN product_images WHERE product_images.product_id = ${id} `),
 }
