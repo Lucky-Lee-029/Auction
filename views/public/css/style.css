@@ -1537,9 +1537,6 @@ body.stretched #header.full-header .container {
     letter-spacing: 1px;
     text-transform: uppercase;
     font-family: 'Raleway', sans-serif;
-    -webkit-transition: margin .4s ease, padding .4s ease;
-    -o-transition: margin .4s ease, padding .4s ease;
-    transition: margin .4s ease, padding .4s ease;
 }
 
 #primary-menu ul li>a span {
@@ -1640,9 +1637,6 @@ body.no-superfish #primary-menu li:hover>.mega-menu-content {
     border: 0;
     letter-spacing: 0;
     font-family: 'Lato', sans-serif;
-    -webkit-transition: all .2s ease-in-out;
-    -o-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
 }
 
 #primary-menu ul ul li>a i {
@@ -1785,7 +1779,6 @@ body.stretched #header.full-header #primary-menu ul li.mega-menu .mega-menu-cont
 }
 
 #primary-menu ul li .mega-menu-content.style-2 ul li>a:hover {
-    padding-left: 12px;
     background: black;
 }
 

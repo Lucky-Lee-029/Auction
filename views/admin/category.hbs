@@ -62,24 +62,32 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Mobile</td>
+                                            {{#each this.cate.parent}}
+                                                <tr>
+                                                <td>{{id}}</td>
+                                                <td>{{name}}</td>
                                                 <td>NULL</td>
                                                 <th>
                                                     <button type="button" class="btn btn-primary">Edit</button>
                                                     <button type="button" class="btn btn-danger">Delete</button>
                                                 </th>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Laptop</td>
-                                                <td>NULL</td>
+                                                </tr>
+                                            {{/each}}
+                                            {{#each this.cate.parent}}
+                                            {{#if this.hasChild}}
+                                                {{#each this.children}}
+                                                <tr>
+                                                <td>{{id}}</td>
+                                                <td>{{name}}</td>
+                                                <td>{{../name}}</td>
                                                 <th>
                                                     <button type="button" class="btn btn-primary">Edit</button>
                                                     <button type="button" class="btn btn-danger">Delete</button>
                                                 </th>
-                                            </tr>
+                                                </tr>
+                                                {{/each}}
+                                            {{/if}}
+                                            {{/each}}
                                         </tbody>
                                     </table>
                                 </div>

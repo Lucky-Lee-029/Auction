@@ -173,16 +173,18 @@
                                         </ul>
                                     </div>
                                     <div class="menu-level-2">
-                                        {{#each this.cate.child}}
+                                        {{#each this.cate.parent}}
                                             <div style="display:none">
                                                 <ul>
-                                                    {{#each this}}
+                                                    {{#if this.hasChild}}
+                                                    {{#each this.children}}
                                                         <li class="p-1">
                                                             <a href="/category/{{id}}">
                                                                 <div>{{name}}</div>
                                                             </a>
                                                         </li>
                                                     {{/each}}
+                                                    {{/if}}
                                                 </ul>
                                             </div>
                                         {{/each}}
