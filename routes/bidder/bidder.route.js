@@ -5,7 +5,7 @@ bidder_route.get('/', (req, res) => {
         res.render('bidder/dashboard',{layout: 'admin'});
 })
 bidder_route.get('/product',(req,res)=>{
-    res.render('bidder/product', {layout: 'admin'});
+    res.render('bidder/product',{layout: 'false'});
 })
 bidder_route.get('/feedback',(req,res)=>{
     res.render('bidder/feedback', {layout: 'admin'});
