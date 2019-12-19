@@ -1,24 +1,22 @@
-const route = require('express').Router();
-const productModel = require('../../models/bidders.model')
+const bidder_route = require('express').Router();
+const bidderModel = require('../../models/bidders.model')
     //Home page
-route.get('/bidder', (req, res) => {
-        res.render('bidder/dashboard');
+bidder_route.get('/', (req, res) => {
+        res.render('bidder/dashboard',{layout: 'admin'});
 })
-route.get('/bidder/product',(req,res)=>{
-    res.render('bidder/product');
+bidder_route.get('/product',(req,res)=>{
+    res.render('bidder/product', {layout: 'admin'});
 })
-route.get('/bidder/feedback',(req,res)=>{
-    res.render('bidder/feedback');
+bidder_route.get('/feedback',(req,res)=>{
+    res.render('bidder/feedback', {layout: 'admin'});
 })
-route.get('/bidder/feedback',(req,res)=>{
-    res.render('bidder/feedback');
+bidder_route.get('/bidding',(req,res)=>{
+    res.render('bidder/product-bidding',{layout: 'admin'});
 })
-route.get('/bidder/bidding',(req,res)=>{
-    res.render('bidder/product-bidding');
+bidder_route.get('/wishlist',(req,res)=>{
+    res.render('bidder/product-wishlist',{layout: 'admin'});
 })
-route.get('/bidder/wishlist',(req,res)=>{
-    res.render('bidder/product-wishlist');
+bidder_route.get('/won',(req,res)=>{
+    res.render('bidder/product-won', {layout: 'admin'});
 })
-route.get('/bidder/won',(req,res)=>{
-    res.render('bidder/product-won');
-})
+module.exports=bidder_route;

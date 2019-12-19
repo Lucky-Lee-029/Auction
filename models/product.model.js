@@ -3,7 +3,7 @@ const config = require('../config/default.json');
 
 //product model
 module.exports = {
-    productCategory: (id) => db.load(`select * from products JOIN product_categories WHERE product_categories.category_id = ${id} `),
+    productCategory: (id) => db.load(`select * from products JOIN product_categories WHERE product_categories.cate_parent = ${id} `),
 
     all: () => db.load(`select * from products`),
 
