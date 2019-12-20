@@ -48,7 +48,7 @@
                             </b>
                             <!-- Logo text -->
                             <span>
-                             <img src="/../images/logo.png" alt="homepage" class="dark-logo pl-4" />
+                             <img src="/images/logo.png" alt="homepage" class="dark-logo" />
                             </span> 
                         </a>
                     </div>
@@ -76,20 +76,20 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <ul class="navbar-nav my-lg-0">
-                             <li class="nav-item dropdown"> 
-                                    <a class="nav-link dropdown-toggle  u-dropdown link hide-menu" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ti-settings"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right animated flipInY">
-                                        <!-- text-->
-                                        <a href="profile.html" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
-                                        <!-- text-->
-                                        <div class="dropdown-divider"></div>
-                                        <!-- text-->
-                                        <a href="login.html" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
-                                        <!-- text-->
-                                    </div>
-                                </li>
-                            </ul>
+                            <li class="nav-item dropdown"> 
+                                <a class="nav-link dropdown-toggle  u-dropdown link hide-menu" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ti-settings"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right animated flipInY">
+                                    <!-- text-->
+                                    <a href="profile.html" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
+                                    <!-- text-->
+                                    <div class="dropdown-divider"></div>
+                                    <!-- text-->
+                                    <a href="login.html" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
+                                    <!-- text-->
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </nav>
         </header>
@@ -150,7 +150,51 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
+
     <script src="/assets/node_modules/jquery/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="/assets/node_modules/popper/popper.min.js"></script>
+    <script src="/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="/dist/js/perfect-scrollbar.jquery.min.js"></script>
+    <!--Wave Effects -->
+    <script src="/dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="/dist/js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="/assets/node_modules/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <script src="/assets/node_modules/sparkline/jquery.sparkline.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="/dist/js/custom.min.js"></script>
+    <script src="/assets/node_modules/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <!-- ============================================================== -->
+    <!-- This page plugins -->
+    <!-- ============================================================== -->
+    <!--morris JavaScript -->
+    <script src="/assets/node_modules/raphael/raphael-min.js"></script>
+    <script src="/assets/node_modules/morrisjs/morris.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="/dist/js/ecom-dashboard.js"></script>
+    <script src="/assets/node_modules/datatables/jquery.dataTables.min.js"></script>
+    <!-- start - This is for export functionality only -->
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+    {{{_sections.footer}}}
+    <script>
+        window.TrackJS &&
+            TrackJS.install({
+                token: "ee6fab19c5a04ac1a32a645abde4613a",
+                application: "argon-dashboard-free"
+            });
+    </script>
+
+
+    {{!-- <script src="/assets/node_modules/jquery/jquery-3.2.1.min.js"></script>
     <script src="/assets/node_modules/popper/popper.min.js"></script>
     <script src="/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/dist/js/perfect-scrollbar.jquery.min.js"></script>
@@ -162,7 +206,6 @@
     <script src="/assets/node_modules/jquery-sparkline/jquery.sparkline.min.js"></script>
     <script src="/assets/node_modules/raphael/raphael-min.js"></script>
     <script src="/assets/node_modules/morrisjs/morris.min.js"></script>
-    <script src="/dist/js/ecom-dashboard.js"></script>
     <script src="/assets/js/plugins/jquery/dist/jquery.min.js"></script>
     <script src="/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/plugins/chart.js/dist/Chart.min.js"></script>
@@ -224,7 +267,7 @@
             });
         });
     });
-    </script>
+    </script> --}}
 </body>
 
 </html>

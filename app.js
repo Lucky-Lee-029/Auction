@@ -45,13 +45,7 @@ app.use(async(req, res, next) => {
     })
 
 //User route
-// require('./middlewares/routes.mdw')(app);
-
-//User route
-app.use('/', require('./routes/public/public.route'))
-app.use('/bidder', require('./routes/bidder/bidder.route'))
-app.use('/seller', require('./routes/seller/seller.route'))
-app.use('/admin',require('./routes/admin/admin.route'))
+require('./middlewares/routes.mdw')(app);
 
 
 app.use(function(err, req, res, next) {
