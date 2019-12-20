@@ -2,21 +2,21 @@ const bidder_route = require('express').Router();
 const bidderModel = require('../../models/bidders.model')
     //Home page
 bidder_route.get('/', (req, res) => {
-        res.render('bidder/dashboard',{layout: 'admin'});
+        res.render('bidder/dashboard',{layout: 'bidder'});
 })
 bidder_route.get('/product',(req,res)=>{
-    res.render('bidder/product',{layout: 'false'});
+    res.render('bidder/product',{layout: 'bidder'});
 })
 bidder_route.get('/feedback',(req,res)=>{
-    res.render('bidder/feedback', {layout: 'admin'});
+    res.render('bidder/feedback', {layout: 'bidder'});
 })
 bidder_route.get('/bidding',(req,res)=>{
-    res.render('bidder/product-bidding',{layout: 'admin'});
+    res.render('bidder/product-bidding',{layout: 'bidder'});
 })
 bidder_route.get('/wishlist',(req,res)=>{
-    res.render('bidder/product-wishlist',{layout: 'admin'});
+    res.render('bidder/product-wishlist',{layout: 'bidder'});
 })
 bidder_route.get('/won',(req,res)=>{
-    res.render('bidder/product-won', {layout: 'admin'});
+    res.render('bidder/product-won', {layout: 'bidder'});
 })
 module.exports=bidder_route;

@@ -13,13 +13,13 @@ seller_route.get('/profile',(req,res)=>{
 seller_route.get('/end', (req, res) => {
     res.render('seller/product-ended',{layout: 'seller'});
 })
-// seller_route.get('/bidding',(req,res)=>{
-//     res.render('seller/product-bidding',{layout: 'seller'});
-// })
-// seller_route.get('/wishlist',(req,res)=>{
-//     res.render('seller/product-wishlist',{layout: 'seller'});
-// })
-// seller_route.get('/won',(req,res)=>{
-//     res.render('seller/product-won', {layout: 'seller'});
-// })
+seller_route.get('/add',(req,res)=>{
+    res.render('seller/product-add',{layout: 'seller'});
+})
+seller_route.get('/edit',(req,res)=>{
+    res.render('seller/product-edit-description',{layout: 'seller'});
+})
+seller_route.get('/remaining',(req,res)=>{
+    res.render('seller/product-remaining', {layout: 'seller'});
+})
 module.exports=seller_route;
