@@ -19,6 +19,7 @@ app.set('view engine', 'hbs');
 //Middleware
 app.use(express.static(__dirname + '/views/public'))
 app.use(express.static(__dirname + '/views/bidder'))
+app.use(express.static(__dirname + '/views/admin'))
 app.use(async(req, res, next) => {
     var data = await categoryModel.parentCategory();
     for (parent of data) {
@@ -40,9 +41,8 @@ app.use(async(req, res, next) => {
         res.locals.admin = { parent: data }
         next();
     })
-    //User route
-app.use('/', require('./routes/public/public.route'))
-app.use('/bidder', require('./routes/bidder/bidder.route'))
+//User route
+require('./middlewares/routes.mdw')(app);
 
 // app.use('/admin',require('./routes/admin/admin.route'))
 
