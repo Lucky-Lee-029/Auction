@@ -19,4 +19,10 @@ bidder_route.get('/wishlist',(req,res)=>{
 bidder_route.get('/won',(req,res)=>{
     res.render('bidder/product-won', {layout: 'bidder'});
 })
+bidder_route.get('/password',(req,res)=>{
+    res.render('bidder/update-password', {layout: 'bidder'});
+})
+bidder_route.get('/uplevel',(req,res)=>{
+    res.render('bidder/update-to-seller', {layout: 'bidder'});
+})
 module.exports=bidder_route;
