@@ -11,10 +11,22 @@ route.get('/dashboard',(req, res)=>{
 })
 
 route.get('/product/action',async (req, res)=>{
-    var action=[];
-    action= await productModel.productAction();
-    res.render('admin/action', {layout: 'admin', action});
+    var list=[];
+    list= await productModel.productAction();
+    res.render('admin/action', {layout: 'admin', list});
 })
+
+route.get('/product/edit/:id', async (req,res)=>{
+    var row = await productModel.single(req.params.id);
+    res.render('admin/products/edit', {layout: 'admin', single: row[0]});
+})
+
+route.get('/product/adđ', async (req,res)=>{
+    var row = await productModel.single(req.params.id);
+    res.render('admin/products/edit', {layout: 'admin', single: row[0]});
+})
+
+
 route.get('/product/pending',(req, res)=>{
     res.render('admin/pending', {layout: 'admin'});
 })
@@ -59,6 +71,6 @@ route.get('/login',(req, res)=>{
     res.render('admin/login', {layout: 'admin'});
 })
 route.get('/profile',(req, res)=>{
-    res.render('admin/profile', {layout: 'admin'});
+    res.render('admin/profile');
 })
 module.exports=route;

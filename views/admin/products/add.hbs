@@ -1,0 +1,125 @@
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+                <h4 class="text-themecolor"></h4>
+            </div>
+            <div class="col-md-7 align-self-center text-right">
+                <div class="d-flex justify-content-end align-items-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Product</a></li>
+                        <li class="breadcrumb-item active">Add Product</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Info box Content -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Add Product</h4>
+                        <form action="" method="post" enctype="multipart/form-data">
+                            <div class="form-body">
+                                <div class="row p-t-20">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Name Product</label>
+                                            <input type="text" id="name" class="form-control" name="name" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Parent Category</label>
+                                            <select name="parent_id" class="form-control">
+                                                <option value="0">--Select--</option>
+                                                <option value="1">Mobile</option>
+                                                <option value="2">Laptop</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Start Price</label>
+                                            <input type="text" id="start-price" class="form-control" name="start-price" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">End Price</label>
+                                            <input type="text" id="end-price" class="form-control" name="end-price" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Step Price</label>
+                                            <input type="text" id="step-price" class="form-control" name="step-price" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label class="control-label">Images</label>
+                                                <div class="d-flex">
+                                                    <input type="hidden" class="form-control" name="images" value="">
+                                                    <span class="input-group-addon green-style" onclick="" href="javascript:void(0)">
+                                                        <i class="fa fa-upload bigger-110"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Auto-renew:</label>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input name="customRadioInline1" class="custom-control-input" id="customRadioInline1" type="radio">
+                                                <label class="custom-control-label" for="customRadioInline1">Yes</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input name="customRadioInline1" class="custom-control-input" id="customRadioInline1" type="radio">
+                                                <label class="custom-control-label" for="customRadioInline1">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Description</label>
+                                            <textarea class="form-control" rows="8" name="description" id="description"></textarea>
+                                            <script>
+                                                CKEDITOR.replace('description');
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i>Save</button>
+                                <button type="reset" class="btn btn-inverse">Cancel</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- ============================================================== -->
+
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+</div>

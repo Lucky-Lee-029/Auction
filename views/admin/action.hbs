@@ -14,6 +14,7 @@
                         <li class="breadcrumb-item"><a href="#">Product</a></li>                                
                         <li class="breadcrumb-item active">Action</li>
                     </ol>
+                    <a class="btn btn-info d-none d-lg-block m-l-15" href="add-user.html" role="button"><i class="fa fa-plus-circle"></i> Create New</a>
                 </div>
             </div>
         </div>
@@ -38,7 +39,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{#each this.action}}
+                                    {{#each this.list}}
                                     <tr>
                                         <td>{{id}}</td>
                                         <td>{{name}}</td>
@@ -49,8 +50,8 @@
                                         <td>{{step}}</td>
                                         <td>{{buy_now}}</td>
                                         <td class="text-nowrap">
-                                            <a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                            <a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                                            <a href="/admin/product/edit/{{this.id}}" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                            <a href="/admin/product/delete/{{this.id}}" data-toggle="tooltip" data-original-title="Delete"> <i class="fa fa-close text-danger"></i> </a>
                                         </td>
                                     </tr>
                                     {{/each}}
