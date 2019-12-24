@@ -1,6 +1,6 @@
 const route = require('express').Router();
 const adminModel = require('../../models/admin_manager.model')
-
+const productModel= require('../../models/product.model')
 
 route.get('/',(req, res)=>{
     res.render('admin/dasboard',{layout: 'admin'});
@@ -10,8 +10,10 @@ route.get('/dashboard',(req, res)=>{
     res.render('admin/dashboard',{layout: 'admin'});
 })
 
-route.get('/product/action',(req, res)=>{
-    res.render('admin/action', {layout: 'admin'});
+route.get('/product/action',async (req, res)=>{
+    var action=[];
+    action= await productModel.productAction();
+    res.render('admin/action', {layout: 'admin', action});
 })
 route.get('/product/pending',(req, res)=>{
     res.render('admin/pending', {layout: 'admin'});

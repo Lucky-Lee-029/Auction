@@ -48,7 +48,7 @@ CREATE TABLE `products` (
   `buy_now` int(11) DEFAULT NULL,
   `step` int(11) DEFAULT NULL,
   `duration` timestamp NULL DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0: fail, 1: success, 2: spending, 3: cancel',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0: fail, 1: success, 2: spending, 3: action, 4: blocked',
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `sellers_seller_id_foreign` (`seller_id`),

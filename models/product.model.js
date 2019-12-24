@@ -27,4 +27,10 @@ module.exports = {
     },
 
     productImage: id => db.load(`select * from products JOIN product_images WHERE product_images.product_id = ${id} `),
+    productFail:()=>db.load(`select * from products WHERE status=0`),
+    productSuccess:()=>db.load(`select * from products WHERE status=1`),
+    productPending:()=>db.load(`select * from products WHERE status=2`),
+    productAction:()=>db.load(`select * from products WHERE status=3`),
+    productBlocked:()=>db.load(`select * from products WHERE status=4`),
+
 }
