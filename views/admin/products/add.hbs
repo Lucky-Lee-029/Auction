@@ -98,7 +98,11 @@
                                             <label class="control-label">Description</label>
                                             <textarea class="form-control" rows="8" name="description" id="description"></textarea>
                                             <script>
-                                                CKEDITOR.replace('description');
+                                                ClassicEditor
+                                                    .create( document.querySelector( '#description' ) )
+                                                    .catch( error => {
+                                                        console.error( error );
+                                                    } );
                                             </script>
                                         </div>
                                     </div>

@@ -1,0 +1,73 @@
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+                <h4 class="text-themecolor"></h4>
+            </div>
+            <div class="col-md-7 align-self-center text-right">
+                <div class="d-flex justify-content-end align-items-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Product</a></li>                                
+                        <li class="breadcrumb-item active">Blocked</li>
+                    </ol>
+                    <a class="btn btn-info d-none d-lg-block m-l-15" href="add-user.html" role="button"><i class="fa fa-plus-circle"></i> Create New</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Products Action</h4>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Product Name</th>
+                                        <th>Seller Name</th>
+                                        <th>Time</th>
+                                        <th>Price Start</th>
+                                        <th>Price End</th>
+                                        <th>Step</th>
+                                        <th>Buy Now</th>
+                                        <th class="text-nowrap">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each this.list}}
+                                    <tr>
+                                        <td>{{id}}</td>
+                                        <td>{{name}}</td>
+                                        <td>{{seller_id}}</td>
+                                        <td>{{duration}}</td>
+                                        <td>{{price_start}}</td>
+                                        <td>{{price_end}}</td>
+                                        <td>{{step}}</td>
+                                        <td>{{buy_now}}</td>
+                                        <td class="text-nowrap">
+                                            <a href="/admin/product/edit/{{this.id}}" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                            <a href="/admin/product/delete/{{this.id}}" data-toggle="tooltip" data-original-title="Delete"> <i class="fa fa-close text-danger"></i> </a>
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+</div>

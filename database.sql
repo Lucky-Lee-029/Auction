@@ -47,6 +47,8 @@ CREATE TABLE `products` (
   `price_end` int(11) DEFAULT NULL,
   `buy_now` int(11) DEFAULT NULL,
   `step` int(11) DEFAULT NULL,
+  `auto-renew` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0: not, 1: yes',
+  'description' varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   `duration` timestamp NULL DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0: fail, 1: success, 2: spending, 3: action, 4: blocked',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -55,8 +57,8 @@ CREATE TABLE `products` (
   CONSTRAINT `sellers_seller_id_foreign` FOREIGN KEY (`seller_id`) REFERENCES `sellers` (`seller_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `products` (`id`, `seller_id` ,`name`, `price_start`, `price_end`, `buy_now`, `step`, `duration`,`status`, `created_at`) VALUES
-(1, 1,'laptop msi gv62' , 10000000, 20000000, 20000000 ,100000 ,'duration' ,'1', '2019-12-4 03:05:09');
+INSERT INTO `products` (`id`, `seller_id` ,`name`, `price_start`, `price_end`, `buy_now`, `step`, `auto-renew`, 'description', `duration`,`status`, `created_at`) VALUES
+(1, 1,'laptop msi gv62' , 10000000, 20000000, 20000000 ,100000 , 1, 'laptop giá rẻ trong tầm tay', 'duration' ,'1', '2019-12-4 03:05:09');
 
 DROP TABLE IF EXISTS `product_images`;
 CREATE TABLE `product_images` (
