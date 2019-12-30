@@ -1,6 +1,7 @@
 const route = require('express').Router();
 const adminModel = require('../../models/admin_manager.model')
 const productModel= require('../../models/product.model')
+const bidderModel=require('../../models/bidders.model')
 
 route.get('/',(req, res)=>{
     res.render('admin/dasboard',{layout: 'admin'});
@@ -17,13 +18,27 @@ route.get('/dashboard',(req, res)=>{
 route.get('/product/action',async (req, res)=>{
     var list=[];
     list= await productModel.productAction();
+    for (parent of list) {
+        let Image = await productModel.productImage(parent.id)
+        let bidder=await bidderModel.name(parent.id)
+        parent.Image = Image;
+        parent.bidder=bidder[0];
+    }
+    res.render('admin/products/action', {layout: 'admin', list});
+})
+route.get('/product/success',async (req, res)=>{
+    var list=[];
+    list= await productModel.productSuccess();
+    for (parent of list) {
+        let Image = await productModel.productImage(parent.id)
+        let bidder=await bidderModel.name(parent.id)
+        parent.Image = Image;
+        parent.bidder=bidder[0];
+    }
     res.render('admin/products/action', {layout: 'admin', list});
 })
 route.get('/product/pending',(req, res)=>{
     res.render('admin/products/pending', {layout: 'admin'});
-})
-route.get('/product/success',(req, res)=>{
-    res.render('admin/products/success', {layout: 'admin'});
 })
 route.get('/product/fail',(req, res)=>{
     res.render('admin/products/fail', {layout: 'admin'});

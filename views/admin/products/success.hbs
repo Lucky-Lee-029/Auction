@@ -10,156 +10,61 @@
             <div class="col-md-7 align-self-center text-right">
                 <div class="d-flex justify-content-end align-items-center">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Product</a></li>                                
-                        <li class="breadcrumb-item active">Action</li>
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Product</a></li>                                
+                        <li class="breadcrumb-item active">Success</li>
                     </ol>
+                    <a class="btn btn-info d-none d-lg-block m-l-15" href="/admin/product/add" role="button"><i class="fa fa-plus-circle"></i> Create New</a>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row">   
             <div class="col-12">
-                <!-- Column -->
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Success Product</h4>
-                        <table id="myTable" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th data-sort-initial="true" data-toggle="true">Product Name</th>
-                                    <th>Seller name</th>
-                                    <th>Ending Cost</th>
-                                    <th data-hide="phone, tablet">DOS</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Laptop Dell</td>
-                                    <td>Woldt</td>
-                                    <td>20$</td>
-                                    <td>3 Oct 2017</td>
-                                </tr>
-                                <tr>
-                                    <td>Iphone 8</td>
-                                    <td>Goodlow</td>
-                                    <td>20$</td>
-                                    <td>1 Nov 2014</td>
-                                </tr>
-                                <tr>
-                                    <td>Iphone 8</td>
-                                    <td>Boudreaux</td>
-                                    <td>20$</td>
-                                    <td>22 Jun 2014</td>
-                                </tr>
-                                <tr>
-                                    <td>Laptop Dell</td>
-                                    <td>Michael</td>
-                                    <td>20$</td>
-                                    <td>19 Apr 2013</td>
-                                </tr>
-                                <tr>
-                                    <td>Samsung Galaxy</td>
-                                    <td>Hyland</td>
-                                    <td>20$</td>
-                                    <td>15 Nov 2014</td>
-                                </tr>
-                                <tr>
-                                    <td>Laptop Dell</td>
-                                    <td>Halladay</td>
-                                    <td>20$</td>
-                                    <td>30 Dec 2017</td>
-                                </tr>
-                                <tr>
-                                    <td>Samsung Galaxy</td>
-                                    <td>Mcgaughy</td>
-                                    <td>20$</td>
-                                    <td>11 Nov 2014</td>
-                                </tr>
-                                <tr>
-                                    <td>Laptop Dell</td>
-                                    <td>Badgett</td>
-                                    <td>20$</td>
-                                    <td>23 Jun 2013</td>
-                                </tr>
-                                <tr>
-                                    <td>Samsung Galaxy</td>
-                                    <td>Leonardo</td>
-                                    <td>20$</td>
-                                    <td>19 Apr 2013</td>
-                                </tr>
-                                <tr>
-                                    <td>Apple Watch</td>
-                                    <td>Hyland</td>
-                                    <td>20$</td>
-                                    <td>19 Apr 2013</td>
-                                </tr>
-                                <tr>
-                                    <td>Iphone 8</td>
-                                    <td>Halladay</td>
-                                    <td>20$</td>
-                                    <td>30 Dec 2017</td>
-                                </tr>
-                                <tr>
-                                    <td>Apple Watch</td>
-                                    <td>Mcgaughy</td>
-                                    <td>20$</td>
-                                    <td>11 Nov 2014</td>
+                        <h4 class="card-title">Products Success</h4>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
                                     <tr>
-                                        <td>Iphone 8</td>
-                                        <td>Badgett</td>
-                                        <td>20$</td>
-                                        <td>23 Jun 2013</td>
+                                        <th>ID</th>
+                                        <th>Product Name</th>
+                                        <th>Image</th>
+                                        <th>Seller Name</th>
+                                        <th>Price Start</th>
+                                        <th>Price End</th>
+                                        <th>Step</th>
+                                        <th>Buy Now</th>
+                                        <th class="text-nowrap">Action</th>
                                     </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each this.list}}
                                     <tr>
-                                        <td>Apple Watch</td>
-                                        <td>Leonardo</td>
-                                        <td>20$</td>
-                                        <td>19 Apr 2013</td>
+                                        <td>{{id}}</td>
+                                        <td>{{name}}</td>
+                                        <td>
+                                            {{#each this.Image}}
+                                                <img src="/{{this.image}}" height="100px">
+                                            {{/each}}
+                                        </td>
+                                        <td> {{this.bidder.name}}
+                                        </td>
+                                        <td>{{price_start}}</td>
+                                        <td>{{price_end}}</td>
+                                        <td>{{step}}</td>
+                                        <td>{{buy_now}}</td>
+                                        <td class="text-nowrap">
+                                            <a href="/admin/product/edit/{{this.id}}" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-5"></i> </a>
+                                            <a href="/admin/product/delete/{{this.id}}" data-toggle="tooltip" data-original-title="Delete"> <i class="fa fa-close text-danger m-r-5"></i> </a>
+                                            <a href="/admin/product/block/{{this.id}}" data-toggle="tooltip" data-original-title="Block"> <i class="fa fa-lock text-danger m-r-5"></i> </a>
+                                            <a href="/product/{{this.id}}" data-toggle="tooltip" data-original-title="View"> <i class="fa fa-eye text-inverse"></i> </a>
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td>Iphone 8</td>
-                                        <td>Hyland</td>
-                                        <td>20$</td>
-                                        <td>15 Nov 2014</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apple Watch</td>
-                                        <td>Dragoo</td>
-                                        <td>20$</td>
-                                        <td>13 Dec 2014</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Iphone 8</td>
-                                        <td>Halladay</td>
-                                        <td>20$</td>
-                                        <td>30 Dec 2017</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apple Watch</td>
-                                        <td>Tangeli</td>
-                                        <td>20$</td>
-                                        <td>21 May 2014</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Iphone 8</td>
-                                        <td>Halladay</td>
-                                        <td>20$</td>
-                                        <td>30 Dec 2017</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Easer</td>
-                                        <td>Dragoo</td>
-                                        <td>20$</td>
-                                        <td>13 Dec 2014</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apple Watch</td>
-                                        <td>Halladay</td>
-                                        <td>20$</td>
-                                        <td>30 Dec 2017</td>
-                                    </tr>
-                            </tbody>
-                        </table>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -167,9 +72,9 @@
         <!-- ============================================================== -->
         <!-- End Container fluid  -->
         <!-- ============================================================== -->
-        
     </div>
     <!-- ============================================================== -->
     <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
     <!-- ============================================================== -->
 </div>

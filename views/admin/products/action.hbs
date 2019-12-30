@@ -10,7 +10,7 @@
             <div class="col-md-7 align-self-center text-right">
                 <div class="d-flex justify-content-end align-items-center">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/admin/dashboard/dashboard">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
                         <li class="breadcrumb-item"><a href="#">Product</a></li>                                
                         <li class="breadcrumb-item active">Action</li>
                     </ol>
@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row">   
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
@@ -29,8 +29,8 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Product Name</th>
+                                        <th>Image</th>
                                         <th>Seller Name</th>
-                                        <th>Time</th>
                                         <th>Price Start</th>
                                         <th>Price End</th>
                                         <th>Step</th>
@@ -43,15 +43,22 @@
                                     <tr>
                                         <td>{{id}}</td>
                                         <td>{{name}}</td>
-                                        <td>{{seller_id}}</td>
-                                        <td>{{duration}}</td>
+                                        <td>
+                                            {{#each this.Image}}
+                                                <img src="/{{this.image}}" height="100px">
+                                            {{/each}}
+                                        </td>
+                                        <td> {{this.bidder.name}}
+                                        </td>
                                         <td>{{price_start}}</td>
                                         <td>{{price_end}}</td>
                                         <td>{{step}}</td>
                                         <td>{{buy_now}}</td>
                                         <td class="text-nowrap">
-                                            <a href="/admin/product/edit/{{this.id}}" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                            <a href="/admin/product/delete/{{this.id}}" data-toggle="tooltip" data-original-title="Delete"> <i class="fa fa-close text-danger"></i> </a>
+                                            <a href="/admin/product/edit/{{this.id}}" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-5"></i> </a>
+                                            <a href="/admin/product/delete/{{this.id}}" data-toggle="tooltip" data-original-title="Delete"> <i class="fa fa-close text-danger m-r-5"></i> </a>
+                                            <a href="/admin/product/block/{{this.id}}" data-toggle="tooltip" data-original-title="Block"> <i class="fa fa-lock text-danger m-r-5"></i> </a>
+                                            <a href="/product/{{this.id}}" data-toggle="tooltip" data-original-title="View"> <i class="fa fa-eye text-inverse"></i> </a>
                                         </td>
                                     </tr>
                                     {{/each}}

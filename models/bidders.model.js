@@ -10,5 +10,6 @@ module.exports = {
         delete entity.id;
         // console.log(condition, entity);
         return db.patch(tableName, entity, condition);
-    }
+    },
+    name: (id) => db.load(`select name from ${tableName} where id=${id}`),
 }
