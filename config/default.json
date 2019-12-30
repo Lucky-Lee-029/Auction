@@ -9,6 +9,6 @@
         "inseecureAuth": true
     },
     "paginate": {
-        "limit": 6
+        "limit": 10
     }
 }

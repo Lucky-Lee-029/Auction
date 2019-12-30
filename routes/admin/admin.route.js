@@ -2,6 +2,7 @@ const route = require('express').Router();
 const adminModel = require('../../models/admin_manager.model')
 const productModel= require('../../models/product.model')
 const bidderModel=require('../../models/bidders.model')
+const config=require('../../config/default.json')
 
 route.get('/',(req, res)=>{
     res.render('admin/dasboard',{layout: 'admin'});
@@ -17,14 +18,20 @@ route.get('/dashboard',(req, res)=>{
 // Route product
 route.get('/product/action',async (req, res)=>{
     var list=[];
+    const page = req.params.page || 1;
+    if(page<1) page =1;
+    const offset = (page -1)*config.paginate.limit;
     list= await productModel.productAction();
     for (parent of list) {
-        let Image = await productModel.productImage(parent.id)
-        let bidder=await bidderModel.name(parent.id)
-        parent.Image = Image;
+        // let Image = await productModel.productImage(parent.id);
+        let bidder=await bidderModel.name(parent.id);
+        // parent.Image = Image;
         parent.bidder=bidder[0];
     }
-    res.render('admin/products/action', {layout: 'admin', list});
+    res.render('admin/products/action', {
+        layout: 'admin', 
+        list,
+    });
 })
 route.get('/product/success',async (req, res)=>{
     var list=[];
@@ -35,7 +42,7 @@ route.get('/product/success',async (req, res)=>{
         parent.Image = Image;
         parent.bidder=bidder[0];
     }
-    res.render('admin/products/action', {layout: 'admin', list});
+    res.render('admin/products/success', {layout: 'admin', list});
 })
 route.get('/product/pending',(req, res)=>{
     res.render('admin/products/pending', {layout: 'admin'});
