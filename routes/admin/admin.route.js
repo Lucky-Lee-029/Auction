@@ -1,7 +1,7 @@
 const route = require('express').Router();
-const adminModel = require('../../models/admin_manager.model')
 const productModel= require('../../models/product.model')
 const bidderModel=require('../../models/bidders.model')
+const categoryModel=require('../../models/category.model')
 const config=require('../../config/default.json')
 
 route.get('/dashboard',(req, res)=>{
@@ -136,8 +136,21 @@ route.get('/user/blockedseller',(req, res)=>{
 // End route user
 
 
-route.get('/category',(req, res)=>{
-    res.render('admin/category/category', {layout: 'admin'});
+route.get('/category',async(req, res)=>{
+    let list=await categoryModel.all();
+    res.render('admin/category/category', {
+        layout: 'admin',
+        list,
+    });
+})
+
+route.post('/category/add',async(req, res)=>{
+    const result = await categoryModel.add(req.body);
+    let list=await categoryModel.all();
+    res.render('admin/category/category', {
+        layout: 'admin',
+        list,
+    });
 })
 route.get('/faq',(req, res)=>{
     res.render('admin/faqs/faqs', {layout: 'admin'});
