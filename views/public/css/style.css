@@ -100,7 +100,9 @@
         max-width: 540px;
     }
 }
-
+.text-page{
+	color:black;
+}
 @media (min-width: 768px) {
     .container {
         max-width: 750px;

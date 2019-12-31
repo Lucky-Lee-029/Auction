@@ -4,10 +4,6 @@ const productModel= require('../../models/product.model')
 const bidderModel=require('../../models/bidders.model')
 const config=require('../../config/default.json')
 
-route.get('/',(req, res)=>{
-    res.render('admin/dasboard',{layout: 'admin'});
-})
-
 route.get('/dashboard',(req, res)=>{
     res.render('admin/dashboard/dashboard',{layout: 'admin'});
 })
@@ -18,49 +14,105 @@ route.get('/dashboard',(req, res)=>{
 // Route product
 route.get('/product/action',async (req, res)=>{
     var list=[];
-    const page = req.params.page || 1;
+    const limit=config.paginate.limit;
+    const page = req.query.page || 1;
     if(page<1) page =1;
-    const offset = (page -1)*config.paginate.limit;
-    list= await productModel.productAction();
+    const offset = (page -1)* config.paginate.limit;
+    list= await productModel.productAction(offset);
     for (parent of list) {
-        // let Image = await productModel.productImage(parent.id);
-        let bidder=await bidderModel.name(parent.id);
-        // parent.Image = Image;
-        parent.bidder=bidder[0];
+        let Image = await productModel.productImage(parent.id);
+        let seller=await bidderModel.name(parent.seller_id);
+        parent.Image = Image;
+        parent.seller=seller[0];
+    }
+    const total = await productModel.countAction();
+    let nPages = Math.floor(total / limit);
+    if (total % limit > 0) nPages++;
+    const page_numbers = [];
+    for (i = 1; i <= nPages; i++) {
+        page_numbers.push({
+        value: i,
+        isCurrentPage: i === +page
+        })
     }
     res.render('admin/products/action', {
         layout: 'admin', 
         list,
+        page_numbers,
+        not_prev: +page-1===0,
+        not_next: +page===+nPages,
+        prev_value: +page - 1,
+        next_value: +page + 1,
     });
 })
 route.get('/product/success',async (req, res)=>{
     var list=[];
-    list= await productModel.productSuccess();
+    const limit=config.paginate.limit;
+    const page = req.query.page || 1;
+    if(page<1) page =1;
+    const offset = (page -1)* config.paginate.limit;
+    list= await productModel.productSuccess(offset);
     for (parent of list) {
-        let Image = await productModel.productImage(parent.id)
-        let bidder=await bidderModel.name(parent.id)
+        let Image = await productModel.productImage(parent.id);
+        let seller=await bidderModel.name(parent.seller_id);
+        let bidder=await productModel.bidderWin(parent.id);
+        parent.Price=bidder[0].Price;
+        parent.Win=bidder[0].Win;
         parent.Image = Image;
-        parent.bidder=bidder[0];
+        parent.seller=seller[0];
     }
-    res.render('admin/products/success', {layout: 'admin', list});
+    const total = await productModel.countSuccess();
+    let nPages = Math.floor(total / limit);
+    if (total % limit > 0) nPages++;
+    const page_numbers = [];
+    for (i = 1; i <= nPages; i++) {
+        page_numbers.push({
+        value: i,
+        isCurrentPage: i === +page
+        })
+    }
+    res.render('admin/products/success', {
+        layout: 'admin', 
+        list,
+        page_numbers,
+        not_prev: +page-1===0,
+        not_next: +page===+nPages,
+        prev_value: +page - 1,
+        next_value: +page + 1,
+    });
 })
-route.get('/product/pending',(req, res)=>{
-    res.render('admin/products/pending', {layout: 'admin'});
-})
-route.get('/product/fail',(req, res)=>{
-    res.render('admin/products/fail', {layout: 'admin'});
-})
-route.get('/product/blocked',(req, res)=>{
-    res.render('admin/products/blocked', {layout: 'admin'});
-})
-
-
-route.get('/product/edit/:id', async (req,res)=>{
-    var row = await productModel.single(req.params.id);
-    res.render('admin/products/edit', {layout: 'admin', single: row[0]});
-})
-route.get('/product/add', async (req,res)=>{
-    res.render('admin/products/add', {layout: 'admin'});
+route.get('/product/fail',async (req, res)=>{
+    var list=[];
+    const limit=config.paginate.limit;
+    const page = req.query.page || 1;
+    if(page<1) page =1;
+    const offset = (page -1)* config.paginate.limit;
+    list= await productModel.productFail(offset);
+    for (parent of list) {
+        let Image = await productModel.productImage(parent.id);
+        let seller=await bidderModel.name(parent.seller_id);
+        parent.Image = Image;
+        parent.seller=seller[0];
+    }
+    const total = await productModel.countFail();
+    let nPages = Math.floor(total / limit);
+    if (total % limit > 0) nPages++;
+    const page_numbers = [];
+    for (i = 1; i <= nPages; i++) {
+        page_numbers.push({
+        value: i,
+        isCurrentPage: i === +page
+        })
+    }
+    res.render('admin/products/fail', {
+        layout: 'admin', 
+        list,
+        page_numbers,
+        not_prev: +page-1===0,
+        not_next: +page===+nPages,
+        prev_value: +page - 1,
+        next_value: +page + 1,
+    });
 })
 // End route product
 

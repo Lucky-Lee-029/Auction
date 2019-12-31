@@ -48,7 +48,7 @@ CREATE TABLE `products` (
   `buy_now` int(11) DEFAULT NULL,
   `step` int(11) DEFAULT NULL,
   `auto-renew` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0: not, 1: yes',
-  'description' varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   `duration` timestamp NULL DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0: fail, 1: success, 2: spending, 3: action, 4: blocked',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE `products` (
   CONSTRAINT `sellers_seller_id_foreign` FOREIGN KEY (`seller_id`) REFERENCES `sellers` (`seller_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `products` (`id`, `seller_id` ,`name`, `price_start`, `price_end`, `buy_now`, `step`, `auto-renew`, 'description', `duration`,`status`, `created_at`) VALUES
+INSERT INTO `products` (`id`, `seller_id` ,`name`, `price_start`, `price_end`, `buy_now`, `step`, `auto-renew`, `description`, `duration`,`status`, `created_at`) VALUES
 (1, 1,'laptop msi gv62' , 10000000, 20000000, 20000000 ,100000 , 1, 'laptop giá rẻ trong tầm tay', 'duration' ,'1', '2019-12-4 03:05:09');
 
 DROP TABLE IF EXISTS `product_images`;
@@ -94,7 +94,7 @@ CREATE TABLE `history_auctions` (
   `bidder_id` int(10) unsigned NOT NULL,
   `price` int(11) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0: fail, 1: success, 2: spending, 3: cancel',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0: fail, 1: success, 2: action',
   PRIMARY KEY (`id`),
   KEY `history_auctions_product_id_foreign` (`product_id`),
   KEY `history_auctions_bidder_id_foreign` (`bidder_id`),
@@ -225,16 +225,12 @@ INSERT INTO `admin_managers` (`name`, `icon`, `parent_id`) VALUES
 ('Category', 'ti-palette', NULL),
 ('FAQ', 'ti-star', NULL),
 ('Slider', ' ti-layout-slider', NULL),
-('Pending', NULL, 2),
 ('Action', NULL, 2),
 ('Success', NULL, 2),
 ('Fail', NULL, 2),
-('Blocked', NULL, 2),
 ('Seller', NULL, 3),
 ('Bidder', NULL, 3),
-('Upgrade Request', NULL, 3),
-('Blocked Bidder', NULL, 3),
-('Blocked Seller', NULL, 3);
+('Upgrade Request', NULL, 3);
 
 DROP TABLE IF EXISTS `seller_managers`;
 CREATE TABLE `seller_managers` (
@@ -258,7 +254,6 @@ INSERT INTO `seller_managers` (`name`, `icon`, `parent_id`) VALUES
 ('Action', NULL, 2),
 ('Success', NULL, 2),
 ('Fail', NULL, 2),
-('Blocked', NULL, 2),
 ('Seller', NULL, 3),
 ('Bidder', NULL, 3),
 ('Upgrade Request', NULL, 3),

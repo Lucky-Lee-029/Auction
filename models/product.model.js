@@ -26,11 +26,22 @@ module.exports = {
         return db.patch('products', entity, condition);
     },
 
-    productImage: id => db.load(`select * from products JOIN product_images WHERE product_images.product_id = ${id} `),
+    productImage: id => db.load(`select * from products JOIN product_images on products.id=product_images.product_id WHERE product_images.product_id = ${id}`),
     productFail:(offset)=>db.load(`select * from products WHERE status=0 limit ${config.paginate.limit} offset ${offset}`),
-    productSuccess:()=>db.load(`select * from products WHERE status=1`),
-    productPending:()=>db.load(`select * from products WHERE status=2`),
-    productAction:(offset)=>db.load(`select * from products WHERE status=3` ),
-    productBlocked:()=>db.load(`select * from products WHERE status=4`),
+    productSuccess:(offset)=>db.load(`select * from products WHERE status=1 limit ${config.paginate.limit} offset ${offset}`),
+    productAction:(offset)=>db.load(`select * from products WHERE status=2 limit ${config.paginate.limit} offset ${offset}`),
+    countAction:async (id) =>{
+        const rows=await db.load(`select count(*) as total from products where status=2`)
+        return rows[0].total;
+    },
+    countFail:async (id) =>{
+        const rows=await db.load(`select count(*) as total from products where status=0`)
+        return rows[0].total;
+    },
+    countSuccess:async (id) =>{
+        const rows=await db.load(`select count(*) as total from products where status=1`)
+        return rows[0].total;
+    },
 
+    bidderWin: async (id)=>db.load(`select MAX(his.price) as Price,  bidders.name as Win from products JOIN history_auctions his ON products.id = his.product_id JOIN bidders ON bidders.id=his.bidder_id WHERE (select count(*) FROM history_auctions his1 WHERE his1.price>his.price)=0`)
 }
