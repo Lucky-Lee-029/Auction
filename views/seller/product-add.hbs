@@ -1,3 +1,30 @@
+{{!-- WYSIWYG Editor --}}
+{{!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all"
+  rel="stylesheet" type="text/css" /> --}}
+<script
+  src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6"></script>
+<script>
+  tinymce.init({
+    selector: '#description',
+    height: 600,
+    plugins: 'paste image link autolink lists table media',
+    menubar: false,
+    toolbar: [
+      'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright',
+      'forecolor backcolor',
+      'table link image media',
+    ],
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
+{{!-- <script>
+  $('#fuMain').fileinput({
+    theme: 'fa',
+    dropZoneEnabled: false,
+    allowedFileExtensions: ['png', 'jpg', 'gif'],
+  });
+</script> --}}
 
                 <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
@@ -26,7 +53,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Add Product</h4>
-                                <form action="" method="post" enctype="multipart/form-data">
+                                <form action="./add" enctype="multipart/form-data" method="post" >
                                     <div class="form-body">
                                         <div class="row p-t-20">
                                             <div class="col-md-6">
@@ -64,7 +91,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="form-group">
+                                                {{!-- <div class="form-group">
                                                     <div class="form-group">
                                                         <label class="control-label">Images</label>
                                                         <div class="d-flex">
@@ -74,7 +101,19 @@
                                                             </span>
                                                         </div>
                                                     </div>
+                                                </div> --}}
+                                                <div class="card shadow">
+                                                    <h4 class="card-header">
+                                                        Image
+                                                    </h4>
+                                                    <div class="card-body">
+                                                    <div class="form-group">
+                                                        <div class="file-loading">
+                                                            <input id="fuMain" name="fuMain" type="file" multiple>
+                                                         </div>
+                                                    </div>
                                                 </div>
+                                            </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -89,6 +128,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            {{!-- description --}}
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="control-label">Description</label>
@@ -102,7 +142,7 @@
 
                                     </div>
                                     <div class="form-actions">
-                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i>Save</button>
+                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i>Upload</button>
                                         <button type="reset" class="btn btn-inverse">Cancel</button>
                                     </div>
                                 </form>
