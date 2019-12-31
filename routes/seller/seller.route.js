@@ -1,27 +1,19 @@
 const seller_route = require('express').Router();
+const bodyParser= require('body-parser');
 const sellerModel = require('../../models/seller.model');
-const multer = require('multer')
-let diskStorage = multer.diskStorage({
-    destination: (req, file, callback) => {
-        // Định nghĩa nơi file upload sẽ được lưu lại
-        callback(null, "uploads");
+const multer = require('multer');
+var path = require("path");
+seller_route.use(bodyParser.urlencoded({extended: true}));
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'views\\public\\images\\product')
     },
-    filename: (req, file, callback) => {
-        // ở đây các bạn có thể làm bất kỳ điều gì với cái file nhé.
-        // Mình ví dụ chỉ cho phép tải lên các loại ảnh png & jpg
-        let math = ["image/png", "image/jpeg"];
-        if (math.indexOf(file.mimetype) === -1) {
-            let errorMess = `The file <strong>${file.originalname}</strong> is invalid. Only allowed to upload image jpeg or png.`;
-            return callback(errorMess, null);
-        }
-        // Tên của file thì mình nối thêm một cái nhãn thời gian để đảm bảo không bị trùng.
-        let filename = `${Date.now()}-trungquandev-${file.originalname}`;
-        callback(null, filename);
+    filename: function (req, file, cb) {
+      cb(null, file.originalname)
     }
-});
-let uploadFile = multer({
-    storage: diskStorage
-}).single("file");
+  })
+   
+  var upload = multer({ storage: storage })
 
 //Home page
 seller_route.get('/', (req, res) => {
@@ -59,18 +51,9 @@ seller_route.get('/remaining', (req, res) => {
         layout: 'seller'
     });
 })
-seller_route.post('/add', (res, req) => {
-    uploadFile(req, res, (error) => {
-        // Nếu có lỗi thì trả về lỗi cho client.
-        // Ví dụ như upload một file không phải file ảnh theo như cấu hình của mình bên trên
-        if (error) {
-            return res.send(`Error when trying to upload: ${error}`);
-        }
-        // Không có lỗi thì lại render cái file ảnh về cho client.
-        // Đồng thời file đã được lưu vào thư mục uploads
-        console.log(path.join(`${__dirname}/uploads/${req.file.filename}`));
-        res.sendFile(path.join(`${__dirname}/uploads/${req.file.filename}`));
-
+seller_route.post('/add', upload.single('fuMain'), (req, res, next) => {
+        const file = req.body.fuMain;
+        console.log(file);
+        res.send(file);
     });
-})
 module.exports = seller_route;
