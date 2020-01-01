@@ -12,4 +12,6 @@ module.exports = {
         return db.patch(tableName, entity, condition);
     },
     name: (id) => db.load(`select name from ${tableName} where id=${id}`),
+    singleByEmail: (email) => db.load(`select * from ${tableName} where email = '${email}'`),
+    singleByFacebookId: (fbId) => db.load(`select * from ${tableName} where facebook_id = '${fbId}'`)
 }

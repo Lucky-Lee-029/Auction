@@ -19,4 +19,8 @@ route.get('/category/:id', async(req, res) => {
     res.render('list_product', { data });;
 })
 
+    //register
+route.get('/register', (req, res) => {
+    res.render('guest/Register');
+});
 module.exports = route;

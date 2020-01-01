@@ -37,18 +37,18 @@
                 </div>
                 <div class="card-body divcenter py-5" style="max-width: 70%;">
 
-                    <a href="#" class="button button-large btn-block si-colored si-facebook nott t400 ls0 center nomargin"><i class="icon-facebook-sign"></i> Log in with Facebook</a>
+                    <a href="/login/facebook?url={{url}}" class="button button-large btn-block si-colored si-facebook nott t400 ls0 center nomargin"><i class="icon-facebook-sign"></i> Log in with Facebook</a>
 
                     <div class="divider divider-center"><span class="position-relative" style="top: -2px">OR</span></div>
-
-                    <form id="login-form" name="login-form" class="nobottommargin row" action="#" method="post">
+                    <p class="text-danger border border-danger rounded-sm py-1 text-center" id="form-alert"></p>
+                    <form id="login-form" name="login-form" class="nobottommargin row" action="/login?url={{url}}" method="POST">
 
                         <div class="col-12">
-                            <input type="text" id="login-form-username" name="login-form-username" value="" class="form-control not-dark" placeholder="Username" />
+                            <input type="text" id="login-form-username" name="username" value="" class="form-control not-dark" placeholder="Username" />
                         </div>
 
                         <div class="col-12 mt-4">
-                            <input type="password" id="login-form-password" name="login-form-password" value="" class="form-control not-dark" placeholder="Password" />
+                            <input type="password" id="login-form-password" name="password" value="" class="form-control not-dark" placeholder="Password" />
                         </div>
 
                         <div class="col-12">
@@ -226,7 +226,11 @@
                         <!-- Top Search
 						============================================= -->
                         <div id="top-account">
+                            {{#if isAuthenticated}}
+                                <a href="/profile"><i class="icon-line2-user mr-1 position-relative" style="top: 1px;"></i><span class="d-none d-sm-inline-block font-primary t500">{{user.name}}</span></a>
+                            {{else}}
                             <a href="#modal-register" data-lightbox="inline"><i class="icon-line2-user mr-1 position-relative" style="top: 1px;"></i><span class="d-none d-sm-inline-block font-primary t500">Login</span></a>
+                            {{/if}}
                         </div>
                         <!-- #top-search end -->
 
@@ -366,18 +370,26 @@
     </div>
 
 
-    {{{_sections.footer}}}
     <!-- External JavaScripts
 	============================================= -->
     <script src="/js/jquery.js "></script>
     <script src="/js/plugins.js "></script>
-
     <!-- Footer Scripts
 	============================================= -->
     <script src="/js/functions.js "></script>
     <script src="/js/myjs.js"></script>
     <!-- ADD-ONS JS FILES -->
+    {{{_sections.footer}}}
+    {{!-- Login--}}
     <script>
+        $(document).ready(function() {
+            $("#form-alert").hide();
+            {{#if hasError}}
+                $("#form-alert").show();
+                $("#form-alert").text("{{errorMessage}}");
+                $("a[href='#modal-register']").click()
+            {{/if}}
+        });
     </script>
 </body>
 

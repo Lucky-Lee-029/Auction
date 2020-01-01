@@ -10,5 +10,8 @@
     },
     "paginate": {
         "limit": 10
+    },
+    "bcrypt": {
+        "init": 10
     }
 }
