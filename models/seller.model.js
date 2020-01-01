@@ -18,6 +18,8 @@ module.exports = {
 
     del: (tableName, condition) => db.del(tableName, condition),
 
+    cat: () => db.load(`SELECT * FROM categories`),
+
     patch: (entity) => {
         const condition = {
             id: entity.id

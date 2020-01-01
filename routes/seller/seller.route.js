@@ -25,7 +25,6 @@ var storage = multer.diskStorage({
         cb(null, dir);
     },
     filename: function (req, file, cb) {
-        console.log(file);
         cb(null, file.originalname);
     }
 });
@@ -55,9 +54,11 @@ seller_route.get('/end', (req, res) => {
         layout: 'seller'
     });
 });
-seller_route.get('/add', (req, res) => {
+seller_route.get('/add', async (req, res) => {
+    var items = await sellerModel.cat();
     res.render('seller/product-add', {
-        layout: 'seller'
+        layout: 'seller',
+        items
     });
 });
 seller_route.get('/edit', (req, res) => {
@@ -75,15 +76,13 @@ seller_route.get('/remaining', async (req, res) => {
 });
 seller_route.post('/add', upload.array('fuMain', 5), async (req, res, next) => {
     const file = req.body.fuMain;
-    var id = req.query.id;
     var result = await sellerModel.maxId();
     var proId = JSON.parse(JSON.stringify(result))[0];
     // var create_at = new Date(year, month, day, hours, minutes, seconds, milliseconds);
     // create_at = Date.now();
+    console.log(req.query);
     var create_at = '2020-1-1';
     var dua = '2020-1-1';
-    console.log(create_at);
-
     for (var i = 0; i < req.files.length; i++) {
         fs.rename(req.files[i].path, req.files[i].destination + '/' + String(i), function (err) {
             errorcode = err;
@@ -92,12 +91,12 @@ seller_route.post('/add', upload.array('fuMain', 5), async (req, res, next) => {
 
     await sellerModel.insert(
         proId.id + 1,
-        id,
+        1,
         req.body.name,
         req.body.startPrice,
         req.body.endPrice,
         req.body.stepPrice,
-        1,
+        req.body.autorenew,
         req.body.description,
         create_at,
         dua
