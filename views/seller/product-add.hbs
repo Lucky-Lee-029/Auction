@@ -18,6 +18,17 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
+<script>
+    $("#submit").click(function(){
+        var $fileUpload = $("#fumain");
+        if (parseInt($fileUpload.get(0).files.length)>7){
+         alert("You can only upload a maximum of 7 files");
+        }
+        if (parseInt($fileUpload.get(0).files.length)<3){
+         alert("You can only upload a minimum of 2 files");
+        }
+    });    
+</script>
 {{!-- <script>
   $('#fuMain').fileinput({
     theme: 'fa',
@@ -75,19 +86,19 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Start Price</label>
-                                                    <input type="text" id="start-price" class="form-control" name="start-price" value="">
+                                                    <input type="number" id="start-price" class="form-control" name="startPrice" value="">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">End Price</label>
-                                                    <input type="text" id="end-price" class="form-control" name="end-price" value="">
+                                                    <input type="number" id="end-price" class="form-control" name="endPrice" value="">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Step Price</label>
-                                                    <input type="text" id="step-price" class="form-control" name="step-price" value="">
+                                                    <input type="number" id="step-price" class="form-control" name="stepPrice" value="">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -123,7 +134,7 @@
                                                         <label class="custom-control-label" for="customRadioInline1">Yes</label>
                                                     </div>
                                                     <div class="custom-control custom-radio custom-control-inline">
-                                                        <input name="customRadioInline1" class="custom-control-input" id="customRadioInline1" type="radio">
+                                                        <input name="customRadioInline1" class="custom-control-input" id="customRadioInline2" type="radio">
                                                         <label class="custom-control-label" for="customRadioInline1">No</label>
                                                     </div>
                                                 </div>
@@ -142,7 +153,7 @@
 
                                     </div>
                                     <div class="form-actions">
-                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i>Upload</button>
+                                        <button type="submit" class="btn btn-success" id="submit"> <i class="fa fa-check"></i>Upload</button>
                                         <button type="reset" class="btn btn-inverse">Cancel</button>
                                     </div>
                                 </form>

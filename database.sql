@@ -47,7 +47,7 @@ CREATE TABLE `products` (
   `price_end` int(11) DEFAULT NULL,
   `buy_now` int(11) DEFAULT NULL,
   `step` int(11) DEFAULT NULL,
-  `auto-renew` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0: not, 1: yes',
+  `auto_renew` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0: not, 1: yes',
   `description` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   `duration` timestamp NULL DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0: fail, 1: success, 2: action',
