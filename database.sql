@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS `bidders`;
 CREATE TABLE `bidders` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
-  `adress` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `address` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
   `avatar` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `birthday` timestamp NULL DEFAULT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE `bidders` (
   UNIQUE KEY `bidders_email_unique` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `bidders` (`name`, `adress`, `email`, `avatar`, `birthday`, `password`, `status`) VALUES
+INSERT INTO `bidders` (`name`, `address`, `email`, `avatar`, `birthday`, `password`, `status`) VALUES
 ('Son', 'HCM', 'son@gmail.com', 'images/avatar/son.jpg', '1999-2-28', 'xyafjka32478qwehdakejf', '1');
 
 DROP TABLE IF EXISTS `sellers`;
@@ -58,12 +58,11 @@ CREATE TABLE `products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `products` (`id`, `seller_id` ,`name`, `price_start`, `price_end`, `buy_now`, `step`, `auto-renew`, `description`, `duration`,`status`, `created_at`) VALUES
-(1, 1,'laptop msi gv62' , 10000000, 20000000, 20000000 ,100000 , 1, 'laptop giá rẻ trong tầm tay', 'duration' ,'1', '2019-12-4 03:05:09'),
-(1, 1,'laptop msi gv62' , 10000000, 20000000, 20000000 ,100000 , 1, 'laptop giá rẻ trong tầm tay', 'duration' ,'1', '2019-12-4 03:05:09'),
-(2, 1,'laptop dell' ,20000000, 30000000, 30000000 ,100000 , 1, 'laptop giá rẻ trong tầm tay', 'duration' ,'1', '2019-13-4 03:05:09'),
-(3, 1,'laptop asus' , 15000000, 20000000, 20000000 ,100000 , 1, 'laptop giá rẻ trong tầm tay', 'duration' ,'1', '2019-19-4 03:05:09'),
-(4, 1,'laptop hp' , 18000000, 25000000, 25000000 ,100000 , 1, 'laptop giá rẻ trong tầm tay', 'duration' ,'1', '2019-15-4 03:05:09'),
-(5, 1,'laptop acer' , 19000000, 26000000, 26000000 ,200000 , 1, 'laptop giá rẻ trong tầm tay', 'duration' ,'1', '2019-27-4 03:05:09');
+(1, 1,'laptop msi gv62' , 10000000, 20000000, 20000000 ,100000 , '1', 'laptop giá rẻ trong tầm tay', '' ,'1', '2019-12-4 03:05:09'),
+(2, 1,'laptop dell' ,20000000, 30000000, 30000000 ,100000 , '1', 'laptop giá rẻ trong tầm tay', '' ,'1', '2019-13-4 03:05:09'),
+(3, 1,'laptop asus' , 15000000, 20000000, 20000000 ,100000 , '1', 'laptop giá rẻ trong tầm tay', '' ,'1', '2019-19-4 03:05:09'),
+(4, 1,'laptop hp' , 18000000, 25000000, 25000000 ,100000 , '1', 'laptop giá rẻ trong tầm tay', '' ,'1', '2019-15-4 03:05:09'),
+(5, 1,'laptop acer' , 19000000, 26000000, 26000000 ,200000 , '1', 'laptop giá rẻ trong tầm tay', '' ,'1', '2019-27-4 03:05:09');
 
 DROP TABLE IF EXISTS `product_images`;
 CREATE TABLE `product_images` (
@@ -99,7 +98,6 @@ CREATE TABLE `history_auctions` (
   `bidder_id` int(10) unsigned NOT NULL,
   `price` int(11) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0: fail, 1: success, 2: action',
   PRIMARY KEY (`id`),
   KEY `history_auctions_product_id_foreign` (`product_id`),
   KEY `history_auctions_bidder_id_foreign` (`bidder_id`),
@@ -107,14 +105,14 @@ CREATE TABLE `history_auctions` (
   CONSTRAINT `history_bidders_product_id_foreign` FOREIGN KEY (`bidder_id`) REFERENCES `bidders` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `history_auctions` (`product_id`, `bidder_id`, `price`, `created_at`, `status`) VALUES
-(1, 1, 16000000, '2019-12-4 03:05:09', 2);
+INSERT INTO `history_auctions` (`product_id`, `bidder_id`, `price`, `created_at`) VALUES
+(1, 1, 16000000, '2019-12-4 03:05:09');
 
 DROP TABLE IF EXISTS `bidder_reviews`;
 CREATE TABLE `bidder_reviews` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `product_id` int(10) unsigned NOT NULL,
-  `bidder_id` int(10) unsigned NOT NULL,
+  `seller_id` int(10) unsigned NOT NULL,
   `love` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0: dislike, 1: like',
   `review` text COLLATE utf8_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -201,7 +199,7 @@ DROP TABLE IF EXISTS `admins`;
 CREATE TABLE `admins` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
-  `adress` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `address` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
   `avatar` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `birthday` timestamp NULL DEFAULT NULL,
@@ -209,7 +207,7 @@ CREATE TABLE `admins` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `admins` (`name`, `adress`, `email`, `avatar`, `birthday`,`password`) VALUES
+INSERT INTO `admins` (`name`, `address`, `email`, `avatar`, `birthday`,`password`) VALUES
 ('son', 'HCM', 'son@gmail.com','images/avatar/son.jpg', '2019-12-4 03:05:09', '34358791fsdjfszvcas');
 
 DROP TABLE IF EXISTS `admin_managers`;
@@ -228,8 +226,6 @@ INSERT INTO `admin_managers` (`name`, `icon`, `parent_id`) VALUES
 ('Product', 'ti-layout-grid2', NULL),
 ('User','ti-user', NULL),
 ('Category', 'ti-palette', NULL),
-('FAQ', 'ti-star', NULL),
-('Slider', ' ti-layout-slider', NULL),
 ('Action', NULL, 2),
 ('Success', NULL, 2),
 ('Fail', NULL, 2),

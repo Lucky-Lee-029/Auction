@@ -43,7 +43,7 @@ module.exports = {
         return rows[0].total;
     },
 
-    bidderWin: (id)=>db.load(`select MAX(his.price) as Price,  bidders.name as Win from products JOIN history_auctions his ON products.id = his.product_id JOIN bidders ON bidders.id=his.bidder_id WHERE (select count(*) FROM history_auctions his1 WHERE his1.price>his.price)=0`),
+    bidderWin: (id)=>db.load(`select MAX(his.price) as Price,  bidders.name as Win from products JOIN history_auctions his ON products.id = his.product_id JOIN bidders ON bidders.id=his.bidder_id WHERE (select count(*) FROM history_auctions his1 WHERE his1.price>his.price)=0 and products.id=${id}`),
 
     delImage: (id)=> db.del('product_images', {product_id: id}),
 }

@@ -18,5 +18,7 @@ module.exports = {
         }
         return db.patch('categories',entity, condition);
     },
-    name: id => db.load(`select name from categories where id=${id}`)
+    name: id => db.load(`select name from categories where id=${id}`),
+    productCate: id => db.load(`select * from categories JOIN product_categories on categories.id=product_categories.category_id WHERE categories.id=${id}`),
+
 }

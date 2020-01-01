@@ -1,7 +1,5 @@
 //Require Modules
 const express = require('express');
-const bidders = require('./models/bidders.model');
-const sellers = require('./models/seller.model');
 const categoryModel = require('./models/category.model');
 const adminModel = require('./models/admin_manager.model');
 const exphbs = require('express-handlebars');
@@ -23,7 +21,7 @@ app.set('view engine', 'hbs');
 //Middleware
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-app.use(morgan('dev'))
+// app.use(morgan('dev'))
 app.use(session({
     secret: 'keyboard cat',
     resave: false,

@@ -13,7 +13,7 @@
             <div class="col-md-7 align-self-center text-right">
                 <div class="d-flex justify-content-end align-items-center">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
                         <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
                         <li class="breadcrumb-item active">Upgrade Request</li>
                     </ol>
@@ -34,142 +34,52 @@
                             <table id="myTable" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
+                                        <th>ID</th>
                                         <th>Account</th>
                                         <th>Name</th>
-                                        <th>Detail</th>
-                                        <th>Accept</th>
-                                        <th>Decline</th>
+                                        <th>Address</th>
+                                        <th>Birthday</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{#each this.list}}
                                     <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td><a class="btn btn-primary" target="_blank" href="detail-user.html" role="button">Detail</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
+                                        <td>{{id}}</td>
+                                        <td>{{email}}</td>
+                                        <td>{{name}}</td>
+                                        <td>{{address}}</td>
+                                        <td>{{birthday}}</td>
+                                        <td class="text-nowrap">
+                                            <a href="/admin/upgraderequest/delete/{{this.id}}" data-toggle="tooltip" data-original-title="Delete"> <i class="fa fa-close text-danger p-r-5"></i> </a>
+                                            <a href="/product/{{this.id}}" data-toggle="tooltip" data-original-title="Accept"> <i class="fa fa-check"></i> </a>
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td>Garrett Winters</td>
-                                        <td>Accountant</td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Ashton Cox</td>
-                                        <td>Junior Technical Author</td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cedric Kelly</td>
-                                        <td>Senior Javascript Developer</td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Airi Satou</td>
-                                        <td>Accountant</td>
-                                        <td><a class="btn btn-primary" target="_blank" href="detail-user.html" role="button">Detail</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Brielle Williamson</td>
-                                        <td>Integration Specialist</td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Herrod Chandler</td>
-                                        <td>Sales Assistant</td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rhona Davidson</td>
-                                        <td>Integration Specialist</td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Colleen Hurst</td>
-                                        <td>Javascript Developer</td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Sonya Frost</td>
-                                        <td>Software Engineer</td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jena Gaines</td>
-                                        <td>Office Manager</td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Quinn Flynn</td>
-                                        <td>Support Lead</td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Charde Marshall</td>
-                                        <td>Regional Director</td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Haley Kennedy</td>
-                                        <td>Senior Marketing Designer</td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tatyana Fitzpatrick</td>
-                                        <td>Regional Director</td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Michael Silva</td>
-                                        <td>Marketing Designer</td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Paul Byrd</td>
-                                        <td>Chief Financial Officer (CFO)</td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Gloria Little</td>
-                                        <td>Systems Administrator</td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Detail</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Accept</a></td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Decline</a></td>
-                                    </tr>
+                                    {{/each}}
+                                </tbody>
                             </table>
                         </div>
+                        <nav aria-label="" class="mt-3">
+                            <ul class="pagination">
+                                <li class="{{#if not_prev}}disabled{{/if}}">
+                                <a class="page-link text-dark" href="?page={{prev_value}}" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                {{#each this.page_numbers}}
+                                {{#if isCurrentPage}}
+                                    <li class="active" aria-current="page">
+                                        <a class="page-link text dark" href="javascript:;">{{value}} <span class="sr-only">(current)</span></a>
+                                    </li>
+                                {{else}}
+                                    <li>
+                                        <a class="page-link text-dark" href="?page={{value}}">{{value}}</a>
+                                    </li>
+                                {{/if}}
+                                {{/each}}
+                                <li class="{{#if not_next}}disabled{{/if}}">
+                                <a class="page-link text-dark" href="?page={{next_value}}">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
 
