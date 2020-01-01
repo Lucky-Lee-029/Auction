@@ -17,127 +17,71 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row">   
             <div class="col-12">
-                <!-- Column -->
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Action Product</h4>
-                        <table id="myTable" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th data-sort-initial="true" data-toggle="true">Product Name</th>
-                                    <th>Seller name</th>
-                                    <th data-hide="phone, tablet">DOS</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Shona</td>
-                                    <td>Woldt</td>
-                                    <td>3 Oct 2017</td>
-                                </tr>
-                                <tr>
-                                    <td>Lizzee</td>
-                                    <td>Goodlow</td>
-                                    <td>1 Nov 2014</td>
-                                </tr>
-                                <tr>
-                                    <td>Isidra</td>
-                                    <td>Boudreaux</td>
-                                    <td>22 Jun 2014</td>
-                                </tr>
-                                <tr>
-                                    <td>Doris</td>
-                                    <td>Michael</td>
-                                    <td>19 Apr 2013</td>
-                                </tr>
-                                <tr>
-                                    <td>Lauri</td>
-                                    <td>Hyland</td>
-                                    <td>15 Nov 2014</td>
-                                </tr>
-                                <tr>
-                                    <td>Maple</td>
-                                    <td>Halladay</td>
-                                    <td>30 Dec 2017</td>
-                                </tr>
-                                <tr>
-                                    <td>Lorraine</td>
-                                    <td>Mcgaughy</td>
-                                    <td>11 Nov 2014</td>
-                                </tr>
-                                <tr>
-                                    <td>Judi</td>
-                                    <td>Badgett</td>
-                                    <td>23 Jun 2013</td>
-                                </tr>
-                                <tr>
-                                    <td>Granville</td>
-                                    <td>Leonardo</td>
-                                    <td>19 Apr 2013</td>
-                                </tr>
-                                <tr>
-                                    <td>Lauri</td>
-                                    <td>Hyland</td>
-                                    <td>30 Dec 2017</td>
-                                </tr>
-                                <tr>
-                                    <td>Maple</td>
-                                    <td>Halladay</td>
-                                    <td>30 Dec 2017</td>
-                                </tr>
-                                <tr>
-                                    <td>Lorraine</td>
-                                    <td>Mcgaughy</td>
-                                    <td>11 Nov 2014</td>
+                        <h4 class="card-title">Products Fail</h4>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
                                     <tr>
-                                        <td>Judi</td>
-                                        <td>Badgett</td>
-                                        <td>23 Jun 2013</td>
+                                        <th>ID</th>
+                                        <th>Product Name</th>
+                                        <th>Image</th>
+                                        <th>Seller Name</th>
+                                        <th>Price Start</th>
+                                        <th>Price End</th>
+                                        <th>Step</th>
+                                        <th>Buy Now</th>
+                                        <th class="text-nowrap">Action</th>
                                     </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each this.list}}
                                     <tr>
-                                        <td>Granville</td>
-                                        <td>Leonardo</td>
-                                        <td>19 Apr 2013</td>
+                                        <td>{{id}}</td>
+                                        <td>{{name}}</td>
+                                        <td>
+                                            {{#each this.Image}}
+                                                <img src="{{this.image}}" height="60px">
+                                            {{/each}}
+                                        </td>
+                                        <td> {{this.seller.name}}</td>
+                                        <td>{{price_start}}</td>
+                                        <td>{{price_end}}</td>
+                                        <td>{{step}}</td>
+                                        <td>{{buy_now}}</td>
+                                        <td class="text-nowrap">
+                                            <a href="/admin/product/delete/{{this.id}}" data-toggle="tooltip" data-original-title="Delete"> <i class="fa fa-close text-danger p-r-5"></i> </a>
+                                            <a href="/product/{{this.id}}" data-toggle="tooltip" data-original-title="View"> <i class="fa fa-eye text-inverse"></i> </a>
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td>Lauri</td>
-                                        <td>Hyland</td>
-                                        <td>15 Nov 2014</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Easer</td>
-                                        <td>Dragoo</td>
-                                        <td>13 Dec 2014</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Maple</td>
-                                        <td>Halladay</td>
-                                        <td>30 Dec 2017</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Maria</td>
-                                        <td>Tangeli</td>
-                                        <td>21 May 2014</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Maple</td>
-                                        <td>Halladay</td>
-                                        <td>30 Dec 2017</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Easer</td>
-                                        <td>Dragoo</td>
-                                        <td>13 Dec 2014</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Maple</td>
-                                        <td>Halladay</td>
-                                        <td>30 Dec 2017</td>
-                                    </tr>
-                            </tbody>
-                        </table>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                        <nav aria-label="" class="mt-3">
+                            <ul class="pagination">
+                                <li class="{{#if not_prev}}disabled{{/if}}">
+                                <a class="page-link text-dark" href="?page={{prev_value}}" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                {{#each this.page_numbers}}
+                                {{#if isCurrentPage}}
+                                    <li class="active" aria-current="page">
+                                        <a class="page-link text dark" href="javascript:;">{{value}} <span class="sr-only">(current)</span></a>
+                                    </li>
+                                {{else}}
+                                    <li>
+                                        <a class="page-link text-dark" href="?page={{value}}">{{value}}</a>
+                                    </li>
+                                {{/if}}
+                                {{/each}}
+                                <li class="{{#if not_next}}disabled{{/if}}">
+                                <a class="page-link text-dark" href="?page={{next_value}}">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>

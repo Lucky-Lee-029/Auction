@@ -28,27 +28,27 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4>ADD Category</h4>
+                                <h4 class="card-title">ADD Category</h4>
                 
                                 <form method="post" action="">
                                     <div class="form-group">
                                         <label>Name category</label>
-                                        <input type="text" name="category" class="form-control" value="">
+                                        <input type="text" name="name" class="form-control" value="">
                                     </div>
                                     <div class="form-group">
-                                            <label class="control-label" >Parent category</label>
-                                            <select name="parent_id" class="form-control">
-                                                <option value="0">Select</option>
-                                                <option value="mobile">Mobile</option>
-                                                <option value="laptop">Laptop</option>                                                
-                                            </select>
-                                        </div>
-                                    <button type="submit" class="btn btn-info">ADD</button>
+                                        <label class="control-label" >Parent category</label>
+                                        <select name="cate_parent" class="form-control">
+                                            <option value="0">NULL</option>
+                                            {{#each this.list}}
+                                                <option value="{{id}}" >{{name}}</option>
+                                            {{/each}}                                            
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-info" formaction="/admin/category/add" >ADD</button>
                                 </form>
                             </div>
                         </div>
-                        <div class="card">
-                            
+                        <div class="card">                         
                             <div class="card-body">
                                 <h4 class="card-title">Category</h4>
                                 <div class="table-responsive m-t-40">
@@ -62,31 +62,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{#each this.cate.parent}}
+                                            {{#each this.list}}
                                                 <tr>
                                                 <td>{{id}}</td>
                                                 <td>{{name}}</td>
-                                                <td>NULL</td>
+                                                <td>{{cate_parent}}</td>
                                                 <th>
-                                                    <button type="button" class="btn btn-primary">Edit</button>
-                                                    <button type="button" class="btn btn-danger">Delete</button>
+                                                    <a href="/admin/category/delete/{{this.id}}" data-toggle="tooltip" data-original-title="Delete"> <i class="fa fa-close text-danger"></i> </a>
+                                                    <a href="/admin/category/edit/{{this.id}}" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse p-l-5"></i> </a>
                                                 </th>
                                                 </tr>
-                                            {{/each}}
-                                            {{#each this.cate.parent}}
-                                            {{#if this.hasChild}}
-                                                {{#each this.children}}
-                                                <tr>
-                                                <td>{{id}}</td>
-                                                <td>{{name}}</td>
-                                                <td>{{../name}}</td>
-                                                <th>
-                                                    <button type="button" class="btn btn-primary">Edit</button>
-                                                    <button type="button" class="btn btn-danger">Delete</button>
-                                                </th>
-                                                </tr>
-                                                {{/each}}
-                                            {{/if}}
                                             {{/each}}
                                         </tbody>
                                     </table>
