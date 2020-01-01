@@ -5267,13 +5267,9 @@ input[type="button"].btn-block {
 
 .page-item:first-child .page-link {
   margin-left: 0;
-  border-top-left-radius: 0.375rem;
-  border-bottom-left-radius: 0.375rem;
 }
 
 .page-item:last-child .page-link {
-  border-top-right-radius: 0.375rem;
-  border-bottom-right-radius: 0.375rem;
 }
 
 .page-item.active .page-link {
@@ -5283,7 +5279,7 @@ input[type="button"].btn-block {
   border-color: #5e72e4;
 }
 
-.page-item.disabled .page-link {
+.disabled{
   color: #8898aa;
   pointer-events: none;
   cursor: auto;
@@ -5298,13 +5294,10 @@ input[type="button"].btn-block {
 }
 
 .pagination-lg .page-item:first-child .page-link {
-  border-top-left-radius: 0.4375rem;
-  border-bottom-left-radius: 0.4375rem;
+
 }
 
 .pagination-lg .page-item:last-child .page-link {
-  border-top-right-radius: 0.4375rem;
-  border-bottom-right-radius: 0.4375rem;
 }
 
 .pagination-sm .page-link {
@@ -5314,13 +5307,9 @@ input[type="button"].btn-block {
 }
 
 .pagination-sm .page-item:first-child .page-link {
-  border-top-left-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
 }
 
 .pagination-sm .page-item:last-child .page-link {
-  border-top-right-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
 }
 
 .badge {
