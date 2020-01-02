@@ -1,6 +1,7 @@
 const seller_route = require('express').Router();
 const bodyParser = require('body-parser');
 const sellerModel = require('../../models/seller.model');
+const productModel = require('../../models/product.model');
 const multer = require('multer');
 var path = require('path');
 var fs = require('fs');
@@ -13,7 +14,8 @@ var storage = multer.diskStorage({
     destination: async (req, file, cb) => {
         var result = await sellerModel.maxId();
         var proId = JSON.parse(JSON.stringify(result))[0];
-        var dir = 'C:\\Users\\Van Hai\\Desktop\\Auction\\views\\public\\images\\product\\' + String(proId.id + 1);
+        var dir= __dirname.substring(0, __dirname.indexOf("\\routes")) +'\\views\\public\\images\\product\\' + String(proId.id + 1);
+
         if (!fs.existsSync(dir))
             fs.mkdirSync(
                 dir, {
@@ -21,11 +23,9 @@ var storage = multer.diskStorage({
                 },
                 (err) => {}
             );
-        console.log(dir);
         cb(null, dir);
     },
     filename: function (req, file, cb) {
-        console.log(file);
         cb(null, file.originalname);
     }
 });
@@ -40,10 +40,29 @@ seller_route.get('/', (req, res) => {
         layout: 'seller'
     });
 });
-seller_route.get('/product', (req, res) => {
+seller_route.get('/product', async (req, res) => {
+    var id = req.query.id;
+    var items = await sellerModel.singPro(id);
+    var data = JSON.parse(JSON.stringify(items))[0];
+    var bidder = await productModel.autionPro(id);
+    console.log(bidder);
     res.render('seller/product', {
-        layout: 'seller'
+        layout: 'seller',
+        data,
+        bidder
     });
+});
+seller_route.post('/product', async (req, res) => {
+    var bidder_id = req.body.idBidder;
+    var id = req.body.idAuction;
+    var product_id = req.body.idPro;
+    var entity = [];
+    entity.push({
+        product_id: product_id,
+        bidder_id: bidder_id
+    });
+    await productModel.addBlock(entity);
+    await productModel.delHistory(id);
 });
 seller_route.get('/profile', (req, res) => {
     res.render('seller/profile', {
@@ -55,9 +74,11 @@ seller_route.get('/end', (req, res) => {
         layout: 'seller'
     });
 });
-seller_route.get('/add', (req, res) => {
+seller_route.get('/add', async (req, res) => {
+    var items = await sellerModel.cat();
     res.render('seller/product-add', {
-        layout: 'seller'
+        layout: 'seller',
+        items
     });
 });
 seller_route.get('/edit', (req, res) => {
@@ -66,24 +87,26 @@ seller_route.get('/edit', (req, res) => {
     });
 });
 seller_route.get('/remaining', async (req, res) => {
-    var id = req.query.id;
-    var items = await sellerModel.allActive(id);
+    var get = await sellerModel.sellId(req.user.id);
+    var id = JSON.parse(JSON.stringify(get))[0];
+    var items = await sellerModel.allActive(id.seller_id);
     res.render('seller/product-remaining', {
         layout: 'seller',
         items
     });
 });
 seller_route.post('/add', upload.array('fuMain', 5), async (req, res, next) => {
+    //Lấy id nè
+    console.log(req.user);
+    var get = await sellerModel.sellId(req.user.id);
+    var id = JSON.parse(JSON.stringify(get))[0];
     const file = req.body.fuMain;
-    var id = req.query.id;
     var result = await sellerModel.maxId();
     var proId = JSON.parse(JSON.stringify(result))[0];
-    // var create_at = new Date(year, month, day, hours, minutes, seconds, milliseconds);
-    // create_at = Date.now();
-    var create_at = '2020-1-1';
+    console.log(req.query);
+    var time = new Date();
+    var create_at = '2020-1-2';
     var dua = '2020-1-1';
-    console.log(create_at);
-
     for (var i = 0; i < req.files.length; i++) {
         fs.rename(req.files[i].path, req.files[i].destination + '/' + String(i), function (err) {
             errorcode = err;
@@ -92,12 +115,12 @@ seller_route.post('/add', upload.array('fuMain', 5), async (req, res, next) => {
 
     await sellerModel.insert(
         proId.id + 1,
-        id,
+        id.seller_id,
         req.body.name,
         req.body.startPrice,
         req.body.endPrice,
         req.body.stepPrice,
-        1,
+        req.body.autorenew,
         req.body.description,
         create_at,
         dua

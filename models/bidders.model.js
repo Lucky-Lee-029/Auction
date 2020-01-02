@@ -1,7 +1,8 @@
 const db = require('../utils/db');
+const config = require('../config/default.json');
 const tableName = 'bidders';
 module.exports = {
-    all: () => db.load(`select * from ${tableName}`),
+    all: (offset) => db.load(`select * from ${tableName} limit ${config.paginate.limit} offset ${offset}`),
     single: id => db.load(`select * from ${tableName} where id=${id}`),
     add: entity => db.add(tableName, entity),
     del: id_bid => db.del(tableName, { id: id_bid }),
@@ -13,5 +14,17 @@ module.exports = {
     },
     name: (id) => db.load(`select name from ${tableName} where id=${id}`),
     singleByEmail: (email) => db.load(`select * from ${tableName} where email = '${email}'`),
-    singleByFacebookId: (fbId) => db.load(`select * from ${tableName} where facebook_id = '${fbId}'`)
+    singleByFacebookId: (fbId) => db.load(`select * from ${tableName} where facebook_id = '${fbId}'`),
+    totalReviews: async (id) =>{
+        const rows=await db.load(`select count(*) as total from bidders JOIN seller_reviews ON bidders.id=seller_reviews.bidder_id WHERE bidders.id=${id}`)
+        return rows[0].total;
+    },
+    pointReviews: async (id) =>{
+        const rows= await db.load(`select count(*) as total from bidders JOIN seller_reviews ON bidders.id=seller_reviews.bidder_id WHERE bidders.id=${id} and seller_reviews.love=1`)
+        return rows[0].total;
+    },
+    count: async () =>{
+        const rows= await db.load(`select count(*) as total from bidders`)
+        return rows[0].total;
+    }
 }

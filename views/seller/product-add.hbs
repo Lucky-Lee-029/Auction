@@ -25,10 +25,11 @@
          alert("You can only upload a maximum of 7 files");
         }
         if (parseInt($fileUpload.get(0).files.length)<3){
-         alert("You can only upload a minimum of 2 files");
+         alert("You can only upload a minimum of 3 files");
         }
     });    
 </script>
+
 {{!-- <script>
   $('#fuMain').fileinput({
     theme: 'fa',
@@ -77,9 +78,13 @@
                                                 <div class="form-group">
                                                     <label class="control-label">Parent Category</label>
                                                     <select name="parent_id" class="form-control">
-                                                        <option value="0">--Select--</option>
+                                                        {{#each items}}
+                                                            <option value="{{id}}">{{name}}</option>
+                                                        {{/each}}
+
+                                                        {{!-- <option value="0">--Select--</option>
                                                         <option value="1">Mobile</option>
-                                                        <option value="2">Laptop</option>
+                                                        <option value="2">Laptop</option> --}}
                                                     </select>
                                                 </div>
                                             </div>
@@ -129,14 +134,23 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Auto-renew:</label>
-                                                    <div class="custom-control custom-radio custom-control-inline">
-                                                        <input name="customRadioInline1" class="custom-control-input" id="customRadioInline1" type="radio">
+                                                    {{!-- <div class="custom-control custom-radio custom-control-inline">
+                                                        <input name="customRadioInline1" value="1" class="custom-control-input" id="customRadioInline1" type="radio" checked="checked">
                                                         <label class="custom-control-label" for="customRadioInline1">Yes</label>
                                                     </div>
                                                     <div class="custom-control custom-radio custom-control-inline">
-                                                        <input name="customRadioInline1" class="custom-control-input" id="customRadioInline2" type="radio">
+                                                        <input name="customRadioInline1" value="0" class="custom-control-input" id="customRadioInline2" type="radio">
                                                         <label class="custom-control-label" for="customRadioInline1">No</label>
-                                                    </div>
+                                                    </div> --}}
+                                                    <label class="container"> Yes
+                                                        <input type="radio" name="autorenew" id="renew" value="1">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                    <label class="container"> No
+                                                        <input type="radio" name="autorenew" id="renew" value="0">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                    
                                                 </div>
                                             </div>
                                             {{!-- description --}}

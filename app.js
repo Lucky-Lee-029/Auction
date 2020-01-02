@@ -1,7 +1,5 @@
 //Require Modules
 const express = require('express');
-const bidders = require('./models/bidders.model');
-const sellers = require('./models/seller.model');
 const categoryModel = require('./models/category.model');
 const adminModel = require('./models/admin_manager.model');
 const exphbs = require('express-handlebars');
@@ -21,9 +19,11 @@ app.engine('hbs', exphbs({
 }));
 app.set('view engine', 'hbs');
 //Middleware
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({
+    extended: true
+}))
 app.use(express.json())
-app.use(morgan('dev'))
+    // app.use(morgan('dev'))
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
@@ -42,7 +42,9 @@ app.use(async(req, res, next) => {
         parent.hasChild = children.length;
         parent.children = children
     }
-    res.locals.cate = { parent: data };
+    res.locals.cate = {
+        parent: data
+    };
     res.locals.url = req.url;
     //Check logged in
     res.locals.isAuthenticated = false;
