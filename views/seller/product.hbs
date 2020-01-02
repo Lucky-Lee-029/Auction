@@ -1,3 +1,4 @@
+
 <!-- Content
 		============================================= -->
         <section id="content" style="clear: both">
@@ -119,9 +120,7 @@
 
                                         <div class="tab-content clearfix" id="tabs-1">
                                             <h3><b>Description</b></h3>
-                                            <p>Pink printed dress, woven, round neck with a keyhole and buttoned closure at the back, sleeveless, concealed zip up at left side seam, belt loops along waist with slight gathers beneath, brand appliqu?? above
-                                                left front hem, has an attached lining.</p>
-                                            Comes with a white, slim synthetic belt that has a tang clasp.
+                                            {{data.description}}
                                         </div>
                                         <div class="tab-content clearfix" id="tabs-4">
 
@@ -142,30 +141,19 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <tr>
-                                                                            <td>10/11/2019 10:43</td>
-                                                                            <td>*****Son</td>
-                                                                            <td>10,000,000</td>
-                                                                            <td>
-                                                                                <button type="button" class="btn btn-danger delete" data-toggle="tooltip" data-original-title="Delete">Delete</button>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>10/11/2019 10:43</td>
-                                                                            <td>*****Hai</td>
-                                                                            <td>9,000,000</td>
-                                                                            <td>
-                                                                                <button type="button" class="btn btn-danger delete" data-toggle="tooltip" data-original-title="Delete">Delete</button>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>10/11/2019 10:43</td>
-                                                                            <td>*****Phuc</td>
-                                                                            <td>8,000,000</td>
-                                                                            <td>
-                                                                                <button type="button" class="btn btn-danger delete" data-toggle="tooltip" data-original-title="Delete">Delete</button>
-                                                                            </td>
-                                                                        </tr>
+                                                                        {{#each bidder}}
+                                                                            <tr>
+                                                                                <td>{{tim}}</td>
+                                                                                <td>*****{{name}}</td>
+                                                                                <td>{{price}}</td>
+                                                                                <td>
+                                                                                    <button type="button" id="delete"class="btn btn-danger delete" data-toggle="tooltip" data-original-title="Delete">Delete</button>
+                                                                                </td>
+                                                                                <td style="display: none">{{bidder}}</td>
+                                                                                <td style="display: none">{{condi}}</td>
+                                                                                <td style="display: none">{{pro}}</td>
+                                                                            </tr>
+                                                                        {{/each}}
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -197,11 +185,15 @@
             </div>
 
         </section>
-    <script>
-    $(document).ready(function(){
-        $(".delete").on('click',function(){
-            $(this).parents('tr').first().remove();
-     });
-
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script>
+    $('#delete').on("click", function(){
+        var tr =$(this).parents('tr').first();
+        var child= tr.children();
+        var idBidder=parseInt(child[4].innerHTML);
+        var idAuction=parseInt(child[5].innerHTML)
+        var idPro=parseInt(child[6].innerHTML)
+        $.post('/seller/product', {idBidder:idBidder,idAuction:idAuction,idPro:idPro});
+        tr.remove();
     });
-    </script>
+</script>

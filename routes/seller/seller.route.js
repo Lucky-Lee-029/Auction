@@ -1,6 +1,7 @@
 const seller_route = require('express').Router();
 const bodyParser = require('body-parser');
 const sellerModel = require('../../models/seller.model');
+const productModel = require('../../models/product.model');
 const multer = require('multer');
 var path = require('path');
 var fs = require('fs');
@@ -43,11 +44,25 @@ seller_route.get('/product', async (req, res) => {
     var id = req.query.id;
     var items = await sellerModel.singPro(id);
     var data = JSON.parse(JSON.stringify(items))[0];
-    console.log(data);
+    var bidder = await productModel.autionPro(id);
+    console.log(bidder);
     res.render('seller/product', {
         layout: 'seller',
-        data
+        data,
+        bidder
     });
+});
+seller_route.post('/product', async (req, res) => {
+    var bidder_id = req.body.idBidder;
+    var id = req.body.idAuction;
+    var product_id = req.body.idPro;
+    var entity = [];
+    entity.push({
+        product_id: product_id,
+        bidder_id: bidder_id
+    });
+    await productModel.addBlock(entity);
+    await productModel.delHistory(id);
 });
 seller_route.get('/profile', (req, res) => {
     res.render('seller/profile', {
