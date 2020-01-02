@@ -14,7 +14,8 @@ var storage = multer.diskStorage({
     destination: async (req, file, cb) => {
         var result = await sellerModel.maxId();
         var proId = JSON.parse(JSON.stringify(result))[0];
-        var dir = 'C:\\Users\\Van Hai\\Desktop\\Auction\\views\\public\\images\\product\\' + String(proId.id + 1);
+        var dir= __dirname.substring(0, __dirname.indexOf("\\routes")) +'\\views\\public\\images\\product\\' + String(proId.id + 1);
+
         if (!fs.existsSync(dir))
             fs.mkdirSync(
                 dir, {
@@ -22,7 +23,6 @@ var storage = multer.diskStorage({
                 },
                 (err) => {}
             );
-        console.log(dir);
         cb(null, dir);
     },
     filename: function (req, file, cb) {
@@ -97,6 +97,7 @@ seller_route.get('/remaining', async (req, res) => {
 });
 seller_route.post('/add', upload.array('fuMain', 5), async (req, res, next) => {
     //Lấy id nè
+    console.log(req.user);
     var get = await sellerModel.sellId(req.user.id);
     var id = JSON.parse(JSON.stringify(get))[0];
     const file = req.body.fuMain;
