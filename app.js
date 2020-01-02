@@ -19,7 +19,9 @@ app.engine('hbs', exphbs({
 }));
 app.set('view engine', 'hbs');
 //Middleware
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({
+    extended: true
+}))
 app.use(express.json())
 // app.use(morgan('dev'))
 app.use(session({
@@ -33,14 +35,16 @@ app.use(express.static(__dirname + '/views/public'))
 app.use(express.static(__dirname + '/views/bidder'))
 app.use(express.static(__dirname + '/views/admin'))
 app.use(express.static(__dirname + '/views/seller'))
-app.use(async(req, res, next) => {
+app.use(async (req, res, next) => {
     var data = await categoryModel.parentCategory();
     for (parent of data) {
         let children = await categoryModel.childCategory(parent.id);
         parent.hasChild = children.length;
         parent.children = children
     }
-    res.locals.cate = { parent: data };
+    res.locals.cate = {
+        parent: data
+    };
     res.locals.url = req.url;
     //Check logged in
     res.locals.isAuthenticated = false;
@@ -50,7 +54,7 @@ app.use(async(req, res, next) => {
     }
     next();
 })
-app.use(async(req, res, next) => {
+app.use(async (req, res, next) => {
     var data = [];
     data = await adminModel.parentManager();
     for (parent of data) {
@@ -58,8 +62,10 @@ app.use(async(req, res, next) => {
         parent.hasChild = children.length;
         parent.children = children;
     }
-    res.locals.admin = { parent: data }
-        //login error
+    res.locals.admin = {
+        parent: data
+    }
+    //login error
     if (req.session.hasError) {
         res.locals.hasError = true;
         res.locals.errorMessage = req.session.errorMessage;
@@ -80,7 +86,7 @@ require('./middlewares/passport.mdw')(app, passport);
 require('./middlewares/routes.mdw')(app);
 
 
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     console.log(err);
     res.render('errors');
 });
