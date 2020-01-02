@@ -38,5 +38,9 @@ module.exports = {
     count: async () =>{
         const rows= await db.load(`select count(*) as total from sellers`)
         return rows[0].total;
+    },
+    add:(id)=>{
+        const condition={seller_id: id};
+        db.add('sellers', condition);
     }
 };

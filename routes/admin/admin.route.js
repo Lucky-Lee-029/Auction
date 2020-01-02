@@ -11,6 +11,9 @@ route.get('/dashboard',(req, res)=>{
     res.render('admin/dashboard/dashboard',{layout: 'admin'});
 })
 
+route.get('/',(req, res)=>{
+    res.render('admin/dashboard/dashboard',{layout: 'admin'});
+})
 
 
 
@@ -223,6 +226,16 @@ route.get('/user/upgraderequest',async (req, res)=>{
         next_value: +page + 1,
     });
 })
+
+route.get('/user/upgraderequest/delete/:id', async(req, res)=>{
+    const result = await upgradeModel.del(req.params.id)
+    res.redirect('/admin/user/upgraderequest');
+})
+
+route.post('/user/upgraderequest/add',async(req, res)=>{
+    const result= await upgradeModel.del(req.body.id);
+    const result1= await sellerModel.add(req.body.id);
+})
 // End route user
 
 
@@ -283,14 +296,12 @@ route.get('/category/delete/:id', async(req, res)=>{
 })
 //end route cate
 
-
-
 //route account
 route.get('/login',(req, res)=>{
-    res.render('admin/accounts/login', {layout: 'admin'});
+    res.render('admin/accounts/login',{layout: false});
 })
-route.get('/profile',(req, res)=>{
-    res.render('admin/accounts/profile');
+route.get('/logout',(req, res)=>{
+    res.redirect('/admin/login');
 })
 //end route account
 module.exports=route;
