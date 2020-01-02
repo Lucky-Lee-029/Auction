@@ -1,7 +1,5 @@
 //Require Modules
 const express = require('express');
-const bidders = require('./models/bidders.model');
-const sellers = require('./models/seller.model');
 const categoryModel = require('./models/category.model');
 const adminModel = require('./models/admin_manager.model');
 const exphbs = require('express-handlebars');

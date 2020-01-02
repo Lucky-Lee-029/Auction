@@ -1,8 +1,9 @@
 const db = require('../utils/db');
-const tableName = 'seller';
+const config = require('../config/default.json');
+const tableName = 'sellers';
 
 module.exports = {
-    all: () => db.load(`select * from ${tableName}`),
+    all: (offset) => db.load(`select * from ${tableName} JOIN bidders ON bidders.id=sellers.seller_id limit ${config.paginate.limit} offset ${offset}`),
     single: (id) => db.load(`select * from ${tableName} where id=${id}`),
 
     insert(pro_id, id, name, price_start, price_end, step, auto_renew, description, duaration, created_at) {
@@ -31,5 +32,17 @@ module.exports = {
         delete entity.id;
         // console.log(condition, entity);
         return db.patch(tableName, entity, condition);
+    },
+    totalReviews: async (id) =>{
+        const rows=await db.load(`select count(*) as total from sellers JOIN bidder_reviews ON sellers.id=bidder_reviews.seller_id WHERE sellers.id=${id}`)
+        return rows[0].total;
+    },
+    pointReviews: async (id) =>{
+        const rows= await db.load(`select count(*) as total from sellers JOIN bidder_reviews ON sellers.id=bidder_reviews.seller_id WHERE sellers.id=${id} and seller_reviews.love=1`)
+        return rows[0].total;
+    },
+    count: async () =>{
+        const rows= await db.load(`select count(*) as total from sellers`)
+        return rows[0].total;
     }
 };

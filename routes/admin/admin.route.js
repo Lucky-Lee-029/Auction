@@ -3,7 +3,10 @@ const productModel= require('../../models/product.model')
 const bidderModel=require('../../models/bidders.model')
 const categoryModel=require('../../models/category.model')
 const config=require('../../config/default.json')
+const sellerModel=require('../../models/seller.model')
+const upgradeModel=require('../../models/upgrade_request.model')
 
+//route home
 route.get('/dashboard',(req, res)=>{
     res.render('admin/dashboard/dashboard',{layout: 'admin'});
 })
@@ -117,25 +120,114 @@ route.get('/product/fail',async (req, res)=>{
 // End route product
 
 
+
 // Route user
-route.get('/user/bidder',(req, res)=>{
-    res.render('admin/users/bidder', {layout: 'admin'});
+route.get('/user/bidder',async(req, res)=>{
+    var list=[];
+    const limit=config.paginate.limit;
+    const page = req.query.page || 1;
+    if(page<1) page =1;
+    const offset = (page -1)* config.paginate.limit;
+    list =await bidderModel.all(offset);
+    for(parent of list){
+        const total=await bidderModel.totalReviews(parent.id);
+        if(total>0){
+            const point=await bidderModel.pointReviews(parent.id);
+            parent.Point=(point/total)*100;
+        }
+        else{
+            parent.Point=100;
+        }
+    }
+    const total = await bidderModel.count();
+    let nPages = Math.floor(total / limit);
+    if (total % limit > 0) nPages++;
+    const page_numbers = [];
+    for (i = 1; i <= nPages; i++) {
+        page_numbers.push({
+        value: i,
+        isCurrentPage: i === +page
+        })
+    }
+    res.render('admin/users/bidder', {
+        layout: 'admin',
+        list,
+        page_numbers,
+        not_prev: +page-1===0,
+        not_next: +page===+nPages,
+        prev_value: +page - 1,
+        next_value: +page + 1,
+    });
 })
-route.get('/user/seller',(req, res)=>{
-    res.render('admin/users/seller', {layout: 'admin'});
+route.get('/user/seller', async (req, res)=>{
+    var list=[];
+    const limit=config.paginate.limit;
+    const page = req.query.page || 1;
+    if(page<1) page =1;
+    const offset = (page -1)* config.paginate.limit;
+    list =await sellerModel.all(offset);
+    for(parent of list){
+        const total=await sellerModel.totalReviews(parent.id);
+        if(total>0){
+            const point=await sellerModel.pointReviews(parent.id);
+            parent.Point=(point/total)*100;
+        }
+        else{
+            parent.Point=100;
+        }
+    }
+    const total = await sellerModel.count();
+    let nPages = Math.floor(total / limit);
+    if (total % limit > 0) nPages++;
+    const page_numbers = [];
+    for (i = 1; i <= nPages; i++) {
+        page_numbers.push({
+        value: i,
+        isCurrentPage: i === +page
+        })
+    }
+    res.render('admin/users/seller', {
+        layout: 'admin',
+        list,
+        page_numbers,
+        not_prev: +page-1===0,
+        not_next: +page===+nPages,
+        prev_value: +page - 1,
+        next_value: +page + 1,
+    });
 })
-route.get('/user/upgraderequest',(req, res)=>{
-    res.render('admin/users/upgrade-request', {layout: 'admin'});
-})
-route.get('/user/blockedbidder',(req, res)=>{
-    res.render('admin/users/bidder-blocked', {layout: 'admin'});
-})
-route.get('/user/blockedseller',(req, res)=>{
-    res.render('admin/users/seller-blocked', {layout: 'admin'});
+route.get('/user/upgraderequest',async (req, res)=>{
+    var list =[];
+    const limit=config.paginate.limit;
+    const page = req.query.page || 1;
+    if(page<1) page =1;
+    const offset = (page -1)* config.paginate.limit;
+    list = await upgradeModel.all(offset);
+    const total = await upgradeModel.count();
+    let nPages = Math.floor(total / limit);
+    if (total % limit > 0) nPages++;
+    const page_numbers = [];
+    for (i = 1; i <= nPages; i++) {
+        page_numbers.push({
+        value: i,
+        isCurrentPage: i === +page
+        })
+    }
+    res.render('admin/users/upgrade-request', {
+        layout: 'admin',
+        list,
+        page_numbers,
+        not_prev: +page-1===0,
+        not_next: +page===+nPages,
+        prev_value: +page - 1,
+        next_value: +page + 1,
+    });
 })
 // End route user
 
 
+
+//route category
 route.get('/category',async(req, res)=>{
     let list=await categoryModel.all();
     for(parent of list){
@@ -181,26 +273,24 @@ route.post('/category/edit/:id',async(req, res)=>{
 
 route.get('/category/delete/:id', async(req, res)=>{
     let children = await categoryModel.childCategory(req.params.id);
-    let product= await categoryModel.productCate(parent.id);
+    let product= await categoryModel.productCate(req.params.id);
     if(children.length || product.length){
-        
     }
     else{
         const result = await categoryModel.del(req.params.id);
     }
     res.redirect('/admin/category');
 })
-route.get('/faq',(req, res)=>{
-    res.render('admin/faqs/faqs', {layout: 'admin'});
-})
+//end route cate
 
-route.get('/slider',(req, res)=>{
-    res.render('admin/slider/slider', {layout: 'admin'});
-})
+
+
+//route account
 route.get('/login',(req, res)=>{
     res.render('admin/accounts/login', {layout: 'admin'});
 })
 route.get('/profile',(req, res)=>{
     res.render('admin/accounts/profile');
 })
+//end route account
 module.exports=route;
