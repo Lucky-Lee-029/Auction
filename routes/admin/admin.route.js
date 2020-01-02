@@ -5,7 +5,36 @@ const categoryModel = require('../../models/category.model')
 const config = require('../../config/default.json')
 const sellerModel = require('../../models/seller.model')
 const upgradeModel = require('../../models/upgrade_request.model')
+const adminModel = require('../../models/admin.model');
+const bcrypt = require('bcryptjs');
+route.get('/login', (req, res) => {
+    if (typeof(req.session.admin) == 'undefined') {
+        return res.render('admin/accounts/login', { layout: null });
+    }
+    res.redirect('/admin/');
+});
+route.post('/login', async(req, res) => {
+    let user = await adminModel.singleByEmail(req.body.username);
+    if (user.length == 0) {
+        return res.redirect('/admin/login');
+    }
+    user = user[0];
+    if (bcrypt.compareSync(req.body.password, user.password)) {
+        req.session.admin = user;
+        res.redirect('/admin/');
+    } else {
+        res.redirect('/admin/login');
+    }
+});
 
+
+route.use((req, res, next) => {
+    console.log(req.session.admin);
+    if (typeof(req.session.admin) == 'undefined') {
+        return res.redirect('/admin/login');
+    }
+    next();
+});
 //route home
 route.get('/dashboard', (req, res) => {
     res.render('admin/dashboard/dashboard', { layout: 'admin' });
@@ -50,7 +79,7 @@ route.get('/product/action', async(req, res) => {
         prev_value: +page - 1,
         next_value: +page + 1,
     });
-})
+});
 route.get('/product/success', async(req, res) => {
     var list = [];
     const limit = config.paginate.limit;
@@ -86,41 +115,41 @@ route.get('/product/success', async(req, res) => {
         prev_value: +page - 1,
         next_value: +page + 1,
     });
-})
+});
 route.get('/product/fail', async(req, res) => {
-        var list = [];
-        const limit = config.paginate.limit;
-        const page = req.query.page || 1;
-        if (page < 1) page = 1;
-        const offset = (page - 1) * config.paginate.limit;
-        list = await productModel.productFail(offset);
-        for (parent of list) {
-            let Image = await productModel.productImage(parent.id);
-            let seller = await bidderModel.name(parent.seller_id);
-            parent.Image = Image;
-            parent.seller = seller[0];
-        }
-        const total = await productModel.countFail();
-        let nPages = Math.floor(total / limit);
-        if (total % limit > 0) nPages++;
-        const page_numbers = [];
-        for (i = 1; i <= nPages; i++) {
-            page_numbers.push({
-                value: i,
-                isCurrentPage: i === +page
-            })
-        }
-        res.render('admin/products/fail', {
-            layout: 'admin',
-            list,
-            page_numbers,
-            not_prev: +page - 1 === 0,
-            not_next: +page === +nPages,
-            prev_value: +page - 1,
-            next_value: +page + 1,
-        });
-    })
-    // End route product
+    var list = [];
+    const limit = config.paginate.limit;
+    const page = req.query.page || 1;
+    if (page < 1) page = 1;
+    const offset = (page - 1) * config.paginate.limit;
+    list = await productModel.productFail(offset);
+    for (parent of list) {
+        let Image = await productModel.productImage(parent.id);
+        let seller = await bidderModel.name(parent.seller_id);
+        parent.Image = Image;
+        parent.seller = seller[0];
+    }
+    const total = await productModel.countFail();
+    let nPages = Math.floor(total / limit);
+    if (total % limit > 0) nPages++;
+    const page_numbers = [];
+    for (i = 1; i <= nPages; i++) {
+        page_numbers.push({
+            value: i,
+            isCurrentPage: i === +page
+        })
+    }
+    res.render('admin/products/fail', {
+        layout: 'admin',
+        list,
+        page_numbers,
+        not_prev: +page - 1 === 0,
+        not_next: +page === +nPages,
+        prev_value: +page - 1,
+        next_value: +page + 1,
+    });
+});
+// End route product
 
 
 
@@ -160,7 +189,7 @@ route.get('/user/bidder', async(req, res) => {
         prev_value: +page - 1,
         next_value: +page + 1,
     });
-})
+});
 route.get('/user/seller', async(req, res) => {
     var list = [];
     const limit = config.paginate.limit;
@@ -196,7 +225,7 @@ route.get('/user/seller', async(req, res) => {
         prev_value: +page - 1,
         next_value: +page + 1,
     });
-})
+});
 route.get('/user/upgraderequest', async(req, res) => {
     var list = [];
     const limit = config.paginate.limit;
@@ -295,9 +324,10 @@ route.get('/category/delete/:id', async(req, res) => {
 //route account
 route.get('/login', (req, res) => {
     res.render('admin/accounts/login', { layout: false });
-})
+});
 route.get('/logout', (req, res) => {
-        res.redirect('/admin/login');
-    })
-    //end route account
+    res.redirect('/admin/login');
+});
+
+//end route account
 module.exports = route;
