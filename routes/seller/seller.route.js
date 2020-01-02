@@ -39,9 +39,14 @@ seller_route.get('/', (req, res) => {
         layout: 'seller'
     });
 });
-seller_route.get('/product', (req, res) => {
+seller_route.get('/product', async (req, res) => {
+    var id = req.query.id;
+    var items = await sellerModel.singPro(id);
+    var data = JSON.parse(JSON.stringify(items))[0];
+    console.log(data);
     res.render('seller/product', {
-        layout: 'seller'
+        layout: 'seller',
+        data
     });
 });
 seller_route.get('/profile', (req, res) => {
@@ -67,21 +72,24 @@ seller_route.get('/edit', (req, res) => {
     });
 });
 seller_route.get('/remaining', async (req, res) => {
-    var id = req.query.id;
-    var items = await sellerModel.allActive(id);
+    var get = await sellerModel.sellId(req.user.id);
+    var id = JSON.parse(JSON.stringify(get))[0];
+    var items = await sellerModel.allActive(id.seller_id);
     res.render('seller/product-remaining', {
         layout: 'seller',
         items
     });
 });
 seller_route.post('/add', upload.array('fuMain', 5), async (req, res, next) => {
+    //Lấy id nè
+    var get = await sellerModel.sellId(req.user.id);
+    var id = JSON.parse(JSON.stringify(get))[0];
     const file = req.body.fuMain;
     var result = await sellerModel.maxId();
     var proId = JSON.parse(JSON.stringify(result))[0];
-    // var create_at = new Date(year, month, day, hours, minutes, seconds, milliseconds);
-    // create_at = Date.now();
     console.log(req.query);
-    var create_at = '2020-1-1';
+    var time = new Date();
+    var create_at = '2020-1-2';
     var dua = '2020-1-1';
     for (var i = 0; i < req.files.length; i++) {
         fs.rename(req.files[i].path, req.files[i].destination + '/' + String(i), function (err) {
@@ -91,7 +99,7 @@ seller_route.post('/add', upload.array('fuMain', 5), async (req, res, next) => {
 
     await sellerModel.insert(
         proId.id + 1,
-        1,
+        id.seller_id,
         req.body.name,
         req.body.startPrice,
         req.body.endPrice,

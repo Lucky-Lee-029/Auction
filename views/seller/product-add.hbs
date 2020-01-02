@@ -64,7 +64,17 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Add Product</h4>
-                                <form action="./add" enctype="multipart/form-data" method="post" >
+                                {{!-- đây truyền vô chỗ này  --}}
+                                {{!-- là truyền vào ??? hả, mà lấy ở đâu, tại t tính lấy nó trên url, chỗ ?id=á --}}
+                                {{!-- id này là id gì ? của seller --}}
+                                {{!-- vậy không cần đâu, m login vô đi bằng tài khoản seller nó sẽ cho m 1 cái req.user --}}
+                                {{!-- trong đó có id req.user.id á, lấy mà bỏ vô, okee --}}
+                                {{!-- để login cho m coi --}}
+                                {{!-- m pull về chưa v - }}
+                                {{!-- chưa
+                                nãy m nói là lộn group, t tưởng m nói bên cnpm
+                                 --}}
+                                <form action="./product" enctype="multipart/form-data" method="post" >
                                     <div class="form-body">
                                         <div class="row p-t-20">
                                             <div class="col-md-6">

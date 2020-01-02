@@ -20,6 +20,10 @@ module.exports = {
 
     cat: () => db.load(`SELECT * FROM categories`),
 
+    sellId: (id) => db.load(`SELECT * FROM sellers WHERE id=${id} `),
+
+    singPro: (id) => db.load(`Select * from products where id=${id}`),
+
     patch: (entity) => {
         const condition = {
             id: entity.id
