@@ -61,7 +61,7 @@
                     </form>
                 </div>
                 <div class="card-footer py-4 center">
-                    <p class="mb-0">Don't have an account? <a href="guest/Register.html"><u>Sign up</u></a></p>
+                    <p class="mb-0">Don't have an account? <a href="/register"><u>Sign up</u></a></p>
                 </div>
             </div>
         </div>
@@ -139,7 +139,7 @@
                     <!-- Logo
 					============================================= -->
                     <div id="logo">
-                        <a href="index.html" class="standard-logo"><img src="/images/logo.png" alt="Auction Logo" class="p-3"></a>
+                        <a href="/" class="standard-logo"><img src="/images/logo.png" alt="Auction Logo" class="p-3"></a>
                     </div>
                     <!-- #logo end -->
 
@@ -149,7 +149,7 @@
 
                         <ul>
                             <li>
-                                <a href="Index.html">
+                                <a href="/">
                                     <div>Home</div>
                                 </a>
                             </li>
@@ -278,7 +278,7 @@
                                 <h4 class="ls0 mb-3 nott ">Support</h4>
 
                                 <ul class="list-unstyled iconlist ml-0 ">
-                                    <li><a href="Index.html">Home</a></li>
+                                    <li><a href="/">Home</a></li>
                                     <li><a href="About.html">About</a></li>
                                     <li><a href="FAQ.html">FAQs</a></li>
                                     <li><a href="# ">Support</a></li>
@@ -293,7 +293,7 @@
                                 <h4 class="ls0 mb-3 nott ">Trending</h4>
 
                                 <ul class="list-unstyled iconlist ml-0 ">
-                                    <li><a href="Index.html">Shop</a></li>
+                                    <li><a href="/">Shop</a></li>
                                     <li><a href="# ">Portfolio</a></li>
                                     <li><a href="Blog.html">Blog</a></li>
                                     <li><a href="# ">Events</a></li>
@@ -384,9 +384,11 @@
     <script>
         $(document).ready(function() {
             $("#form-alert").hide();
-            {{#if hasError}}
+            {{#if loginModal}}
+                {{#if hasMsg}}
                 $("#form-alert").show();
-                $("#form-alert").text("{{errorMessage}}");
+                $("#form-alert").text("{{loginMessage}}");
+                {{/if}}
                 $("a[href='#modal-register']").click()
             {{/if}}
         });

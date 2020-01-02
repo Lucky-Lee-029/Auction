@@ -46,4 +46,6 @@ module.exports = {
     bidderWin: (id)=>db.load(`select MAX(his.price) as Price,  bidders.name as Win from products JOIN history_auctions his ON products.id = his.product_id JOIN bidders ON bidders.id=his.bidder_id WHERE (select count(*) FROM history_auctions his1 WHERE his1.price>his.price)=0`),
 
     delImage: (id)=> db.del('product_images', {product_id: id}),
+    topBidTimes: _ => db.load(`SELECT * FROM history_auctions LEFT OUTER JOIN products on products.id = history_auctions.product_id  GROUP BY product_id ORDER BY COUNT(*) DESC LIMIT 5`),
+    currentPrice: (id) => db.load(`SELECT price from history_auctions WHERE id = ${id} and status = 2 ORDER BY price DESC LIMIT 1`)
 }

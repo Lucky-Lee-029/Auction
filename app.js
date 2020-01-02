@@ -62,14 +62,17 @@ app.use(async(req, res, next) => {
     }
     res.locals.admin = { parent: data }
         //login error
-    if (req.session.hasError) {
-        res.locals.hasError = true;
-        res.locals.errorMessage = req.session.errorMessage;
-        delete req.session.hasError;
+    if (req.session.loginModal) {
+        res.locals.loginModal = true;
+        if (typeof(req.session.loginMessage) != 'undefined') {
+            res.locals.loginMessage = req.session.loginMessage;
+            res.locals.hasMsg = (req.session.loginMessage.length > 0);
+        }
+        delete req.session.loginModal;
     }
     //register error
     if (req.session.hasRegisterError) {
-        res.locals.hasError = true;
+        res.locals.loginModal = true;
         res.locals.errorMessage = req.session.errorMessage;
         delete req.session.hasRegisterError;
     }
