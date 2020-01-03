@@ -23,7 +23,7 @@ app.use(express.urlencoded({
     extended: true
 }))
 app.use(express.json())
-// app.use(morgan('dev'))
+    // app.use(morgan('dev'))
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
@@ -35,7 +35,7 @@ app.use(express.static(__dirname + '/views/public'))
 app.use(express.static(__dirname + '/views/bidder'))
 app.use(express.static(__dirname + '/views/admin'))
 app.use(express.static(__dirname + '/views/seller'))
-app.use(async (req, res, next) => {
+app.use(async(req, res, next) => {
     var data = await categoryModel.parentCategory();
     for (parent of data) {
         let children = await categoryModel.childCategory(parent.id);
@@ -54,7 +54,7 @@ app.use(async (req, res, next) => {
     }
     next();
 })
-app.use(async (req, res, next) => {
+app.use(async(req, res, next) => {
     var data = [];
     data = await adminModel.parentManager();
     for (parent of data) {
@@ -62,18 +62,19 @@ app.use(async (req, res, next) => {
         parent.hasChild = children.length;
         parent.children = children;
     }
-    res.locals.admin = {
-        parent: data
-    }
-    //login error
-    if (req.session.hasError) {
-        res.locals.hasError = true;
-        res.locals.errorMessage = req.session.errorMessage;
-        delete req.session.hasError;
+    res.locals.admin = { parent: data }
+        //login error
+    if (req.session.loginModal) {
+        res.locals.loginModal = true;
+        if (typeof(req.session.loginMessage) != 'undefined') {
+            res.locals.loginMessage = req.session.loginMessage;
+            res.locals.hasMsg = (req.session.loginMessage.length > 0);
+        }
+        delete req.session.loginModal;
     }
     //register error
     if (req.session.hasRegisterError) {
-        res.locals.hasError = true;
+        res.locals.loginModal = true;
         res.locals.errorMessage = req.session.errorMessage;
         delete req.session.hasRegisterError;
     }
@@ -86,7 +87,7 @@ require('./middlewares/passport.mdw')(app, passport);
 require('./middlewares/routes.mdw')(app);
 
 
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
     console.log(err);
     res.render('errors');
 });

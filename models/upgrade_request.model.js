@@ -8,4 +8,5 @@ module.exports = {
         return rows[0].total;
     },
     single: (id)=> db.load(`select * from upgrade_requests JOIN bidders ON bidders.id=upgrade_requests.bidder_id WHERE upgrade_requests.bidder_id=${id}`),
+    del: (id) =>db.del('upgrade_requests', {bidder_id: id})
 }

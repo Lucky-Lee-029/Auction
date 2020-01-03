@@ -36,8 +36,8 @@ module.exports = function(app, passport) {
         passport.authenticate('local', function(err, user) {
             if (err) return next(err);
             if (!user) {
-                req.session.hasError = true;
-                req.session.errorMessage = "Invalid username or password";
+                req.session.loginModal = true;
+                req.session.loginMessage = "Invalid username or password";
                 return res.redirect(req.query.url);
             }
             req.logIn(user, function(err) {
@@ -64,6 +64,7 @@ module.exports = function(app, passport) {
             var entity = req.body;
             entity.password = hashPassword;
             await bidderModel.add(entity);
+            req.session.loginModal = true;
             res.redirect('/');
         }
     });
@@ -114,9 +115,9 @@ module.exports = function(app, passport) {
         function(req, res) {
             if (req.user.password.length == 0)
                 req.session.newFBAccount = true;
-            res.redirect('/login/facebook/set-password');
+            res.redirect('/facebook/set-password');
         });
-    app.get('/login/facebook/set-password', (req, res) => {
+    app.get('/facebook/set-password', isAuth, (req, res) => {
         console.log(req.user);
         if (req.session.newFBAccount) {
             delete req.session.newFBAccount;
@@ -125,7 +126,41 @@ module.exports = function(app, passport) {
         res.redirect('/');
     })
 
-    app.post('/set-facebook-password', (req, res) => {
+    app.post('/facebook/set-password', isAuth, async(req, res) => {
+        var entity = req.user;
+        entity.password = bcrypt.hashSync(req.body.newPassword, config.bcrypt.init);
+        await bidderModel.patch(entity);
+        res.redirect('/');
+    })
 
+    app.get('/update-password', isAuth, (req, res) => {
+        if (req.user.password.length == 0)
+            return res.redirect('/facebook/set-password');
+        res.render('bidder/update-password');
+    })
+
+    app.post('/update-password', isAuth, async(req, res) => {
+        if (bcrypt.compareSync(req.body.oldPassword, req.user.password)) {
+            var entity = req.user;
+            entity.password = bcrypt.hashSync(req.body.newPassword, config.bcrypt.init);
+            await bidderModel.patch(entity);
+            res.redirect('/');
+        } else {
+            //set update password error on session
+            res.redirect('/update-password');
+        }
+    })
+
+    function isAuth(req, res, next) {
+        if (req.user) {
+            next();
+        } else {
+            req.session.loginModal = true;
+            res.redirect('/');
+        }
+    }
+
+    app.get('/profile', isAuth, (req, res) => {
+        res.render('profile');
     })
 }

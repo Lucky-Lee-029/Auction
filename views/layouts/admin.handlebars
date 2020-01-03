@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/logo-icon1.png">
     <title>Auction</title>
     <link href="/assets/node_modules/morrisjs/morris.css" rel="stylesheet">
     <link href="/dist/css/pages/ecommerce.css" rel="stylesheet">
@@ -46,7 +46,7 @@
                     <!-- Logo -->
                     <!-- ============================================================== -->
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="/admin/dashboard">
+                        <a class="navbar-brand" href="/admin/">
                             <b>
                             </b>
                             <!-- Logo text -->
@@ -84,10 +84,6 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right animated flipInY">
                                     <!-- text-->
-                                    <a href="/admin/profile" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
-                                    <!-- text-->
-                                    <div class="dropdown-divider"></div>
-                                    <!-- text-->
                                     <a href="/admin/logout" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
                                     <!-- text-->
                                 </div>
@@ -110,13 +106,20 @@
                     <div class="user-pro-body">
                         <div><img src="/assets/images/users/2.jpg" alt="user-img" class="img-circle"></div>
                         <div class="dropdown">
-                            <a href="/admin/dashboard" class=" u-dropdown pl-5 ml-1">Admin Auction</a>
+                            <a href="/admin/" class=" u-dropdown pl-5 ml-1">Admin Auction</a>
                         </div>
                     </div>
                 </div>
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
+                        <li>
+                            <div class="hide-menu text-center">
+                                <div id="eco-spark"></div>
+                                <small>TOTAL EARNINGS - JUNE 2019</small>
+                                <h4>$2,478.00</h4>
+                            </div>
+                        </li>
                         {{#each this.admin.parent }}
                              <li> <a class="{{#if this.hasChild}}has-arrow{{/if}} waves-effect waves-dark" href="/admin/{{formatName this.name}}" aria-expanded="false"><i class="{{this.icon}}"></i><span class="hide-menu">{{this.name}}</span></a>
 
