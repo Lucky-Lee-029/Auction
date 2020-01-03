@@ -18,17 +18,7 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
-<script>
-    $("#submit").click(function(){
-        var $fileUpload = $("#fumain");
-        if (parseInt($fileUpload.get(0).files.length)>7){
-         alert("You can only upload a maximum of 7 files");
-        }
-        if (parseInt($fileUpload.get(0).files.length)<3){
-         alert("You can only upload a minimum of 3 files");
-        }
-    });    
-</script>
+
 
 {{!-- <script>
   $('#fuMain').fileinput({
@@ -106,18 +96,9 @@
                                                     <input type="number" id="step-price" class="form-control" name="stepPrice" value="">
                                                 </div>
                                             </div>
+                                            {{!-- ============================================= --}}
+                                            {{!-- image --}}
                                             <div class="col-md-6">
-                                                {{!-- <div class="form-group">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Images</label>
-                                                        <div class="d-flex">
-                                                            <input type="hidden" class="form-control" name="images" value="">
-                                                            <span class="input-group-addon green-style" onclick="" href="javascript:void(0)">
-                                                                <i class="fa fa-upload bigger-110"></i>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div> --}}
                                                 <div class="card shadow">
                                                     <h4 class="card-header">
                                                         Image
@@ -131,6 +112,8 @@
                                                 </div>
                                             </div>
                                             </div>
+                                            {{!-- ===================================================== --}}
+                                            {{!-- AUTO RENEW --}}
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Auto-renew:</label>
@@ -171,10 +154,20 @@
                                         <button type="reset" class="btn btn-inverse">Cancel</button>
                                     </div>
                                 </form>
-
                             </div>
                         </div>
 
                     </div>
                 </div>
-
+<script>
+    $("#submit").click(function(){
+        var $fileUpload = $("#fumain");
+        console.log($fileUpload.get(0).files.length);
+        if (parseInt($fileUpload.get(0).files.length)>7){
+         alert("You can only upload a maximum of 7 files");
+        }
+        if (parseInt($fileUpload.get(0).files.length)<3){
+         alert("You can only upload a minimum of 3 files");
+        }
+    });    
+</script>
