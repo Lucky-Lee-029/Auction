@@ -46,13 +46,9 @@ module.exports = {
         return rows[0].total;
     },
     add: (id) => {
-<<<<<<< HEAD
-        const condition = { seller_id: id };
-=======
         const condition = {
             seller_id: id
         };
->>>>>>> e53c6f7b8fb1afe615e9cd5bebd3733dd8e09f38
         db.add('sellers', condition);
     },
     nameOfSeller: (id) => db.load(`select name from bidders join sellers on bidders.id = sellers.bidder_id where sellers.id = ${id}`)
