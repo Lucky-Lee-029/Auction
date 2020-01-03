@@ -3,14 +3,14 @@ const config = require('../config/default.json');
 
 //product model
 module.exports = {
-    productCategory: (id) => db.load(`select * from products JOIN product_categories WHERE product_categories.cate_parent = ${id} `),
+    productCategory: (id) => db.load(`select * from products JOIN product_categories WHERE product_categories.product_id = ${id} `),
 
     all: () => db.load(`select * from products`),
 
     single: id => db.load(`select * from products where id= ${id}`),
 
     countByCate: async id => {
-        const rows = await db.load(`select count(*) as total from products JOIN product_categories WHERE product_categories.product_cate = ${id} `)
+        const rows = await db.load(`select count(*) as total from products JOIN product_categories WHERE product_categories.product_id = ${id} `)
         return rows[0].total;
     },
 
@@ -59,7 +59,7 @@ module.exports = {
 
     delImage: (id) => db.del('product_images', { product_id: id }),
     topBidTimes: _ => db.load(`SELECT * FROM history_auctions LEFT OUTER JOIN products on products.id = history_auctions.product_id  GROUP BY product_id ORDER BY COUNT(*) DESC LIMIT 5`),
-    currentPrice: (id) => db.load(`SELECT price from history_auctions WHERE id = ${id} and status = 2 ORDER BY price DESC LIMIT 1`),
+    currentPrice: (id) => db.load(`SELECT price, name  from history_auctions JOIN bidders on history_auctions.bidder_id = bidders.id WHERE product_id = ${id} and history_auctions.status = 2 ORDER BY price DESC LIMIT 1`),
     delHistory: (id) => {
         db.del('history_auctions', {
             id: id
