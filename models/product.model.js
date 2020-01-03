@@ -64,5 +64,13 @@ module.exports = {
         db.del('history_auctions', {
             id: id
         });
-    }
+    },
+
+    //top 5 sp có nhiều lượt ra giá nhất
+    hotProduct: ()=>db.load(`elect * FROM products JOIN history_auctions his ON products.id=his.product_id GROUP BY product_id ORDER BY COUNT(product_id) DESC limit 5`),
+
+    //top 5 sản phẩm giá cao nhất còn đấu giá
+
+    //top 5 sản phẩm sắp kết thúc
+    
 }

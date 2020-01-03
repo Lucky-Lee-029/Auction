@@ -20,7 +20,6 @@ route.post('/login', async(req, res) => {
     }
     user = user[0];
     var hash = bcrypt.hashSync("123456");
-    console.log(hash);
     // console.log(bcrypt(req.body.password));
     if (bcrypt.compareSync(req.body.password, user.password)) {
         req.session.admin = user;
@@ -37,7 +36,6 @@ route.get('/logout', (req, res) => {
 });
 
 route.use((req, res, next) => {
-    console.log(req.session.admin);
     if (typeof(req.session.admin) == 'undefined') {
         return res.redirect('/admin/login');
     }
@@ -268,9 +266,9 @@ route.get('/user/upgraderequest/delete/:id', async(req, res) => {
 })
 
 route.post('/user/upgraderequest/add', async(req, res) => {
-        const result = await upgradeModel.del(req.body.id);
-        const result1 = await sellerModel.add(req.body.id);
-    })
+    const result = await upgradeModel.del(req.body.id);
+    const result1 = await sellerModel.add(req.body.id);
+})
     // End route user
 
 
@@ -282,6 +280,14 @@ route.get('/category', async(req, res) => {
         if (parent.cate_parent) {
             let nameParent = await categoryModel.name(parent.cate_parent);
             parent.nameParent = nameParent[0].name;
+        }
+        let children = await categoryModel.childCategory(parent.id);
+        let product = await categoryModel.productCate(parent.id);
+        if(children.length>0 || product.length>0){
+            parent.isDel=0;
+        }
+        else{
+            parent.isDel=1;
         }
     }
     res.render('admin/category/category', {
@@ -303,6 +309,14 @@ route.get('/category/edit/:id', async(req, res) => {
         if (parent.cate_parent) {
             let nameParent = await categoryModel.name(parent.cate_parent);
             parent.nameParent = nameParent[0].name;
+        }
+        let children = await categoryModel.childCategory(req.params.id);
+        let product = await categoryModel.productCate(req.params.id);
+        if(children.length>0 || product.length>0){
+            parent.isDel=0;
+        }
+        else{
+            parent.isDel=1;
         }
     }
     res.render('admin/category/category', {
