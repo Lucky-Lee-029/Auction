@@ -120,7 +120,12 @@
 
                                         <div class="tab-content clearfix" id="tabs-1">
                                             <h3><b>Description</b></h3>
-                                            {{data.description}}
+                                            <div>
+                                                <div>{{data.description}}</div>
+                                                <div style="display: none">{{data.id}}</div>
+                                                <button id="edit" type="button" class="btn btn-info" >Edit description</button>
+                                            </div>
+                                            
                                         </div>
                                         <div class="tab-content clearfix" id="tabs-4">
 
@@ -186,6 +191,17 @@
 
         </section>
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script>
+    $('#edit').on("click", function(){
+        var div =$(this).parents('div').first();
+        var child= div.children();
+        var idToDes=parseInt(child[1].innerHTML);
+        console.log(idToDes);
+        $.post('/seller/edit', {idToDes: idToDes},function(err){
+            window.location.assign('/seller/editDescription');
+        });
+    });
+</script>
 <script>
     $('#delete').on("click", function(){
         var tr =$(this).parents('tr').first();
