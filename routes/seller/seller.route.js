@@ -107,8 +107,13 @@ seller_route.post('/editDescription', async (req, res) => {
     var data = req.body.description;
     var id = req.body.id;
     await productModel.editDes(id, data);
+    var items = await sellerModel.singPro(id);
+    var data = JSON.parse(JSON.stringify(items))[0];
+    var bidder = await productModel.autionPro(id);
     res.render('seller/product', {
-        layout: 'seller'
+        layout: 'seller',
+        data,
+        bidder
     });
 });
 
@@ -128,10 +133,8 @@ seller_route.post('/add', upload.array('fuMain', 5), async (req, res, next) => {
     const file = req.body.fuMain;
     var result = await sellerModel.maxId();
     var proId = JSON.parse(JSON.stringify(result))[0];
-    console.log(req.query);
-    var time = new Date();
     var create_at = moment().format();
-    var dua = '2020-1-1';
+    var dua = moment().add(7, 'days').format();
     for (var i = 0; i < req.files.length; i++) {
         fs.rename(req.files[i].path, req.files[i].destination + '/' + String(i), function (err) {
             errorcode = err;
@@ -147,7 +150,7 @@ seller_route.post('/add', upload.array('fuMain', 5), async (req, res, next) => {
         req.body.stepPrice,
         req.body.autorenew,
         req.body.description,
-        create_at.toString,
+        create_at,
         dua
     );
     res.render('seller/add-success', {
