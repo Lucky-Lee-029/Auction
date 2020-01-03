@@ -208,7 +208,7 @@ CREATE TABLE `admins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `admins` (`name`, `address`, `email`, `avatar`, `birthday`,`password`) VALUES
-('son', 'HCM', 'son@gmail.com','images/avatar/son.jpg', '2019-12-4 03:05:09', '34358791fsdjfszvcas');
+('son', 'HCM', 'son@gmail.com','images/avatar/son.jpg', '2019-12-4 03:05:09', '$2a$10$/yNLZTb7N6xzo2nuOV/gVejT865oN9C2HDsNEfepJLVeimdiBBVAO');
 
 DROP TABLE IF EXISTS `admin_managers`;
 CREATE TABLE `admin_managers` (

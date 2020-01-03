@@ -19,6 +19,9 @@ route.post('/login', async(req, res) => {
         return res.redirect('/admin/login');
     }
     user = user[0];
+    var hash = bcrypt.hashSync("123456");
+    console.log(hash);
+    // console.log(bcrypt(req.body.password));
     if (bcrypt.compareSync(req.body.password, user.password)) {
         req.session.admin = user;
         res.redirect('/admin/');
@@ -27,6 +30,11 @@ route.post('/login', async(req, res) => {
     }
 });
 
+
+route.get('/logout', (req, res) => {
+    delete req.session.admin;
+    res.redirect('/admin/login');
+});
 
 route.use((req, res, next) => {
     console.log(req.session.admin);
@@ -312,22 +320,13 @@ route.post('/category/edit/:id', async(req, res) => {
 })
 
 route.get('/category/delete/:id', async(req, res) => {
-        let children = await categoryModel.childCategory(req.params.id);
-        let product = await categoryModel.productCate(req.params.id);
-        if (children.length || product.length) {} else {
-            const result = await categoryModel.del(req.params.id);
-        }
-        res.redirect('/admin/category');
-    })
-    //end route cate
+    let children = await categoryModel.childCategory(req.params.id);
+    let product = await categoryModel.productCate(req.params.id);
+    if (children.length || product.length) {} else {
+        const result = await categoryModel.del(req.params.id);
+    }
+    res.redirect('/admin/category');
+})
+//end route cate
 
-//route account
-route.get('/login', (req, res) => {
-    res.render('admin/accounts/login', { layout: false });
-});
-route.get('/logout', (req, res) => {
-    res.redirect('/admin/login');
-});
-
-//end route account
 module.exports = route;
