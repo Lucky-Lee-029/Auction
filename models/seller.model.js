@@ -33,15 +33,15 @@ module.exports = {
         // console.log(condition, entity);
         return db.patch(tableName, entity, condition);
     },
-    totalReviews: async (id) => {
+    totalReviews: async(id) => {
         const rows = await db.load(`select count(*) as total from sellers JOIN bidder_reviews ON sellers.id=bidder_reviews.seller_id WHERE sellers.id=${id}`)
         return rows[0].total;
     },
-    pointReviews: async (id) => {
+    pointReviews: async(id) => {
         const rows = await db.load(`select count(*) as total from sellers JOIN bidder_reviews ON sellers.id=bidder_reviews.seller_id WHERE sellers.id=${id} and seller_reviews.love=1`)
         return rows[0].total;
     },
-    count: async () => {
+    count: async() => {
         const rows = await db.load(`select count(*) as total from sellers`)
         return rows[0].total;
     },
@@ -50,5 +50,6 @@ module.exports = {
             seller_id: id
         };
         db.add('sellers', condition);
-    }
+    },
+    nameOfSeller: (id) => db.load(`select name from bidders join sellers on bidders.id = sellers.bidder_id where sellers.id = ${id}`)
 };
