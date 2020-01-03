@@ -36,15 +36,15 @@ module.exports = {
     productFail: (offset) => db.load(`select * from products WHERE status=0 limit ${config.paginate.limit} offset ${offset}`),
     productSuccess: (offset) => db.load(`select * from products WHERE status=1 limit ${config.paginate.limit} offset ${offset}`),
     productAction: (offset) => db.load(`select * from products WHERE status=2 limit ${config.paginate.limit} offset ${offset}`),
-    countAction: async(id) => {
+    countAction: async (id) => {
         const rows = await db.load(`select count(*) as total from products where status=2`)
         return rows[0].total;
     },
-    countFail: async(id) => {
+    countFail: async (id) => {
         const rows = await db.load(`select count(*) as total from products where status=0`)
         return rows[0].total;
     },
-    countSuccess: async(id) => {
+    countSuccess: async (id) => {
         const rows = await db.load(`select count(*) as total from products where status=1`)
         return rows[0].total;
     },
@@ -57,12 +57,16 @@ module.exports = {
 
     addBlock: (entity) => db.add('blocked_auctions', entity),
 
-    delImage: (id) => db.del('product_images', { product_id: id }),
+    delImage: (id) => db.del('product_images', {
+        product_id: id
+    }),
     topBidTimes: _ => db.load(`SELECT * FROM history_auctions LEFT OUTER JOIN products on products.id = history_auctions.product_id  GROUP BY product_id ORDER BY COUNT(*) DESC LIMIT 5`),
     currentPrice: (id) => db.load(`SELECT price from history_auctions WHERE id = ${id} and status = 2 ORDER BY price DESC LIMIT 1`),
     delHistory: (id) => {
         db.del('history_auctions', {
             id: id
         });
-    }
+    },
+
+    editDes: (id, des) => db.load(`UPDATE products Set description="${des}" WHERE id=${id}`)
 }
