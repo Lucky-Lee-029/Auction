@@ -3,14 +3,14 @@ const config = require('../config/default.json');
 
 //product model
 module.exports = {
-    productCategory: (id) => db.load(`select * from products JOIN product_categories WHERE product_categories.cate_parent = ${id} `),
+    productCategory: (id) => db.load(`select * from products JOIN product_categories WHERE product_categories.product_id = ${id} `),
 
     all: () => db.load(`select * from products`),
 
     single: id => db.load(`select * from products where id= ${id}`),
 
     countByCate: async id => {
-        const rows = await db.load(`select count(*) as total from products JOIN product_categories WHERE product_categories.product_cate = ${id} `)
+        const rows = await db.load(`select count(*) as total from products JOIN product_categories WHERE product_categories.product_id = ${id} `)
         return rows[0].total;
     },
 
@@ -36,15 +36,15 @@ module.exports = {
     productFail: (offset) => db.load(`select * from products WHERE status=0 limit ${config.paginate.limit} offset ${offset}`),
     productSuccess: (offset) => db.load(`select * from products WHERE status=1 limit ${config.paginate.limit} offset ${offset}`),
     productAction: (offset) => db.load(`select * from products WHERE status=2 limit ${config.paginate.limit} offset ${offset}`),
-    countAction: async(id) => {
+    countAction: async (id) => {
         const rows = await db.load(`select count(*) as total from products where status=2`)
         return rows[0].total;
     },
-    countFail: async(id) => {
+    countFail: async (id) => {
         const rows = await db.load(`select count(*) as total from products where status=0`)
         return rows[0].total;
     },
-    countSuccess: async(id) => {
+    countSuccess: async (id) => {
         const rows = await db.load(`select count(*) as total from products where status=1`)
         return rows[0].total;
     },
@@ -57,14 +57,17 @@ module.exports = {
 
     addBlock: (entity) => db.add('blocked_auctions', entity),
 
-    delImage: (id) => db.del('product_images', { product_id: id }),
+    delImage: (id) => db.del('product_images', {
+        product_id: id
+    }),
     topBidTimes: _ => db.load(`SELECT * FROM history_auctions LEFT OUTER JOIN products on products.id = history_auctions.product_id  GROUP BY product_id ORDER BY COUNT(*) DESC LIMIT 5`),
-    currentPrice: (id) => db.load(`SELECT price from history_auctions WHERE id = ${id} and status = 2 ORDER BY price DESC LIMIT 1`),
+    currentPrice: (id) => db.load(`SELECT price, name  from history_auctions JOIN bidders on history_auctions.bidder_id = bidders.id WHERE product_id = ${id} and history_auctions.status = 2 ORDER BY price DESC LIMIT 1`),
     delHistory: (id) => {
         db.del('history_auctions', {
             id: id
         });
     },
+
 
     //top 5 sp có nhiều lượt ra giá nhất
     hotProduct: ()=>db.load(`elect * FROM products JOIN history_auctions his ON products.id=his.product_id GROUP BY product_id ORDER BY COUNT(product_id) DESC limit 5`),
@@ -73,4 +76,8 @@ module.exports = {
 
     //top 5 sản phẩm sắp kết thúc
     
+
+    //edit descritionn
+    editDes: (id, des) => db.load(`UPDATE products Set description="${des}" WHERE id=${id}`)
+
 }

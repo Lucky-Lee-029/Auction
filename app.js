@@ -5,6 +5,7 @@ const adminModel = require('./models/admin_manager.model');
 const exphbs = require('express-handlebars');
 const express_handlebars_sections = require('express-handlebars-sections');
 const session = require('express-session')
+const moment = require('moment');
 const passport = require('passport');
 const morgan = require('morgan');
 //Express instance
@@ -14,7 +15,9 @@ const PORT = process.env.PORT | 3000;
 app.engine('hbs', exphbs({
     helpers: {
         section: express_handlebars_sections(),
-        formatName: (name) => name.toLowerCase().split(' ').join('')
+        formatName: (name) => name.toLowerCase().split(' ').join(''),
+        maskName: (name) => "*****" + name.substr(name.length - 4, 4),
+        formatTime: (date) => moment(date, "YYYY-MM-DD-HH-mm-ss").format("HH:mm:ss DD/MM/YYYY")
     }
 }));
 app.set('view engine', 'hbs');

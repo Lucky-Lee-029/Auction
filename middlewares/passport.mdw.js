@@ -51,7 +51,12 @@ module.exports = function(app, passport) {
     app.get('/logout', (req, res) => {
         req.logOut();
         res.redirect('/');
-    })
+    });
+
+    //register
+    app.get('/register', (req, res) => {
+        res.render('guest/Register');
+    });
     app.post('/register', async(req, res) => {
         let user = await bidderModel.singleByEmail(req.body.email);
         if (user.length > 0) // existed
