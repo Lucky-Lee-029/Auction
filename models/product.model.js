@@ -3,7 +3,7 @@ const config = require('../config/default.json');
 
 //product model
 module.exports = {
-    productCategory: (id) => db.load(`select * from products JOIN product_categories WHERE product_categories.product_id = ${id} `),
+    productCategory: (id, offset) => db.load(`select * from products JOIN product_categories ON products.id=product_categories.product_id WHERE product_categories.category_id=${id} limit ${config.paginate.limit} offset ${offset}`),
 
     all: () => db.load(`select * from products`),
 
@@ -49,7 +49,7 @@ module.exports = {
         return rows[0].total;
     },
 
-    bidderWin: (id) => db.load(`select MAX(his.price) as Price,  bidders.name as Win from products JOIN history_auctions his ON products.id = his.product_id JOIN bidders ON bidders.id=his.bidder_id WHERE (select count(*) FROM history_auctions his1 WHERE his1.price>his.price)=0 and products.id=${id}`),
+    bidderWin: (id) => db.load(`select MAX(his.price) as Price,  bidders.name as Win from products JOIN history_auctions his ON products.id = his.product_id JOIN bidders ON bidders.id=his.bidder_id WHERE (select count(*) FROM history_auctions his1 WHERE his1.price>his.price and products.id=${id})=0 and products.id=${id}`),
 
     delImage: (id) => db.del('product_images', {
         product_id: id
@@ -68,16 +68,12 @@ module.exports = {
         });
     },
 
-
-    //top 5 sp có nhiều lượt ra giá nhất
-    hotProduct: ()=>db.load(`elect * FROM products JOIN history_auctions his ON products.id=his.product_id GROUP BY product_id ORDER BY COUNT(product_id) DESC limit 5`),
-
-    //top 5 sản phẩm giá cao nhất còn đấu giá
-
-    //top 5 sản phẩm sắp kết thúc
-    
-
     //edit descritionn
-    editDes: (id, des) => db.load(`UPDATE products Set description="${des}" WHERE id=${id}`)
+    editDes: (id, des) => db.load(`UPDATE products Set description="${des}" WHERE id=${id}`),
+
+    countByCate: async(id)=>{
+        const rows=await db.load(`select count(*) as total from products JOIN product_categories ON products.id=product_categories.product_id WHERE product_categories.category_id=${id}`)
+        return rows[0].total;
+    }
 
 }

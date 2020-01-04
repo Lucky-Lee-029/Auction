@@ -7,6 +7,7 @@ const sellerModel = require('../../models/seller.model')
 const upgradeModel = require('../../models/upgrade_request.model')
 const adminModel = require('../../models/admin.model');
 const bcrypt = require('bcryptjs');
+const moment = require('moment');
 route.get('/login', (req, res) => {
     if (typeof(req.session.admin) == 'undefined') {
         return res.render('admin/accounts/login', { layout: null });
@@ -175,6 +176,7 @@ route.get('/user/bidder', async(req, res) => {
         } else {
             parent.Point = 100;
         }
+        parent.birthday= moment(parent.birthday, 'DD/MM/YYYY').format('YYYY-MM-DD')
     }
     const total = await bidderModel.count();
     let nPages = Math.floor(total / limit);
@@ -211,6 +213,7 @@ route.get('/user/seller', async(req, res) => {
         } else {
             parent.Point = 100;
         }
+        parent.birthday= moment(parent.birthday, 'DD/MM/YYYY').format('YYYY-MM-DD')
     }
     const total = await sellerModel.count();
     let nPages = Math.floor(total / limit);
@@ -248,6 +251,9 @@ route.get('/user/upgraderequest', async(req, res) => {
             value: i,
             isCurrentPage: i === +page
         })
+    }
+    for (parent of list) {
+        parent.birthday= moment(parent.birthday, 'DD/MM/YYYY').format('YYYY-MM-DD')
     }
     res.render('admin/users/upgrade-request', {
         layout: 'admin',
