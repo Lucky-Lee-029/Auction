@@ -9,7 +9,8 @@
         "inseecureAuth": true
     },
     "paginate": {
-        "limit": 10
+        "limit": 10,
+        "limit1": 12
     },
     "bcrypt": {
         "init": 10

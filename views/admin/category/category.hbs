@@ -94,13 +94,32 @@
                                                 <td>{{name}}</td>
                                                 <td>{{nameParent}}</td>
                                                 <th>
-                                                    <a href="/admin/category/delete/{{this.id}}" data-toggle="tooltip" data-original-title="Delete"> <i class="fa fa-close text-danger"></i> </a>
-                                                    <a href="/admin/category/edit/{{this.id}}" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse p-l-5"></i> </a>
+                                                    {{#if isDel}}<a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-close text-danger"></i></a>
+                                                    {{else}}<a href="/admin/category/delete/{{this.id}}"><i class="fa fa-close text-danger"></i> </a>{{/if}}
+                                                    <a href="/admin/category/edit/{{this.id}}"> <i class="fa fa-pencil text-inverse p-l-5"></i> </a>
                                                 </th>
                                                 </tr>
                                             {{/each}}
                                         </tbody>
                                     </table>
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title text-center">Can't Delete Category</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>This category exists product or subcategory</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                            <!-- /.modal-content -->
+                                        </div>
+                                        <!-- /.modal-dialog -->
+                                    </div>
                                 </div>
                             </div>
                         </div>

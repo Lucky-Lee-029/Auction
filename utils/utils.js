@@ -21,5 +21,5 @@ module.exports = {
                 return duration.format("HH:mm:ss DD/MM/YYYY");
             }
         }
-    }
+    },
 }
