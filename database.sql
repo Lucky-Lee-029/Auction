@@ -57,12 +57,9 @@ CREATE TABLE `products` (
   CONSTRAINT `sellers_seller_id_foreign` FOREIGN KEY (`seller_id`) REFERENCES `sellers` (`seller_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `products` (`id`, `seller_id` ,`name`, `price_start`, `price_end`, `buy_now`, `step`, `auto-renew`, `description`, `duration`,`status`, `created_at`) VALUES
-(1, 1,'laptop msi gv62' , 10000000, 20000000, 20000000 ,100000 , '1', 'laptop giá rẻ trong tầm tay', '' ,'1', '2019-12-4 03:05:09'),
-(2, 1,'laptop dell' ,20000000, 30000000, 30000000 ,100000 , '1', 'laptop giá rẻ trong tầm tay', '' ,'1', '2019-13-4 03:05:09'),
-(3, 1,'laptop asus' , 15000000, 20000000, 20000000 ,100000 , '1', 'laptop giá rẻ trong tầm tay', '' ,'1', '2019-19-4 03:05:09'),
-(4, 1,'laptop hp' , 18000000, 25000000, 25000000 ,100000 , '1', 'laptop giá rẻ trong tầm tay', '' ,'1', '2019-15-4 03:05:09'),
-(5, 1,'laptop acer' , 19000000, 26000000, 26000000 ,200000 , '1', 'laptop giá rẻ trong tầm tay', '' ,'1', '2019-27-4 03:05:09');
+INSERT INTO `products` (`seller_id` ,`name`, `price_start`, `price_end`, `buy_now`, `step`, `auto_renew`, `description`, `duration`,`status`, `created_at`) VALUES
+(1,'laptop msi gv62' , 10000000, 20000000, 20000000 ,100000 , '1', 'laptop giá rẻ trong tầm tay', '2019-12-4 03:05:09' ,'1', '2019-12-4 03:05:09');
+
 
 DROP TABLE IF EXISTS `product_images`;
 CREATE TABLE `product_images` (
@@ -122,7 +119,7 @@ CREATE TABLE `bidder_reviews` (
   CONSTRAINT `bidder_reviews_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `bidder_reviews` (`product_id`, `bidder_id`, `love`, `review`, `created_at`) VALUES
+INSERT INTO `bidder_reviews` (`product_id`, `seller_id`, `love`, `review`, `created_at`) VALUES
 (1, 1, 1, 'good', '2019-12-4 03:05:09');
 
 DROP TABLE IF EXISTS `seller_reviews`;
