@@ -16,7 +16,7 @@ app.engine('hbs', exphbs({
     helpers: {
         section: express_handlebars_sections(),
         formatName: (name) => name.toLowerCase().split(' ').join(''),
-        maskName: (name) => "*****" + name.substr(name.length - 4, 4),
+        maskName: (name) => "*****" + name.substr(Math.max(name.length - 4, 0), 4),
         formatTime: (date) => moment(date, "YYYY-MM-DD-HH-mm-ss").format("HH:mm:ss DD/MM/YYYY")
     }
 }));
@@ -72,12 +72,19 @@ app.use(async(req, res, next) => {
         if (typeof(req.session.loginMessage) != 'undefined') {
             res.locals.loginMessage = req.session.loginMessage;
             res.locals.hasMsg = (req.session.loginMessage.length > 0);
+            delete req.session.loginMessage;
         }
         delete req.session.loginModal;
+
     }
     //register error
     if (req.session.hasRegisterError) {
         res.locals.loginModal = true;
+        if (typeof(req.session.errorMessage) != 'undefined') {
+            res.locals.errorMessage = req.session.errorMessage;
+            res.locals.hasMsg = (req.session.errorMessage.length > 0);
+            delete req.session.errorMessage;
+        }
         res.locals.errorMessage = req.session.errorMessage;
         delete req.session.hasRegisterError;
     }

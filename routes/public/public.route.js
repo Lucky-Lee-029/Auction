@@ -2,21 +2,58 @@ const route = require('express').Router();
 const productModel = require('../../models/product.model')
 const categoryModel = require('../../models/category.model');
 const sellerModel = require('../../models/seller.model');
+const bidderModel = require('../../models/bidders.model');
 const utils = require('../../utils/utils');
 const config = require('../../config/default.json')
 const moment = require('moment');
 //Home page
 route.get('/', async(req, res) => {
+
+    // top bid times
     let topBidTimes = await productModel.topBidTimes();
 
     for (let product of topBidTimes) {
         let current_price = await productModel.currentPrice(product.id);
-        current_price = current_price[0].price;
-        product.current_price = current_price;
+        if (current_price.length > 0) {
+            current_price = current_price[0].price;
+            product.current_price = current_price;
+        } else
+            product.current_price = product.price_start;
         //get current time
         product.remaining_time = utils.formatDuration(product.duration);
     }
-    res.render('index', { topBidTimes });
+    topBidTimes.reverse();
+
+    //About to end
+    let aboutToEnd = await productModel.aboutToEnd();
+
+    for (let product of aboutToEnd) {
+        let current_price = await productModel.currentPrice(product.id);
+        if (current_price.length > 0) {
+            current_price = current_price[0].price;
+            product.current_price = current_price;
+        } else
+            product.current_price = product.price_start;
+        //get current time
+        product.remaining_time = utils.formatDuration(product.duration);
+    }
+    aboutToEnd.reverse();
+    //top Price
+    let topPrice = await productModel.topPrice();
+
+    for (let product of topPrice) {
+        let current_price = await productModel.currentPrice(product.id);
+        if (current_price.length > 0) {
+            current_price = current_price[0].price;
+            product.current_price = current_price;
+        } else
+            product.current_price = product.price_start;
+        //get current time
+        product.remaining_time = utils.formatDuration(product.duration);
+    }
+    console.log(topPrice);
+
+    res.render('index', { topBidTimes, aboutToEnd, topPrice });
 });
 //about view
 route.get('/about', (req, res) => {

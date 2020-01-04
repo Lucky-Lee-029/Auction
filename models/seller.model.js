@@ -51,5 +51,5 @@ module.exports = {
         };
         db.add('sellers', condition);
     },
-    nameOfSeller: (id) => db.load(`select name from bidders join sellers on bidders.id = sellers.bidder_id where sellers.id = ${id}`)
+    nameOfSeller: (id) => db.load(`select name from bidders join sellers on bidders.id = sellers.seller_id where sellers.id = ${id}`)
 };

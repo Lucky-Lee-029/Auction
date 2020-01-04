@@ -71,10 +71,11 @@ module.exports = {
     //edit descritionn
     editDes: (id, des) => db.load(`UPDATE products Set description="${des}" WHERE id=${id}`),
 
-    countByCate: async(id)=>{
-        const rows=await db.load(`select count(*) as total from products JOIN product_categories ON products.id=product_categories.product_id WHERE product_categories.category_id=${id}`)
+    countByCate: async(id) => {
+        const rows = await db.load(`select count(*) as total from products JOIN product_categories ON products.id=product_categories.product_id WHERE product_categories.category_id=${id}`)
         return rows[0].total;
-    }
-
+    },
+    aboutToEnd: () => db.load("SELECT * FROM `products` WHERE duration > NOW() ORDER BY duration LIMIT 5"),
+    topPrice: () => db.load("SELECT * FROM products pd, history_auctions ha  WHERE pd.duration > NOW() and ha.product_id = pd.id and not EXISTS (SELECT * from history_auctions ha1 WHERE ha1.product_id = pd.id and ha1.price > ha.price) ORDER BY ha.price DESC LIMIT 5"),
     bidTimes: (id) => db.load(`SELECT COUNT(*) as bidTimes FROM history_auctions WHERE product_id = ${id}`)
 }
