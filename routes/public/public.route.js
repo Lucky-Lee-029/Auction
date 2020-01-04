@@ -5,7 +5,7 @@ const sellerModel = require('../../models/seller.model');
 const utils = require('../../utils/utils');
 const moment = require('moment');
 //Home page
-route.get('/', async(req, res) => {
+route.get('/', async (req, res) => {
     let topBidTimes = await productModel.topBidTimes();
 
     for (let product of topBidTimes) {
@@ -15,24 +15,28 @@ route.get('/', async(req, res) => {
         //get current time
         product.remaining_time = utils.formatDuration(product.duration);
     }
-    res.render('index', { topBidTimes });
+    res.render('index', {
+        topBidTimes
+    });
 });
 //about view
 route.get('/about', (req, res) => {
-        res.render('about');
-    })
-    //contact view
+    res.render('about');
+})
+//contact view
 route.get('/contact', (req, res) => {
-        res.render('contact');
-    })
-    //Product for each category
-route.get('/category/:id', async(req, res) => {
+    res.render('contact');
+})
+//Product for each category
+route.get('/category/:id', async (req, res) => {
     const id = req.params.id;
     const data = await productModel.productCategory(id);
-    res.render('list_product', { data });;
+    res.render('list_product', {
+        data
+    });;
 })
 
-route.get('/product/:id', async(req, res) => {
+route.get('/product/:id', async (req, res) => {
     const id = req.params.id;
     let product = await productModel.single(id);
     product = product[0];
@@ -45,7 +49,9 @@ route.get('/product/:id', async(req, res) => {
     product.seller_name = seller_name[0].name;
     product.end_time = utils.formatDuration(product.duration);
     console.log(product)
-    res.render('guest/Product', { product });
+    res.render('guest/Product', {
+        product
+    });
 
 });
 

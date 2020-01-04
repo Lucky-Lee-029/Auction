@@ -68,5 +68,12 @@ module.exports = {
         });
     },
 
+    listEnd: (id) => db.load(`SELECT p.name as name, p.id as id, b.id as win, h.price as price, p.price_start as started, p.price_end as ended, p.step as step 
+    FROM products p, history_auctions h, bidders b 
+    WHERE p.seller_id=${id} AND p.id=h.product_id AND h.bidder_id=b.id AND 
+    h.price=(SELECT price from 
+        history_auctions JOIN bidders on history_auctions.bidder_id = bidders.id 
+        WHERE product_id= p.id and history_auctions.status = 1 ORDER BY price DESC LIMIT 1)`),
+
     editDes: (id, des) => db.load(`UPDATE products Set description="${des}" WHERE id=${id}`)
 }

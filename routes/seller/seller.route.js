@@ -76,9 +76,12 @@ seller_route.get('/profile', (req, res) => {
         layout: 'seller'
     });
 });
-seller_route.get('/end', (req, res) => {
+seller_route.get('/end', async (req, res) => {
+    var id = req.user.id;
+    var data = await productModel.listEnd(id);
     res.render('seller/product-ended', {
-        layout: 'seller'
+        layout: 'seller',
+        data
     });
 });
 seller_route.get('/add', async (req, res) => {
@@ -120,7 +123,8 @@ seller_route.post('/editDescription', async (req, res) => {
 seller_route.get('/remaining', async (req, res) => {
     var get = await sellerModel.sellId(req.user.id);
     var id = JSON.parse(JSON.stringify(get))[0];
-    var items = await sellerModel.allActive(id.seller_id);
+    var day = moment().format();
+    var items = await sellerModel.allActive(id.seller_id, day);
     res.render('seller/product-remaining', {
         layout: 'seller',
         items
