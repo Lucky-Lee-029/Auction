@@ -62,13 +62,24 @@ route.get('/product/:id', async(req, res) => {
     let product = await productModel.single(id);
     product = product[0];
     let categories = await categoryModel.cateOfProduct(id);
-    let currentPrice = await productModel.currentPrice(id);
     product.categories = categories;
-    product.price = currentPrice[0].price;
-    product.winner_name = currentPrice[0].name;
+    product.seller_review = "" + await bidderModel.pointReviews(product.seller_id) + "/" + await bidderModel.totalReviews(product.seller_id);
+    let currentPrice = await productModel.currentPrice(id);
+    if (currentPrice.length > 0) {
+        product.hasWinner = true;
+        product.price = currentPrice[0].price;
+        product.winner_name = currentPrice[0].name;
+        product.winner_review = "" + await bidderModel.pointReviews(currentPrice[0].id) + "/" + await bidderModel.totalReviews(currentPrice[0].id);
+        let bidTimes = await productModel.bidTimes(product.id);
+        product.bidTimes = bidTimes[0].bidTimes;
+    } else {
+        product.price = product.price_start;
+        product.hasWinner = false;
+    }
     let seller_name = await sellerModel.nameOfSeller(product.seller_id);
     product.seller_name = seller_name[0].name;
     product.end_time = utils.formatDuration(product.duration);
+    console.log(product);
     res.render('guest/Product', { product });
 
 });
