@@ -262,11 +262,24 @@ INSERT INTO `seller_managers` (`name`, `icon`, `parent_id`) VALUES
 DROP TABLE IF EXISTS `upgrade_requests`;
 CREATE TABLE `upgrade_requests` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `bidder_id` int(10) unsigned DEFAULT NULL,
+  `bidder_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `upgrade_requests_bidder_id_foreign` (`bidder_id`),
   CONSTRAINT `upgrade_requests_bidder_id_foreign` FOREIGN KEY (`bidder_id`) REFERENCES `bidders` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `wish_lists`;
+CREATE TABLE `wish_lists` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `bidder_id` int(10) unsigned NOT NULL,
+  `product_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `products_product_id_wish_list_foreign` (`product_id`),
+  KEY `bidders_bidder_id_wish_list_foreign` (`bidder_id`),
+  CONSTRAINT `products_product_id_wish_list_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  CONSTRAINT `bidders_bidder_id_wish_list_foreign` FOREIGN KEY (`bidder_id`) REFERENCES `bidders` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 
 
 
