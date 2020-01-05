@@ -2,6 +2,7 @@ const seller_route = require('express').Router();
 const bodyParser = require('body-parser');
 const sellerModel = require('../../models/seller.model');
 const productModel = require('../../models/product.model');
+const catModel = require('../../models/category.model.js');
 const multer = require('multer');
 const cookie = require('cookie-parser');
 const moment = require('moment');
@@ -144,7 +145,6 @@ seller_route.post('/add', upload.array('fuMain', 5), async (req, res, next) => {
             errorcode = err;
         });
     }
-
     await sellerModel.insert(
         proId.id + 1,
         id.seller_id,
@@ -157,6 +157,9 @@ seller_route.post('/add', upload.array('fuMain', 5), async (req, res, next) => {
         create_at,
         dua
     );
+    var catProId = proId.id + 1;
+    var cat = req.body.parent_id;
+    await catModel.addProduct(cat, catProId);
     res.render('seller/add-success', {
         layout: 'seller'
     });
