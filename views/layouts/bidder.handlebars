@@ -1,473 +1,305 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en-US">
+<html lang="en">
 
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="author" content="SemiColonWeb" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/logo-icon1.png">
-
-    <!-- Stylesheets
-    ============================================= -->
-    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400i,700%7CMontserrat:300,400,500,600,700%7CMerriweather:300,400,300i,400i" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="/css/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="/css/style.css" type="text/css" />
-    <link rel="stylesheet" href="/css/mystyle.css">
-    <link rel="stylesheet" href="/css/dark.css" type="text/css" />
-    <link rel="stylesheet" href="/css/shop.css" type="text/css" />
-    <link rel="stylesheet" href="/css/fonts-shop.css" type="text/css" />
-    <link rel="stylesheet" href="/css/font-icons.css" type="text/css" />
-    <link rel="stylesheet" href="/css/animate.css" type="text/css" />
-    <link rel="stylesheet" href="/css/magnific-popup.css" type="text/css" />
-    <link rel="stylesheet" href="/css/responsive.css" type="text/css" />
-    <link rel="stylesheet" href="/css/colors.css" type="text/css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Document Title
-    ============================================= -->
-    <title>Auction online</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.png">
+    <title>Auction</title>
+    <!-- chartist CSS -->
+    <link href="/assets/node_modules/morrisjs/morris.css" rel="stylesheet">
+    <link href="/dist/css/pages/ecommerce.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/dist/css/style.min.css" rel="stylesheet">
+    <link href="/dist/css/pages/dashboard4.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 </head>
 
-<body class="stretched">
-
-	<!-- Document Wrapper
-	============================================= -->
-	<div id="wrapper" class="clearfix">
-
-		<div class="modal1 mfp-hide" id="modal-register">
-            <div class="card divcenter" style="max-width: 540px;">
-                <div class="card-header py-3 nobg center">
-                    <h3 class="mb-0 t400">Hello, Welcome Action Online</h3>
-                </div>
-                <div class="card-body divcenter py-5" style="max-width: 70%;">
-
-                    <a href="#" class="button button-large btn-block si-colored si-facebook nott t400 ls0 center nomargin"><i class="icon-facebook-sign"></i> Log in with Facebook</a>
-
-                    <div class="divider divider-center"><span class="position-relative" style="top: -2px">OR</span></div>
-
-                    <form id="login-form" name="login-form" class="nobottommargin row" action="#" method="post">
-
-                        <div class="col-12">
-                            <input type="text" id="login-form-username" name="login-form-username" value="" class="form-control not-dark" placeholder="Username" />
-                        </div>
-
-                        <div class="col-12 mt-4">
-                            <input type="password" id="login-form-password" name="login-form-password" value="" class="form-control not-dark" placeholder="Password" />
-                        </div>
-
-                        <div class="col-12">
-                            <a href="#" class="fright text-dark t300 mt-2">Forgot Password?</a>
-                        </div>
-
-                        <div class="col-12 mt-4">
-                            <button class="button btn-block nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="card-footer py-4 center">
-                    <p class="mb-0">Don't have an account? <a href="guest/Register.html"><u>Sign up</u></a></p>
-                </div>
-            </div>
+<body class="skin-default fixed-layout">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">Auction online</p>
         </div>
-		<div id="top-bar" class="dark" style="background-color: #a3a5a7;">
-
-            <div class="container clearfix">
-
-                <div class="row justify-content-between">
-
-                    <div class="col-lg-5 nobottommargin">
-
-                        <p class="nobottommargin d-flex justify-content-center justify-content-lg-start"><strong>Free Shipping on Order above $99. Easy Returns.</strong></p>
-
-                    </div>
-
-                    <div class="col-lg-7 d-none d-lg-flex justify-content-end">
-
-                        <!-- Top Links
-						============================================= -->
-                        <div class="top-links">
-                            <ul>
-                                <li><a href="About.html">About</a></li>
-                                <li><a href="FAQ.html">FAQS</a></li>
-                                <li><a href="Blog.html">Blogs</a></li>
-                                <li><a href="#">EN</a>
-                                    <ul>
-                                        <li>
-                                            <a href="#"><img src="/images/french.png" alt="French"> FR</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><img src="/images/italian.png" alt="Italian"> IT</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><img src="/images/german.png" alt="German"> DE</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li></li>
-                            </ul>
-                        </div>
-                        <!-- .top-links end -->
-
-                        <!-- Top Social
-						============================================= -->
-                        <div id="top-social">
-                            <ul>
-                                <li><a href="#" class="si-facebook"><span class="ts-icon"><i class="icon-facebook"></i></span><span class="ts-text">Facebook</span></a></li>
-                                <li><a href="#" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span><span class="ts-text">Instagram</span></a></li>
-                                <li><a href="tel:+91.11.85412542" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">+91.11.85412542</span></a></li>
-                                <li><a href="mailto:info@canvas.com" class="si-email3"><span class="ts-icon"><i class="icon-envelope-alt"></i></span><span class="ts-text">info@canvas.com</span></a></li>
-                            </ul>
-                        </div>
-                        <!-- #top-social end -->
-
-                    </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <!-- ============================================================== -->
+                <!-- Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="dashboard.html">
+                        <b>
+                        </b>
+                        <!-- Logo text -->
+                        <span>
+                         <img src="../images/logo.png" alt="homepage" class="dark-logo" />
+                        </span>
+                    </a>
                 </div>
-
-            </div>
-
-        </div>
-
-        <!-- Header
-		============================================= -->
-        <header id="header" class="full-header clearfix">
-
-            <div id="header-wrap">
-
-                <div class="container clearfix">
-
-                    <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
-
-                    <!-- Logo
-					============================================= -->
-                    <div id="logo">
-                        <a href="index.html" class="standard-logo"><img src="/images/logo.png" alt="Auction Logo" class="p-3"></a>
-                    </div>
-                    <!-- #logo end -->
-
-                    <!-- Primary Navigation
-					============================================= -->
-                    <nav id="primary-menu" class="style-2 with-arrows">
-
-                        <ul>
-                            <li>
-                                <a href="Index.html">
-                                    <div>Home</div>
-                                </a>
-                            </li>
-                            <!-- Mega Menu
-							============================================= -->
-
-                            <li>
-                                <a href="#">
-                                    <div>Product</div>
-                                </a>
-                                <div class="mega-menu-content style-2 clearfix row">
-                                    <div>
-                                        <ul class="menu-level-1">
-                                            {{#each this.cate.parent }}
-                                            <li class="p-1">
-                                                <a href="/category/{{id}}">
-                                                    <div>{{name}}</div>
-                                                </a>
-                                            </li>
-                                            {{/each}}
-                                        </ul>
-                                    </div>
-                                    <div class="menu-level-2">
-                                        {{#each this.cate.parent}}
-                                            <div style="display:none">
-                                                <ul>
-                                                    {{#if this.hasChild}}
-                                                    {{#each this.children}}
-                                                        <li class="p-1">
-                                                            <a href="/category/{{id}}">
-                                                                <div>{{name}}</div>
-                                                            </a>
-                                                        </li>
-                                                    {{/each}}
-                                                    {{/if}}
-                                                </ul>
-                                            </div>
-                                        {{/each}}
-                                    </div>
-
-                                </div>
-                            </li>
-                            <!-- .mega-menu end -->
-                            <li>
-                                <a href="About.html">
-                                    <div>About Us</div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="Contact.html">
-                                    <div>Contact</div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="FAQ.html">
-                                    <div>FAQS</div>
-                                </a>
-                            </li>
-                        </ul>
-
-                        <!-- Top Search
-						============================================= -->
-                        <div id="top-search">
-                            <a href="#" id="top-search-trigger"><i class="icon-line-search"></i><i class="icon-line-cross"></i></a>
-                            <form action="search.html" method="get">
-                                <input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav mr-auto">
+                        <!-- This is  -->
+                        <li class="nav-item"> <a class="nav-link nav-toggler d-block d-sm-none waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                        <li class="nav-item"> <a class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark" href="javascript:void(0)"><i class="icon-menu"></i></a> </li>
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item">
+                            <form class="app-search d-none d-md-block d-lg-block">
+                                <input type="text" class="form-control" placeholder="Search & enter">
                             </form>
-                        </div>
-                        <!-- #top-search end -->
+                        </li>
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- User profile and search -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav my-lg-0">
+                        <!-- ============================================================== -->
+                        <!-- Comment -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="ti-email"></i>
+                                <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown">
+                                <ul>
+                                    <li>
+                                        <div class="drop-title">Notifications</div>
+                                    </li>
+                                    <li>
+                                        <div class="message-center">
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)">
+                                                <div class="btn btn-danger btn-circle"><i class="fa fa-link"></i></div>
+                                                <div class="mail-contnet">
+                                                    <h5>Luanch Admin</h5> <span class="mail-desc">Just see the my new admin!</span> <span class="time">9:30 AM</span> </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)">
+                                                <div class="btn btn-success btn-circle"><i class="ti-calendar"></i></div>
+                                                <div class="mail-contnet">
+                                                    <h5>Event today</h5> <span class="mail-desc">Just a reminder that you have event</span> <span class="time">9:10 AM</span> </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)">
+                                                <div class="btn btn-info btn-circle"><i class="ti-settings"></i></div>
+                                                <div class="mail-contnet">
+                                                    <h5>Settings</h5> <span class="mail-desc">You can customize this template as you want</span> <span class="time">9:08 AM</span> </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)">
+                                                <div class="btn btn-primary btn-circle"><i class="ti-user"></i></div>
+                                                <div class="mail-contnet">
+                                                    <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span> </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link text-center link" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- End Comment -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- Messages -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="icon-note"></i>
+                                <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                            </a>
+                            <div class="dropdown-menu mailbox dropdown-menu-right animated bounceInDown" aria-labelledby="2">
+                                <ul>
+                                    <li>
+                                        <div class="drop-title">You have 4 new messages</div>
+                                    </li>
+                                    <li>
+                                        <div class="message-center">
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)">
+                                                <div class="user-img"> <img src="/assets/images/users/1.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
+                                                <div class="mail-contnet">
+                                                    <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:30 AM</span> </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)">
+                                                <div class="user-img"> <img src="/assets/images/users/2.jpg" alt="user" class="img-circle"> <span class="profile-status busy pull-right"></span> </div>
+                                                <div class="mail-contnet">
+                                                    <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span> <span class="time">9:10 AM</span> </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)">
+                                                <div class="user-img"> <img src="/assets/images/users/3.jpg" alt="user" class="img-circle"> <span class="profile-status away pull-right"></span> </div>
+                                                <div class="mail-contnet">
+                                                    <h5>Arijit Sinh</h5> <span class="mail-desc">I am a singer!</span> <span class="time">9:08 AM</span> </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)">
+                                                <div class="user-img"> <img src="/assets/images/users/4.jpg" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>
+                                                <div class="mail-contnet">
+                                                    <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span> </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link text-center link" href="javascript:void(0);"> <strong>See all e-Mails</strong> <i class="fa fa-angle-right"></i> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- End Messages -->
+                        <!-- ============================================================== -->
 
-                        <!-- Top Cart
-						============================================= -->
-
-                        <!-- Top Search
-						============================================= -->
-                        <div id="top-account">
-                            <a href="#modal-register" data-lightbox="inline"><i class="icon-line2-user mr-1 position-relative" style="top: 1px;"></i><span class="d-none d-sm-inline-block font-primary t500">Login</span></a>
-                        </div>
-                        <!-- #top-search end -->
-
-                    </nav>
-                    <!-- #primary-menu end -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle  u-dropdown link hide-menu" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ti-settings"></i>
+                                </a>
+                            <div class="dropdown-menu dropdown-menu-right animated flipInY">
+                                <!-- text-->
+                                <a href="javascript:void(0)" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
+                                <!-- text-->
+                                <div class="dropdown-divider"></div>
+                                <!-- text-->
+                                <a href="login.html" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
+                                <!-- text-->
+                            </div>
+                        </li>
+                    </ul>
 
                 </div>
-
-            </div>
-
+            </nav>
         </header>
-
-		<!-- Content
-		============================================= -->
-		<section id="content">
-
-			<div class="content-wrap">
-
-				<div class="container clearfix">
-
-					<div class="row clearfix">
-
-						<div class="col-md-9">
-                            {{{body}}}
-                        </div>
-
-						<div class="w-100 line d-block d-md-none"></div>
-
-						<div class="col-md-3 clearfix">
-
-							<div class="list-group">
-								<a href="/" class="list-group-item list-group-item-action clearfix">Infomation<i class="icon-user float-right"></i></a>
-								<a href="/product" class="list-group-item list-group-item-action clearfix">Product<i class="icon-cog float-right"></i></a>
-								<a href="/product-bidding" class="list-group-item list-group-item-action clearfix">Product Bidding<i class="icon-cog float-right"></i></a>
-								<a href="/product-won" class="list-group-item list-group-item-action clearfix">Product Win<i class="icon-cog float-right"></i></a>
-								<a href="/product-wishlist" class="list-group-item list-group-item-action clearfix">Wishlist<i class="icon-cog float-right"></i></a>
-                                <a href="/update-to-seller" class="list-group-item list-group-item-action clearfix">Upgrade to seller<i class="icon-laptop2 float-right"></i></a>
-								<a href="/feedback" class="list-group-item list-group-item-action clearfix">Feed back<i class="icon-envelope2 float-right"></i></a>
-								<a href="/password" class="list-group-item list-group-item-action clearfix">Update Password<i class="icon-envelope2 float-right"></i></a>
-								<a href="/uplevel" class="list-group-item list-group-item-action clearfix">Upgrade To Seller<i class="icon-envelope2 float-right"></i></a>
-								
-							</div>
-
-							<div class="fancy-title topmargin title-border">
-								<h4>About Me</h4>
-							</div>
-
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum laboriosam, dignissimos veniam obcaecati. Quasi eaque, odio assumenda porro explicabo laborum!</p>
-
-							<div class="fancy-title topmargin title-border">
-								<h4>Social Profiles</h4>
-							</div>
-
-							<a href="#" class="social-icon si-facebook si-small si-rounded si-light" title="Facebook">
-								<i class="icon-facebook"></i>
-								<i class="icon-facebook"></i>
-							</a>
-
-							<a href="#" class="social-icon si-gplus si-small si-rounded si-light" title="Google+">
-								<i class="icon-gplus"></i>
-								<i class="icon-gplus"></i>
-							</a>
-
-							<a href="#" class="social-icon si-dribbble si-small si-rounded si-light" title="Dribbble">
-								<i class="icon-dribbble"></i>
-								<i class="icon-dribbble"></i>
-							</a>
-
-							<a href="#" class="social-icon si-flickr si-small si-rounded si-light" title="Flickr">
-								<i class="icon-flickr"></i>
-								<i class="icon-flickr"></i>
-							</a>
-
-							<a href="#" class="social-icon si-linkedin si-small si-rounded si-light" title="LinkedIn">
-								<i class="icon-linkedin"></i>
-								<i class="icon-linkedin"></i>
-							</a>
-
-							<a href="#" class="social-icon si-twitter si-small si-rounded si-light" title="Twitter">
-								<i class="icon-twitter"></i>
-								<i class="icon-twitter"></i>
-							</a>
-
-						</div>
-
-					</div>
-
-				</div>
-
-			</div>
-
-		</section><!-- #content end -->
-
-		<!-- Footer
-		============================================= -->
-		<footer id="footer " class="nobg noborder ">
-
-            <div class="container clearfix ">
-
-                <!-- Footer Widgets
-				============================================= -->
-                <div class="footer-widgets-wrap pb-3 border-bottom clearfix ">
-
-                    <div class="row ">
-
-                        <div class="col-lg-2 col-md-3 col-6 ">
-                            <div class="widget clearfix ">
-
-                                <h4 class="ls0 mb-3 nott ">Features</h4>
-
-                                <ul class="list-unstyled iconlist ml-0 ">
-                                    <li><a href="# ">Help Center</a></li>
-                                    <li><a href="# ">Paid with Moblie</a></li>
-                                    <li><a href="# ">Status</a></li>
-                                    <li><a href="# ">Changelog</a></li>
-                                    <li><a href="# ">Contact Support</a></li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-3 col-6 ">
-                            <div class="widget clearfix ">
-
-                                <h4 class="ls0 mb-3 nott ">Support</h4>
-
-                                <ul class="list-unstyled iconlist ml-0 ">
-                                    <li><a href="Index.html">Home</a></li>
-                                    <li><a href="About.html">About</a></li>
-                                    <li><a href="FAQ.html">FAQs</a></li>
-                                    <li><a href="# ">Support</a></li>
-                                    <li><a href="Contact.html">Contact</a></li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-3 col-6 ">
-                            <div class="widget clearfix ">
-
-                                <h4 class="ls0 mb-3 nott ">Trending</h4>
-
-                                <ul class="list-unstyled iconlist ml-0 ">
-                                    <li><a href="Index.html">Shop</a></li>
-                                    <li><a href="# ">Portfolio</a></li>
-                                    <li><a href="Blog.html">Blog</a></li>
-                                    <li><a href="# ">Events</a></li>
-                                    <li><a href="# ">Forums</a></li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-3 col-6 ">
-                            <div class="widget clearfix ">
-
-                                <h4 class="ls0 mb-3 nott ">Get to Know us</h4>
-
-                                <ul class="list-unstyled iconlist ml-0 ">
-                                    <li><a href="# ">Corporate</a></li>
-                                    <li><a href="# ">Agency</a></li>
-                                    <li><a href="# ">eCommerce</a></li>
-                                    <li><a href="# ">Personal</a></li>
-                                    <li><a href="# ">OnePage</a></li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-8 ">
-                            <div class="widget clearfix ">
-
-                                <h4 class="ls0 mb-3 nott ">Subscribe Now</h4>
-                                <div class="widget subscribe-widget mt-2 clearfix ">
-                                    <p class="mb-4 "><strong>Subscribe</strong> to Our Newsletter to get Important News, Amazing Offers &amp; Inside Scoops:</p>
-                                    <div class="widget-subscribe-form-result "></div>
-                                    <form id="widget-subscribe-form " action="include/subscribe.php " method="post " class="mt-1 nobottommargin d-flex ">
-                                        <input type="email " id="widget-subscribe-form-email " name="widget-subscribe-form-email " class="form-control sm-form-control required email " placeholder="Enter your Email Address ">
-
-                                        <button class="button nott t400 ml-1 my-0 " type="submit ">Subscribe Now</button>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-                <!-- .footer-widgets-wrap end -->
-
-            </div>
-
-            <!-- Copyrights
-			============================================= -->
-            <div id="copyrights " class="nobg ">
-
-                <div class="container clearfix ">
-
-                    <div class="row justify-content-between align-items-center ">
-                        <div class="col-md-6 ">
-                            Copyrights &copy; 2014 All Rights Reserved by Canvas Inc.<br>
-                            <div class="copyright-links "><a href="# ">Terms of Use</a> / <a href="# ">Privacy Policy</a></div>
-                        </div>
-
-                        <div class="col-md-6 d-md-flex flex-md-column align-items-md-end mt-4 mt-md-0 ">
-                            <div class="copyrights-menu copyright-links clearfix ">
-                                <a href="About.html">About</a>/<a href="#">Product</a>/<a href="FAQ.html">FAQs</a>/<a href="Contact.html">Contact</a>
-                            </div>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- User Profile-->
+                <div class="user-profile">
+                    <div class="user-pro-body">
+                        <div><img src="/assets/images/users/2.jpg" alt="user-img" class="img-circle"></div>
+                        <div>
+                            <h4 class="u-dropdown">Bidder</h4>
                         </div>
                     </div>
-
                 </div>
-
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li>
+                            <div class="hide-menu text-center">
+                                <div id="eco-spark"></div>
+                                <small>TOTAL EARNINGS - JUNE 2019</small>
+                                <h4>$2,478.00</h4>
+                            </div>
+                        </li>
+                        <li> <a class=" waves-effect waves-dark" href="dashboard.html" aria-expanded="false"><i class="icon-speedometer"></i><span class="hide-menu">Dashboard</span></a>
+                        </li>
+                        <li> <a class=" waves-effect waves-dark" href="./upgrade-to-seller.html" aria-expanded="false"><i class="fa fa-level-up" aria-hidden="true"></i><span class="hide-menu">Upgrade to Seller</span></a>
+                        </li>
+                        <li> <a class=" waves-effect waves-dark" href="./feedback.html" aria-expanded="false"><i class="fa fa-comment-o" aria-hidden="true"></i><span class="hide-menu">Feedback</span></a>
+                        </li>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-user"></i><span class="hide-menu">Update Infomation</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="update-info.html">Personal Infomation</a></li>
+                                <li><a href="update-password.html">Password</a></li>
+                            </ul>
+                        </li>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-layout-grid2"></i><span class="hide-menu">Product</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="product-wishlist.html">Watchlist</a></li>
+                                <li><a href="product-bidding.html">Bidding Product</a></li>
+                                <li><a href="product-won.html">Won Product</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
             </div>
-            <!-- #copyrights end -->
-
-
+            <!-- End Sidebar scroll-->
+        </aside>
+        {{{body}}}
+        <footer class="footer">
         </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
 
-	</div><!-- #wrapper end -->
-
-	<!-- Go To Top
-	============================================= -->
-	<div id="gotoTop" class="icon-angle-up"></div>
-
-	<!-- External JavaScripts
-	============================================= -->
-	 {{{_sections.footer}}}
-    <!-- External JavaScripts
-	============================================= -->
-    <script src="/js/jquery.js "></script>
-    <script src="/js/plugins.js "></script>
-
-    <!-- Footer Scripts
-	============================================= -->
-    <script src="/js/functions.js "></script>
-    <script src="/js/myjs.js"></script>
-    <!-- ADD-ONS JS FILES -->
-
-	<script>
-		jQuery( "#tabs-profile" ).on( "tabsactivate", function( event, ui ) {
-			jQuery( '.flexslider .slide' ).resize();
-		});
-	</script>
-
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="/assets/node_modules/jquery/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="/assets/node_modules/popper/popper.min.js"></script>
+    <script src="/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="/dist/js/perfect-scrollbar.jquery.min.js"></script>
+    <!--Wave Effects -->
+    <script src="/dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="/dist/js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="/assets/node_modules/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <script src="/assets/node_modules/sparkline/jquery.sparkline.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="/dist/js/custom.min.js"></script>
+    <script src="/assets/node_modules/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <!-- ============================================================== -->
+    <!-- This page plugins -->
+    <!-- ============================================================== -->
+    <!--morris JavaScript -->
+    <script src="/assets/node_modules/raphael/raphael-min.js"></script>
+    <script src="/assets/node_modules/morrisjs/morris.min.js"></script>
+    <!--Custom JavaScript -->
+    <!-- This is data table -->
+    <script src="/assets/node_modules/datatables/jquery.dataTables.min.js"></script>
+    <!-- start - This is for export functionality only -->
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+    <!-- end - This is for export functionality only -->
+    <script src="/dist/js/dashboard4.js"></script>
 </body>
 
 </html>

@@ -17,6 +17,7 @@ CREATE TABLE `bidders` (
   `birthday` timestamp NULL DEFAULT NULL,
   `password` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0: not verified, 1: verified, 2: blocked',
+  `facebook_id` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `bidders_email_unique` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -262,7 +263,7 @@ INSERT INTO `seller_managers` (`name`, `icon`, `parent_id`) VALUES
 DROP TABLE IF EXISTS `upgrade_requests`;
 CREATE TABLE `upgrade_requests` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `bidder_id` int(10) NOT NULL,
+  `bidder_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `upgrade_requests_bidder_id_foreign` (`bidder_id`),
   CONSTRAINT `upgrade_requests_bidder_id_foreign` FOREIGN KEY (`bidder_id`) REFERENCES `bidders` (`id`)
