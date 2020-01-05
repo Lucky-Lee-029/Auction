@@ -1,8 +1,8 @@
 <section id="page-title">
     <div class="container clearfix">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            {{#if isCate}}
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            {{#if cate}}
                 <li class="breadcrumb-item">products</li>
                 <li class="breadcrumb-item active" aria-current="page">{{cate.name}}</li>
             {{else}}
@@ -15,7 +15,7 @@
 <!-- Content
 ============================================= -->
 <section id="content">
-
+    <p style="display:none">{{user.id}}</p>
     <div class="content-wrap">
 
         <div class="container clearfix">
@@ -35,8 +35,9 @@
                             </div>
                         </div>
                         <div class="product-overlay">
-                            <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
-                            <a href="include/ajax/shop-item.html" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                            <p style="display:none">{{id}}</p>
+                            <a href="javascript:void(0);"  id="add"><i class="icon-heart"></i><span> Wish list</span></a>
+                            <a href="/include/ajax/shop-item.hbs" class="item-quick-view" data-lightbox="ajax"><i class="icon-eye"></i><span> Quick View</span></a>
                         </div>
                     </div>
                     <div class="product-desc">
@@ -78,4 +79,16 @@
     </div>
 
 </section>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+<script>
+    $('#add').on("click", function(){
+        var div =$(this).parents('div').first();
+        var child= div.children();
+        var id=parseInt(child[0].innerHTML);
+        $.post('/wishlist/add', {id:id});
+    });
+</script>
 <!-- #content end -->

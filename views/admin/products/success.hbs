@@ -41,15 +41,14 @@
                                         <td>{{id}}</td>
                                         <td>{{name}}</td>
                                         <td>
-                                            {{#each this.Image}}
-                                                <img src="{{this.image}}" height="50px">
-                                            {{/each}}
+                                            <img src="/images/product/{{id}}/1.jpg" height="60px">
+                                            <img src="/images/product/{{id}}/2.jpg" height="60px">
+                                            <img src="/images/product/{{id}}/3.jpg" height="60px">
                                         </td>
                                         <td> {{this.seller.name}}</td>
                                         <td>{{this.Win}}</td>
                                         <td>{{this.Price}}</td>
                                         <td class="text-nowrap">
-                                            <a href="/admin/product/delete/{{this.id}}" data-toggle="tooltip" data-original-title="Delete"> <i class="fa fa-close text-danger p-r-5"></i> </a>
                                             <a href="/product/{{this.id}}" data-toggle="tooltip" data-original-title="View"> <i class="fa fa-eye text-inverse"></i> </a>
                                         </td>
                                     </tr>
