@@ -1,3 +1,4 @@
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 
 
                 <!-- ============================================================== -->
@@ -52,9 +53,9 @@
                                                 <td>{{step}}</td>
                                                 <td>{{price}}</td>
                                                 <td>{{win}}</td>
+                                                <td style="display:none">{{bidder}}</td>
                                                 <td>
-                                                    <a href="#" class="col-12 btn btn-success mr-1" data-toggle="modal" data-target="#feedbackModal">Feedback</a>
-
+                                                    <a href="#myModal" class="col-12 btn btn-success mr-1" data-toggle="modal" data-target="#my-modal" id="my-modal">Feedback</a>
                                                     <a href="#" class="col-12 btn btn-danger">Refuse</a>
                                                 </td>
                                             </tr>
@@ -68,7 +69,7 @@
                     </div>
                 </div>
                 <!-- ============================================================== -->
-    <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{!-- <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -110,5 +111,63 @@
                 </div>
             </div>
         </div>
+    </div> --}}
+
+   <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Feedback</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form action="./feedback" method="POST">
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <input type="text" name="message" id="message" class="form-control" placeholder="Enter message" required>
+                </div>
+                <div class="form-group">
+                    <label for="rating">Rating</label> <br>
+                    <input type="radio" name="rating" value="1" checked> Like
+                    <input type="radio" name="rating" value="0"> Dislike
+                </div>
+                <div class="form-group">
+                    {{!-- <label for="message">Product Id</label> --}}
+                    <input style="display: none" type="number" name="product" id="product" class="form-control" value="1">
+                </div>
+                <div class="form-group">
+                    {{!-- <label for="message">Bidder Id</label> --}}
+                    <input style="display: none" type="number" name="bidder" id="bidder" class="form-control" value="1">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success" id="submit">Send</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+          </form>
+        </div>
+        <!-- Modal footer -->
+
+        
+      </div>
     </div>
-   
+  </div>
+
+<script>
+    $('#my-modal').on('click', function() {
+        console.log("cam hia baby");
+        var tr =$(this).parents('tr').first();
+        var child= tr.children();
+        var product=parseInt(child[0].innerHTML);
+        var bidder=parseInt(child[7].innerHTML);
+        console.log(product);
+        console.log(bidder);
+        $(".modal-body #product").val(product);
+        $(".modal-body #bidder").val(bidder);
+        $("#myModal").modal('show');
+    });
+</script>
+  
