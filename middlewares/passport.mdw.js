@@ -71,7 +71,6 @@ module.exports = function (app, passport) {
                 return res.redirect("/register");
             } else {
                 let hashPassword = bcrypt.hashSync(req.body.password, config.bcrypt.init);
-                console.log(req.body);
                 var name = req.body.name;
                 var birthday = req.body.birthday;
                 var email = req.body.email;
