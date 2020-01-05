@@ -54,6 +54,6 @@ module.exports = {
     feedback: (product, bidder, love, review, create) => db.load(
         `INSERT INTO bidder_reviews (product_id, bidder_id, love, review, created_at) VALUES (${product}, ${bidder}, ${love}, "${review}","${create}") `
     ),
-    nameOfSeller: (id) => db.load(`select name from bidders join sellers on bidders.id = sellers.bidder_id where sellers.id = ${id}`)
+    nameOfSeller: (id) => db.load(`select name from bidders where bidders.id = ${id}`)
 
 };
