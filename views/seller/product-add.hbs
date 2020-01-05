@@ -18,7 +18,22 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 
+<script>
+    $('#submit').on('click', function(){
+        console.log("ahihi vào duoc roi ne");
+        var $fileUpload = $("#fumain");
+        console.log($fileUpload.get(0).files.length);
+        if (parseInt($fileUpload.get(0).files.length)>7){
+         alert("You can only upload a maximum of 7 files");
+        }
+        if (parseInt($fileUpload.get(0).files.length)<3){
+         alert("You can only upload a minimum of 3 files");
+        }
+    };
+    )
+</script>
 
 {{!-- <script>
   $('#fuMain').fileinput({
@@ -151,7 +166,7 @@
 
                                     </div>
                                     <div class="form-actions">
-                                        <button  onclick="check()" type="submit" class="btn btn-success" id="submit"> <i class="fa fa-check"></i>Upload</button>
+                                        <button type="submit" class="btn btn-success" id="submit"> <i class="fa fa-check"></i>Upload</button>
                                         <button type="reset" class="btn btn-inverse">Cancel</button>
                                     </div>
                                 </form>
@@ -160,17 +175,4 @@
 
                     </div>
                 </div>
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 
-<script>
-    function check(){
-        var $fileUpload = $("#fumain");
-        console.log($fileUpload.get(0).files.length);
-        if (parseInt($fileUpload.get(0).files.length)>7){
-         alert("You can only upload a maximum of 7 files");
-        }
-        if (parseInt($fileUpload.get(0).files.length)<3){
-         alert("You can only upload a minimum of 3 files");
-        }
-    };    
-</script>
