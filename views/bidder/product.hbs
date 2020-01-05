@@ -170,6 +170,7 @@
                                     <ul class="tab-nav clearfix">
                                         <li><a href="#tabs-1"><i class="icon-align-justify2"></i><span class="d-none d-md-inline-block"> Description</span></a></li>
                                         <li><a href="#tabs-2"><i class="icon-info-sign"></i><span class="d-none d-md-inline-block"> Additional Information</span></a></li>
+                                        <li><a href="#tabs-4"><i class="icon-user"></i><span class="d-none d-md-inline-block">Auction List (1)</span></a></li>
                                     </ul>
 
                                     <div class="tab-container">
@@ -211,7 +212,40 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                        </div>
+                                        <div class="tab-content clearfix" id="tabs-4">
 
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title">Bid history</h4>
+                                                <h6 class="card-subtitle"></h6>
+                                                <div class="table-responsive">
+                                                    <table id="auction-list" class="table m-t-30 table-hover contact-list" data-page-size="10">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Time</th>
+                                                                <th>Bidder</th>
+                                                                <th>Price</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {{#each bidder}}
+                                                                <tr>
+                                                                    <td>{{tim}}</td>
+                                                                    <td>{{maskName name}}</td>
+                                                                    <td>{{price}}</td>
+                                                                </tr>
+                                                            {{/each}}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
                                         </div>
 
                                     </div>
