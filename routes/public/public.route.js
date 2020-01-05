@@ -106,6 +106,11 @@ route.get('/product/:id', async(req, res) => {
     const id = req.params.id;
     let product = await productModel.single(id);
     product = product[0];
+    if (typeof(req.user) != 'undefined') {
+        if (req.user.id == product.seller_id)
+            return res.redirect('/seller/product/' + id);
+        return res.redirect('/bidder/product/' + id);
+    }
     let categories = await categoryModel.cateOfProduct(id);
     product.categories = categories;
     product.seller_review = "" + await bidderModel.pointReviews(product.seller_id) + "/" + await bidderModel.totalReviews(product.seller_id);

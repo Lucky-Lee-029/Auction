@@ -18,15 +18,10 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 
 
-{{!-- <script>
-  $('#fuMain').fileinput({
-    theme: 'fa',
-    dropZoneEnabled: false,
-    allowedFileExtensions: ['png', 'jpg', 'gif'],
-  });
-</script> --}}
+
 
                 <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
@@ -151,7 +146,7 @@
 
                                     </div>
                                     <div class="form-actions">
-                                        <button  onclick="check()" type="submit" class="btn btn-success" id="submit"> <i class="fa fa-check"></i>Upload</button>
+                                        <button type="submit" class="btn btn-success" id="submit"> <i class="fa fa-check"></i>Upload</button>
                                         <button type="reset" class="btn btn-inverse">Cancel</button>
                                     </div>
                                 </form>
@@ -160,17 +155,22 @@
 
                     </div>
                 </div>
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 
 <script>
-    function check(){
-        var $fileUpload = $("#fumain");
-        console.log($fileUpload.get(0).files.length);
-        if (parseInt($fileUpload.get(0).files.length)>7){
-         alert("You can only upload a maximum of 7 files");
-        }
-        if (parseInt($fileUpload.get(0).files.length)<3){
-         alert("You can only upload a minimum of 3 files");
-        }
-    };    
+    $(document).ready(function() {
+      $("#submit").click(function() {
+          var started=$("#start-price");
+          var start=parseInt(started.val());
+          var ended=$("#end-price");
+          var end=parseInt(ended.val());
+        if(end<start){
+            alert("Start price can not higher end price")
+        };
+          var fileUpload = $("#fuMain");
+          if (parseInt(fileUpload.get(0).files.length) < 3) {
+              alert("Upload minimum 3 files");
+              fileUpload.val("");
+          }
+      });
+  });
 </script>

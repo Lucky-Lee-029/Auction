@@ -19,19 +19,21 @@ module.exports = {
     name: (id) => db.load(`select name from ${tableName} where id=${id}`),
     singleByEmail: (email) => db.load(`select * from ${tableName} where email = '${email}'`),
     singleByFacebookId: (fbId) => db.load(`select * from ${tableName} where facebook_id = '${fbId}'`),
-    totalReviews: async (id) => {
+    totalReviews: async(id) => {
         const rows = await db.load(`select count(*) as total from bidders JOIN seller_reviews ON bidders.id=seller_reviews.bidder_id WHERE bidders.id=${id}`)
         return rows[0].total;
     },
-    pointReviews: async (id) => {
+    pointReviews: async(id) => {
         const rows = await db.load(`select count(*) as total from bidders JOIN seller_reviews ON bidders.id=seller_reviews.bidder_id WHERE bidders.id=${id} and seller_reviews.love=1`)
         return rows[0].total;
     },
-    count: async () => {
+    count: async() => {
         const rows = await db.load(`select count(*) as total from bidders`)
         return rows[0].total;
     },
     feedback: (product, bidder, love, review, create) => {
         db.load(`INSERT INTO seller_reviews (product_id, bidder_id, love, review, created_at) VALUES (${product}, ${bidder}, ${love}, "${review}","${create}")`)
-    }
+    },
+    canBid: (id, productId) =>
+        db.load(`SELECT * FROM blocked_auctions WHERE product_id = ${productId} and bidder_id = ${id}`)
 }
