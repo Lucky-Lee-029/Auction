@@ -6,8 +6,9 @@ const bidderModel = require('../../models/bidders.model');
 const utils = require('../../utils/utils');
 const config = require('../../config/default.json')
 const moment = require('moment');
+
 //Home page
-route.get('/', async(req, res) => {
+route.get('/', async (req, res) => {
     let topBidTimes = await productModel.topBidTimes();
 
     for (let product of topBidTimes) {
@@ -63,7 +64,7 @@ route.get('/about', (req, res) => {
 })
 
 //Product for each category
-route.get('/category/:id', async(req, res) => {
+route.get('/category/:id', async (req, res) => {
     const limit = config.paginate.limit1;
     const page = req.query.page || 1;
     if (page < 1) page = 1;
@@ -93,11 +94,11 @@ route.get('/category/:id', async(req, res) => {
     })
 })
 
-route.get('/product/:id', async(req, res) => {
+route.get('/product/:id', async (req, res) => {
     const id = req.params.id;
     let product = await productModel.single(id);
     product = product[0];
-    if (typeof(req.user) != 'undefined') {
+    if (typeof (req.user) != 'undefined') {
         if (req.user.id == product.seller_id)
             return res.redirect('/seller/product/' + id);
         return res.redirect('/bidder/product/' + id);

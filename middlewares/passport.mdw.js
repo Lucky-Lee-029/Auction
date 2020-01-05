@@ -4,10 +4,12 @@ const bcrypt = require('bcryptjs');
 const bidderModel = require('../models/bidders.model');
 const config = require('../config/default.json');
 const facebookConfig = require('../config/facebook-login.json');
-module.exports = function(app, passport) {
+var Recaptcha = require('express-recaptcha').RecaptchaV2;
+var recaptcha = new Recaptcha('6LdVh8wUAAAAACNjGKuimXNdTvWOI6ySPQ_9ntBb', '6LdVh8wUAAAAANLiBeI__ch1NzC381x4a2lfw37W');
+module.exports = function (app, passport) {
 
 
-    passport.use('local', new LocalStrategy(async function(email, password, done) {
+    passport.use('local', new LocalStrategy(async function (email, password, done) {
         try {
             let user = await bidderModel.singleByEmail(email);
             if (user.length == 0)
@@ -21,11 +23,11 @@ module.exports = function(app, passport) {
         }
     }));
 
-    passport.serializeUser(function(user, done) {
+    passport.serializeUser(function (user, done) {
         return done(null, user.id);
     });
 
-    passport.deserializeUser(async function(id, done) {
+    passport.deserializeUser(async function (id, done) {
         var user = await bidderModel.single(id);
         return done(null, user[0]);
     });
@@ -33,14 +35,14 @@ module.exports = function(app, passport) {
     // app.post('/login', passport.authenticate('local', { failureRedirect: '/about', successRedirect: '/' }))
 
     app.post('/login', (req, res, next) => {
-        passport.authenticate('local', function(err, user) {
+        passport.authenticate('local', function (err, user) {
             if (err) return next(err);
             if (!user) {
                 req.session.loginModal = true;
                 req.session.loginMessage = "Invalid username or password";
                 return res.redirect(req.query.url);
             }
-            req.logIn(user, function(err) {
+            req.logIn(user, function (err) {
                 if (err) return next(err);
                 return res.redirect(req.query.url);
             })
@@ -54,40 +56,63 @@ module.exports = function(app, passport) {
     });
 
     //register
-    app.get('/register', (req, res) => {
-        res.render('guest/Register');
+    app.get('/register', recaptcha.middleware.render, (req, res) => {
+        res.render('guest/Register', {
+            captcha: res.recaptcha
+        });
     });
-    app.post('/register', async(req, res) => {
-        let user = await bidderModel.singleByEmail(req.body.email);
-        if (user.length > 0) // existed
-        {
-            req.session.hasRegisterError = true;
-            req.session.errorMessage = "Invalid username or password";
-            return res.redirect("/register");
+    app.post('/register', recaptcha.middleware.verify, async (req, res) => {
+        if (!req.recaptcha.error) {
+            let user = await bidderModel.singleByEmail(req.body.email);
+            if (user.length > 0) // existed
+            {
+                req.session.hasRegisterError = true;
+                req.session.errorMessage = "Invalid username or password";
+                return res.redirect("/register");
+            } else {
+                let hashPassword = bcrypt.hashSync(req.body.password, config.bcrypt.init);
+                console.log(req.body);
+                var name = req.body.name;
+                var birthday = req.body.birthday;
+                var email = req.body.email;
+                var address = req.body.address;
+                var password = req.body.password;
+                var entity = {
+                    'name': name,
+                    'birthday': birthday,
+                    'email': email,
+                    'address': address,
+                    'password': password
+                }
+                entity.password = hashPassword;
+                await bidderModel.add(entity);
+                req.session.loginModal = true;
+                res.redirect('/');
+            }
         } else {
-            let hashPassword = bcrypt.hashSync(req.body.password, config.bcrypt.init);
-            var entity = req.body;
-            entity.password = hashPassword;
-            await bidderModel.add(entity);
-            req.session.loginModal = true;
-            res.redirect('/');
+            req.flash("message", "recaptcha is incorred");
+            res.redirect("back");
         }
     });
     //Check whether email has exists ? 
-    app.post('/validateEmail', async(req, res) => {
-            let user = await bidderModel.singleByEmail(req.body.email);
-            if (user.length == 0)
-                return res.json({ valid: true });
-            else
-                return res.json({ valid: false });
-        })
-        //login with facebook
+    app.post('/validateEmail', async (req, res) => {
+        let user = await bidderModel.singleByEmail(req.body.email);
+        if (user.length == 0)
+            return res.json({
+                valid: true
+            });
+        else
+            return res.json({
+                valid: false
+            });
+    })
+    //login with facebook
     passport.use(new FacebookStrategy({
         clientID: facebookConfig.clientID,
         clientSecret: facebookConfig.clientSecret,
         callbackURL: facebookConfig.callbackURL,
         profileFields: ['id', 'emails', 'name']
-    }, async function(accessToken, refreshToken, profile, cb) {
+    }, async function (accessToken, refreshToken, profile, cb) {
         try {
             let user = await bidderModel.singleByFacebookId(profile.id);
             console.log(user)
@@ -113,11 +138,15 @@ module.exports = function(app, passport) {
         }
     }))
     app.get('/login/facebook',
-        passport.authenticate('facebook', { scope: ["email"] }));
+        passport.authenticate('facebook', {
+            scope: ["email"]
+        }));
 
     app.get('/login/facebook/callback',
-        passport.authenticate('facebook', { failureRedirect: '/about' }),
-        function(req, res) {
+        passport.authenticate('facebook', {
+            failureRedirect: '/about'
+        }),
+        function (req, res) {
             if (req.user.password.length == 0)
                 req.session.newFBAccount = true;
             res.redirect('/facebook/set-password');
@@ -126,12 +155,14 @@ module.exports = function(app, passport) {
         console.log(req.user);
         if (req.session.newFBAccount) {
             delete req.session.newFBAccount;
-            return res.render('bidder/update-password', { newFBAccount: true })
+            return res.render('bidder/update-password', {
+                newFBAccount: true
+            })
         }
         res.redirect('/');
     })
 
-    app.post('/facebook/set-password', isAuth, async(req, res) => {
+    app.post('/facebook/set-password', isAuth, async (req, res) => {
         var entity = req.user;
         entity.password = bcrypt.hashSync(req.body.newPassword, config.bcrypt.init);
         await bidderModel.patch(entity);
@@ -144,7 +175,7 @@ module.exports = function(app, passport) {
         res.render('bidder/update-password');
     })
 
-    app.post('/update-password', isAuth, async(req, res) => {
+    app.post('/update-password', isAuth, async (req, res) => {
         if (bcrypt.compareSync(req.body.oldPassword, req.user.password)) {
             var entity = req.user;
             entity.password = bcrypt.hashSync(req.body.newPassword, config.bcrypt.init);
