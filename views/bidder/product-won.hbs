@@ -39,65 +39,22 @@
                                         </thead>
 
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>
-                                                    <img src="../images/shop/dress/3.jpg" height="100px">
-                                                    <img src="../images/shop/dress/3-1.jpg" height="100px">
-                                                    <img src="../images/shop/dress/3-2.jpg" height="100px">
-                                                </td>
-                                                <td>8.000.000 VNĐ</td>
-                                                <td>
+                                            {{#each data}}
+                                                <tr>
+                                                    <td style="display: none">{{seller_id}}</td>
+                                                    <td>{{id}}</td>
+                                                    <td>{{name}}</td>
+                                                    <td>
+                                                        <img src="../images/product/{{id}}/1.jpg" height="100px">
+                                                        <img src="../images/product/{{id}}/2.jpg" height="100px">
+                                                        <img src="../images/product/{{id}}/3.jpg" height="100px">
+                                                    </td>
+                                                    <td>{{price}} VNĐ</td>
+                                                    <td>
                                                     <a href="#" class="col-12 btn btn-success mr-1" data-toggle="modal" data-target="#feedbackModal">Feedback</a>
-
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>
-                                                    <img src="../images/shop/dress/3.jpg" height="100px">
-                                                    <img src="../images/shop/dress/3-1.jpg" height="100px">
-                                                    <img src="../images/shop/dress/3-2.jpg" height="100px">
-                                                </td>
-
-                                                <td>8.000.000 VNĐ</td>
-                                                <td>
-                                                    <a href="#" class="col-12 btn btn-success mr-1" data-toggle="modal" data-target="#feedbackModal">Feedback</a>
-
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>
-                                                    <img src="../images/shop/dress/3.jpg" height="100px">
-                                                    <img src="../images/shop/dress/3-1.jpg" height="100px">
-                                                    <img src="../images/shop/dress/3-2.jpg" height="100px">
-                                                </td>
-
-                                                <td>8.000.000 VNĐ</td>
-                                                <td>
-                                                    <a href="#" class="col-12 btn btn-success mr-1" data-toggle="modal" data-target="#feedbackModal">Feedback</a>
-
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>
-                                                    <img src="../images/shop/dress/3.jpg" height="100px">
-                                                    <img src="../images/shop/dress/3-1.jpg" height="100px">
-                                                    <img src="../images/shop/dress/3-2.jpg" height="100px">
-                                                </td>
-
-                                                <td>8.000.000 VNĐ</td>
-                                                <td>
-                                                    <a href="#" class="col-12 btn btn-success mr-1" data-toggle="modal" data-target="#feedbackModal">Feedback</a>
-
-                                                </td>
-                                            </tr>
+                                                    </td>
+                                                </tr>
+                                            {{/each}}
                                         </tbody>
                                     </table>
                                 </div>
