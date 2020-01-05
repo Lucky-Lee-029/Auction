@@ -11,8 +11,8 @@ route.get('/', async (req, res) => {
 
     for (let product of topBidTimes) {
         let current_price = await productModel.currentPrice(product.id);
-        current_price = current_price[0].price;
-        product.current_price = current_price;
+        // current_price = current_price[0].price;
+        // product.current_price = current_price;
         //get current time
         product.remaining_time = utils.formatDuration(product.duration);
     }

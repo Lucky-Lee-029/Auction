@@ -15,7 +15,7 @@ module.exports = {
     //UPDATE `products` SET `created_at` = '2020-01-01 03:16:15' WHERE `products`.`id` = 2 
     maxId: () => db.load(`SELECT Max(id) as id From products`),
 
-    allActive: (id, day) => db.load(`select * from products where status=1 and seller_id=${id} and duration>${day}`),
+    allActive: (id, day) => db.load(`select * from products where status=1 and seller_id=${id} and duration>"${day}"`),
 
     del: (tableName, condition) => db.del(tableName, condition),
 
@@ -51,5 +51,8 @@ module.exports = {
         };
         db.add('sellers', condition);
     },
+    feedback: (product, bidder, love, review, create) => db.load(
+        `INSERT INTO bidder_reviews (product_id, bidder_id, love, review, created_at) VALUES (${product}, ${bidder}, ${love}, "${review}","${create}") `
+    ),
     nameOfSeller: (id) => db.load(`select name from bidders join sellers on bidders.id = sellers.bidder_id where sellers.id = ${id}`)
 };

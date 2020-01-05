@@ -140,7 +140,7 @@ seller_route.post('/add', upload.array('fuMain', 5), async (req, res, next) => {
     var create_at = moment().format();
     var dua = moment().add(7, 'days').format();
     for (var i = 0; i < req.files.length; i++) {
-        fs.rename(req.files[i].path, req.files[i].destination + '/' + String(i), function (err) {
+        fs.rename(req.files[i].path, req.files[i].destination + '/' + String(i + 1) + ".jpg", function (err) {
             errorcode = err;
         });
     }
@@ -161,4 +161,18 @@ seller_route.post('/add', upload.array('fuMain', 5), async (req, res, next) => {
         layout: 'seller'
     });
 });
+seller_route.post('/feedback', async (req, res) => {
+    var data = req.body;
+    console.log(data);
+    var at = moment().format();
+    await sellerModel.feedback(req.body.product, req.body.bidder, req.body.rating, req.body.message, at);
+    var id = req.user.id;
+    var data = await productModel.listEnd(id);
+    res.render('seller/product-ended', {
+        layout: 'seller',
+        data
+    });
+})
+
+
 module.exports = seller_route;

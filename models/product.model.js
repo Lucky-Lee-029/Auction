@@ -68,7 +68,7 @@ module.exports = {
         });
     },
 
-    listEnd: (id) => db.load(`SELECT p.name as name, p.id as id, b.id as win, h.price as price, p.price_start as started, p.price_end as ended, p.step as step 
+    listEnd: (id) => db.load(`SELECT b.id as bidder, p.name as name, p.id as id, b.name as win, h.price as price, p.price_start as started, p.price_end as ended, p.step as step 
     FROM products p, history_auctions h, bidders b 
     WHERE p.seller_id=${id} AND p.id=h.product_id AND h.bidder_id=b.id AND 
     h.price=(SELECT price from 
