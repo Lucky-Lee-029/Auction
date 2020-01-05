@@ -89,7 +89,6 @@
         var child= div.children();
         var id=parseInt(child[0].innerHTML);
         $.post('/wishlist/add', {id:id});
-        div.remove();
     });
 </script>
 <!-- #content end -->

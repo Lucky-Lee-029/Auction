@@ -123,8 +123,6 @@ bidder_route.post('/wishlist/delete', async (req, res) => {
     var id =req.body.id;
     var bidder_id=req.user.id;
     productModel.delWish(id, bidder_id);
-    console.log(id);
-    console.log(bidder_id);
 })
     // List won
 bidder_route.get('/won', async(req, res) => {
