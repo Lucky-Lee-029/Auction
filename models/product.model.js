@@ -61,7 +61,7 @@ module.exports = {
         product_id: id
     }),
     topBidTimes: _ => db.load(`SELECT * FROM history_auctions LEFT OUTER JOIN products on products.id = history_auctions.product_id  GROUP BY product_id ORDER BY COUNT(*) DESC LIMIT 5`),
-    currentPrice: (id) => db.load(`SELECT price, name, bidders.id as id from history_auctions JOIN bidders on history_auctions.bidder_id = bidders.id WHERE product_id = ${id} and history_auctions.status = 2 ORDER BY price DESC LIMIT 1`),
+    currentPrice: (id) => db.load(`SELECT price, name, bidders.id as id from history_auctions JOIN bidders on history_auctions.bidder_id = bidders.id WHERE product_id = ${id} and history_auctions.status = 1 ORDER BY price DESC LIMIT 1`),
     delHistory: (id) => {
         db.del('history_auctions', {
             id: id
@@ -82,6 +82,6 @@ module.exports = {
         return rows[0].total;
     },
     aboutToEnd: () => db.load("SELECT * FROM `products` WHERE duration > NOW() ORDER BY duration LIMIT 5"),
-    topPrice: () => db.load("SELECT * FROM products pd, history_auctions ha  WHERE pd.duration > NOW() and ha.product_id = pd.id and not EXISTS (SELECT * from history_auctions ha1 WHERE ha1.product_id = pd.id and ha1.price > ha.price) ORDER BY ha.price DESC LIMIT 5"),
-    bidTimes: (id) => db.load(`SELECT COUNT(*) as bidTimes FROM history_auctions WHERE product_id = ${id}`)
+    topPrice: () => db.load("SELECT * FROM products pd, history_auctions ha  WHERE pd.duration > NOW() and ha.product_id = pd.id and ha.status = 1 and not EXISTS (SELECT * from history_auctions ha1 WHERE ha1.product_id = pd.id and ha1.price > ha.price) ORDER BY ha.price DESC LIMIT 5"),
+    bidTimes: (id) => db.load(`SELECT COUNT(*) as bidTimes FROM history_auctions WHERE product_id = ${id} and status = 1`)
 }
