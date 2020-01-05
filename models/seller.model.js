@@ -38,7 +38,7 @@ module.exports = {
         return rows[0].total;
     },
     pointReviews: async (id) => {
-        const rows = await db.load(`select count(*) as total from sellers JOIN bidder_reviews ON sellers.id=bidder_reviews.seller_id WHERE sellers.id=${id} and seller_reviews.love=1`)
+        const rows = await db.load(`select count(*) as total from sellers JOIN bidder_reviews ON sellers.id=bidder_reviews.seller_id WHERE sellers.id=${id} and bidder_reviews.love=1`)
         return rows[0].total;
     },
     count: async () => {

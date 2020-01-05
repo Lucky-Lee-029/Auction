@@ -134,11 +134,19 @@ bidder_route.get('/bidding', (req, res) => {
         layout: 'bidder'
     });
 })
-bidder_route.get('/wishlist', (req, res) => {
-        res.render('bidder/product-wishlist', {
-            layout: 'main'
-        });
-    })
+bidder_route.get('/wishlist', async (req, res) => {
+    var id = req.user.id;
+    list=await productModel.WishList(id);
+    res.render('bidder/product-wishlist', {
+        layout: 'main',
+        list
+    });
+})
+bidder_route.post('/wishlist/delete', async (req, res) => {
+    var id =req.body.id;
+    var bidder_id=req.user.id;
+    productModel.delWish(id, bidder_id);
+})
     // List won
 bidder_route.get('/won', async(req, res) => {
     var id = req.user.id;

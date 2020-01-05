@@ -6,8 +6,9 @@ const bidderModel = require('../../models/bidders.model');
 const utils = require('../../utils/utils');
 const config = require('../../config/default.json')
 const moment = require('moment');
+
 //Home page
-route.get('/', async(req, res) => {
+route.get('/', async (req, res) => {
     let topBidTimes = await productModel.topBidTimes();
 
     for (let product of topBidTimes) {
@@ -49,7 +50,6 @@ route.get('/', async(req, res) => {
         //get current time
         product.remaining_time = utils.formatDuration(product.duration);
     }
-    console.log(topPrice);
 
     res.render('index', {
         topBidTimes,
@@ -61,9 +61,16 @@ route.get('/', async(req, res) => {
 route.get('/about', (req, res) => {
     res.render('about');
 })
+route.get('/contact', (req, res) => {
+    res.render('contact');
+})
+
+route.get('/faq', (req, res) => {
+    res.render('faq');
+})
 
 //Product for each category
-route.get('/category/:id', async(req, res) => {
+route.get('/category/:id', async (req, res) => {
     const limit = config.paginate.limit1;
     const page = req.query.page || 1;
     if (page < 1) page = 1;
@@ -83,8 +90,18 @@ route.get('/category/:id', async(req, res) => {
     for (parent of data) {
         parent.end_time = utils.formatDuration(parent.duration);
     }
+    if(req.user){
+        user_id=req.user.id;
+    }
+    else{
+        user_id=0;
+    }
+    console.log(user_id);
+    const cate= await categoryModel.single(id);
     res.render('list_product', {
+        user_id,
         data,
+        cate: cate[0],
         page_numbers,
         not_prev: +page - 1 === 0,
         not_next: +page === +nPages,
@@ -93,11 +110,11 @@ route.get('/category/:id', async(req, res) => {
     })
 })
 
-route.get('/product/:id', async(req, res) => {
+route.get('/product/:id', async (req, res) => {
     const id = req.params.id;
     let product = await productModel.single(id);
     product = product[0];
-    if (typeof(req.user) != 'undefined') {
+    if (typeof (req.user) != 'undefined') {
         if (req.user.id == product.seller_id)
             return res.redirect('/seller/product/' + id);
         return res.redirect('/bidder/product/' + id);
@@ -120,12 +137,21 @@ route.get('/product/:id', async(req, res) => {
     let seller_name = await sellerModel.nameOfSeller(product.seller_id);
     product.seller_name = seller_name[0].name;
     product.end_time = utils.formatDuration(product.duration);
-    console.log(product)
 
     res.render('guest/Product', {
         product
     });
 
+});
+
+route.post('/wishlist/add', async(req, res) => {
+    if (req.user){
+        id=req.body.id;
+        result= await productModel.isWish(id,req.user.id)
+        if(result===0){
+            productModel.addWishlist(id,req.user.id);
+        }
+    }
 });
 
 route.get('/')

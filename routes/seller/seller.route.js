@@ -18,7 +18,7 @@ seller_route.use(
     })
 );
 var storage = multer.diskStorage({
-    destination: async(req, file, cb) => {
+    destination: async (req, file, cb) => {
         var result = await sellerModel.maxId();
         var proId = JSON.parse(JSON.stringify(result))[0];
         var dir =
@@ -35,7 +35,7 @@ var storage = multer.diskStorage({
             );
         cb(null, dir);
     },
-    filename: function(req, file, cb) {
+    filename: function (req, file, cb) {
         cb(null, file.originalname);
     }
 });
@@ -51,9 +51,9 @@ seller_route.get('/', (req, res) => {
     });
 });
 
-seller_route.get('/product/:id', async(req, res) => {
+seller_route.get('/product/:id', async (req, res) => {
     var id = req.params.id;
-    if (typeof(req.user) == 'undefined')
+    if (typeof (req.user) == 'undefined')
         return res.redirect('/product/' + id);
     let product = await productModel.single(id);
     product = product[0];
@@ -87,7 +87,7 @@ seller_route.get('/product/:id', async(req, res) => {
         bidder
     });
 });
-seller_route.post('/product', async(req, res) => {
+seller_route.post('/product', async (req, res) => {
     var bidder_id = req.body.idBidder;
     var id = req.body.idAuction;
     var product_id = req.body.idPro;
@@ -104,7 +104,7 @@ seller_route.get('/profile', (req, res) => {
         layout: 'seller'
     });
 });
-seller_route.get('/end', async(req, res) => {
+seller_route.get('/end', async (req, res) => {
     var id = req.user.id;
     var data = await productModel.listEnd(id);
     res.render('seller/product-ended', {
@@ -112,15 +112,16 @@ seller_route.get('/end', async(req, res) => {
         data
     });
 });
-seller_route.get('/add', async(req, res) => {
+seller_route.get('/add', async (req, res) => {
     var items = await sellerModel.cat();
     res.render('seller/product-add', {
         layout: 'seller',
         items
     });
 });
-seller_route.post('/edit', async(req, res) => {
+seller_route.post('/edit', async (req, res) => {
     var id = req.body.idToDes;
+    console.log(id);
     var pro = await productModel.single(id);
     var data = JSON.parse(JSON.stringify(pro))[0];
     res.cookie('edit', data);
@@ -134,8 +135,8 @@ seller_route.get('/editDescription', (req, res) => {
     });
 });
 
-seller_route.post('/editDescription', async(req, res) => {
-    var data = req.body.description;
+seller_route.post('/editDescription', async (req, res) => {
+    var data = req.body.oldDes + req.body.description;
     var id = req.body.id;
     await productModel.editDes(id, data);
     var items = await sellerModel.singPro(id);
@@ -148,7 +149,7 @@ seller_route.post('/editDescription', async(req, res) => {
     });
 });
 
-seller_route.get('/remaining', async(req, res) => {
+seller_route.get('/remaining', async (req, res) => {
     var get = await sellerModel.sellId(req.user.id);
     var id = JSON.parse(JSON.stringify(get))[0];
     var day = moment().format();
@@ -158,7 +159,7 @@ seller_route.get('/remaining', async(req, res) => {
         items
     });
 });
-seller_route.post('/add', upload.array('fuMain', 5), async(req, res, next) => {
+seller_route.post('/add', upload.array('fuMain', 5), async (req, res, next) => {
     //Lấy id nè
     var get = await sellerModel.sellId(req.user.id);
     var id = JSON.parse(JSON.stringify(get))[0];
@@ -168,7 +169,7 @@ seller_route.post('/add', upload.array('fuMain', 5), async(req, res, next) => {
     var create_at = moment().format();
     var dua = moment().add(7, 'days').format();
     for (var i = 0; i < req.files.length; i++) {
-        fs.rename(req.files[i].path, req.files[i].destination + '/' + String(i + 1) + '.jpg', function(err) {
+        fs.rename(req.files[i].path, req.files[i].destination + '/' + String(i + 1) + '.jpg', function (err) {
             errorcode = err;
         });
     }
@@ -186,7 +187,7 @@ seller_route.post('/add', upload.array('fuMain', 5), async(req, res, next) => {
     );
     var catProId = proId.id + 1;
     var cat = req.body.parent_id;
-    await catModel.addProduct(cat, catProId);
+    await categoryModel.addProduct(cat, catProId);
     var day = moment().format();
     var items = await sellerModel.allActive(req.user.id, day);
     res.render('seller/product-remaining', {
@@ -194,7 +195,7 @@ seller_route.post('/add', upload.array('fuMain', 5), async(req, res, next) => {
         items
     });
 });
-seller_route.post('/feedback', async(req, res) => {
+seller_route.post('/feedback', async (req, res) => {
     var data = req.body;
     console.log(data);
     var at = moment().format();
@@ -206,13 +207,16 @@ seller_route.post('/feedback', async(req, res) => {
         data
     });
 });
-seller_route.post('/view-product', async(req, res) => {
+seller_route.post('/view-product', async (req, res) => {
     var id = req.body.id;
+    console.log(id);
     res.cookie('id', id);
     res.redirect('./editDescription');
 });
-seller_route.get('/view-product', async(req, res) => {
+seller_route.get('/view-product', async (req, res) => {
     var id = req.cookies.id;
+    console.log(id);
+    console.log("get view")
     var items = await sellerModel.singPro(id);
     var bidder = await productModel.autionPro(id);
     var data = JSON.parse(JSON.stringify(items))[0];
