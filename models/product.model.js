@@ -14,7 +14,7 @@ module.exports = {
         return rows[0].total;
     },
 
-    autionPro: (id) => db.load(`SELECT b.name as name, h.created_at as tim, b.id as bidder, h.price as price, h.id as condi, h.product_id as pro FROM bidders b INNER JOIN history_auctions h ON b.id=h.bidder_id WHERE product_id=${id} `),
+    autionPro: (id) => db.load(`SELECT b.name as name, h.created_at as tim, b.id as bidder, h.price as price, h.id as condi, h.product_id as pro FROM bidders b INNER JOIN history_auctions h ON b.id=h.bidder_id WHERE product_id=${id} ORDER BY price DESC`),
 
     pageByCate: (id, offset) => db.load(`select * from products where CatID = ${id} limit ${config.paginate.limit} offset ${offset}`),
 

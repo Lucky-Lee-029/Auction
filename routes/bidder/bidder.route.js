@@ -57,7 +57,11 @@ bidder_route.get('/product/:id', async(req, res) => {
     if ((like == total && total == 0) || (like * 100 / total > 80))
         allowToBid = true;
     allowToBid = allowToBid && canBid;
-    res.render('bidder/product', { layout: 'main', product, isBidder: true, allowToBid });
+    var bidders = await productModel.autionPro(id);
+    for (var bidder of bidders) {
+        bidder.tim = moment(bidder.tim).format("HH:mm:ss DD/MM/YYYYY");
+    }
+    res.render('bidder/product', { layout: 'main', product, allowToBid, bidder: bidders });
 })
 
 bidder_route.post('/bid', async(req, res) => {
