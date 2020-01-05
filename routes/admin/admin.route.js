@@ -20,8 +20,6 @@ route.post('/login', async(req, res) => {
         return res.redirect('/admin/login');
     }
     user = user[0];
-    var hash = bcrypt.hashSync("123456");
-    // console.log(bcrypt(req.body.password));
     if (bcrypt.compareSync(req.body.password, user.password)) {
         req.session.admin = user;
         res.redirect('/admin/');
@@ -97,9 +95,9 @@ route.get('/product/success', async(req, res) => {
     for (parent of list) {
         let Image = await productModel.productImage(parent.id);
         let seller = await bidderModel.name(parent.seller_id);
-        let bidder = await productModel.bidderWin(parent.id);
-        parent.Price = bidder[0].Price;
-        parent.Win = bidder[0].Win;
+        let bidder = await productModel.currentPrice(parent.id);
+        parent.Price = bidder[0].price;
+        parent.Win = bidder[0].name;
         parent.Image = Image;
         parent.seller = seller[0];
     }

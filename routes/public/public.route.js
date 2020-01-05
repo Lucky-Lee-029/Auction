@@ -61,6 +61,13 @@ route.get('/', async(req, res) => {
 route.get('/about', (req, res) => {
     res.render('about');
 })
+route.get('/contact', (req, res) => {
+    res.render('contact');
+})
+
+route.get('/faq', (req, res) => {
+    res.render('faq');
+})
 
 //Product for each category
 route.get('/category/:id', async(req, res) => {
@@ -83,8 +90,10 @@ route.get('/category/:id', async(req, res) => {
     for (parent of data) {
         parent.end_time = utils.formatDuration(parent.duration);
     }
+    const cate= await categoryModel.single(id);
     res.render('list_product', {
         data,
+        cate: cate[0],
         page_numbers,
         not_prev: +page - 1 === 0,
         not_next: +page === +nPages,
@@ -115,12 +124,21 @@ route.get('/product/:id', async(req, res) => {
     let seller_name = await sellerModel.nameOfSeller(product.seller_id);
     product.seller_name = seller_name[0].name;
     product.end_time = utils.formatDuration(product.duration);
-    console.log(product)
 
     res.render('guest/Product', {
         product
     });
 
+});
+
+route.post('/wishlist/add', async(req, res) => {
+    if (req.user){
+        id=req.body.id;
+        result= await productModel.isWish(id,req.user.id)
+        if(result===0){
+            productModel.addWishlist(id,req.user.id);
+        }
+    }
 });
 
 route.get('/')
