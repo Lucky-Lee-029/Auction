@@ -56,10 +56,11 @@
                                 <!-- Product Single - Short Description
                                 ============================================= -->
                                 <h4>{{product.name}}</h4>
-                                <form class="form-inline">
+                                <form class="form-inline" action="/bidder/bid" method="POST" id="form-bid">
                                     <div class="form-group col-9 px-0">
-                                        <input type="number" class="form-control w-100" id="inputPrice" placeholder="Price">
+                                        <input type="number" class="form-control w-100" id="inputPrice" name="price" placeholder="Price">
                                     </div>
+                                    <input class="d-none"  name="productId" value="{{product.id}}">
                                     <button type="submit" class="btn btn-primary col-3">Bid</button>
                                 </form>
                                 <h5>Buy now: {{product.buy_now}}</h5>
@@ -360,4 +361,12 @@
 
         </section>
         <!-- #content end -->
-
+{{#section "footer"}}
+<script>
+    $('#form-bid').submit((e)=>{
+        var kq = confirm("Are you sure to bid?");
+        if(kq) return true;
+        return false;
+    });
+</script>
+{{/section}}

@@ -23,12 +23,12 @@
 <script>
     $("#submit").on('click', function(){
         console.log("ahihi vào duoc roi ne");
-        var $fileUpload = $("#fumain");
-        console.log($fileUpload.get(0).files.length);
-        if (parseInt($fileUpload.get(0).files.length)>7){
+        var fileUpload = $("#fumain");
+        console.log(fileUpload.get(0).files.length);
+        if (parseInt(fileUpload.get(0).files.length)>7){
          alert("You can only upload a maximum of 7 files");
         }
-        if (parseInt($fileUpload.get(0).files.length)<3){
+        if (parseInt(fileUpload.get(0).files.length)<3){
          alert("You can only upload a minimum of 3 files");
         }
     };

@@ -3,7 +3,9 @@ const bidderModel = require('../../models/bidders.model')
 const productModel = require('../../models/product.model');
 const categoryModel = require('../../models/category.model');
 const sellerModel = require('../../models/seller.model');
+const history_auctionModel = require('../../models/history_auctions.model');
 const utils = require('../../utils/utils');
+const moment = require('moment');
 //Home page
 bidder_route.get('/', (req, res) => {
         res.render('bidder/dashboard', { layout: 'admin' });
@@ -11,8 +13,12 @@ bidder_route.get('/', (req, res) => {
     //product view for bidder
 bidder_route.get('/product/:id', async(req, res) => {
     const id = req.params.id;
+    if (typeof(req.user) == 'undefined')
+        return res.redirect('/product/' + id);
     let product = await productModel.single(id);
     product = product[0];
+    if (product.seller_id == req.user.id)
+        return res.redirect('/seller/product/' + id);
     let categories = await categoryModel.cateOfProduct(id);
     product.categories = categories;
     product.seller_review = "" + await bidderModel.pointReviews(product.seller_id) + "/" + await bidderModel.totalReviews(product.seller_id);
@@ -32,10 +38,40 @@ bidder_route.get('/product/:id', async(req, res) => {
     let seller_name = await sellerModel.nameOfSeller(product.seller_id);
     product.seller_name = seller_name[0].name;
     product.end_time = utils.formatDuration(product.duration);
-    console.log(product);
 
     res.render('bidder/product', { layout: 'main', product, isBidder: true });
 })
+
+bidder_route.post('/bid', async(req, res) => {
+    var { price, productId } = req.body;
+    //if price is acc and bidder is not be block from bid this then add to dtb
+    console.log(productId, req.user.id);
+    var canBid = await bidderModel.canBid(req.user.id, productId);
+    if (canBid.length == 0) canBid = true;
+    else canBid = false;
+    if (canBid) {
+        var product = await productModel.single(productId);
+        product = product[0]
+        var currentPrice = await productModel.currentPrice(productId);
+        currentPrice = currentPrice[0]
+        console.log(product, currentPrice)
+            //price is ac
+        if (price % product.step == 0 && price > Math.max(currentPrice.price, product.price_start))
+            await history_auctionModel.add({
+                created_at: moment().format(),
+                product_id: productId,
+                bidder_id: req.user.id,
+                price,
+                status: 1
+            })
+        else {
+            // sai giá 
+        }
+    } else {
+        //set session has bid error
+    }
+    res.redirect(`/bidder/product/${productId}`);
+});
 bidder_route.post('/feedback', async(req, res) => {
     var id = req.user.id;
     console.log(data);
