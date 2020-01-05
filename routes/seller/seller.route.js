@@ -1,8 +1,10 @@
 const seller_route = require('express').Router();
 const bodyParser = require('body-parser');
+const bidderModel = require('../../models/bidders.model');
 const sellerModel = require('../../models/seller.model');
 const productModel = require('../../models/product.model');
-const catModel = require('../../models/category.model.js');
+const categoryModel = require('../../models/category.model.js');
+const utils = require('../../utils/utils');
 const multer = require('multer');
 const cookie = require('cookie-parser');
 const moment = require('moment');
@@ -16,7 +18,7 @@ seller_route.use(
     })
 );
 var storage = multer.diskStorage({
-    destination: async (req, file, cb) => {
+    destination: async(req, file, cb) => {
         var result = await sellerModel.maxId();
         var proId = JSON.parse(JSON.stringify(result))[0];
         var dir =
@@ -33,7 +35,7 @@ var storage = multer.diskStorage({
             );
         cb(null, dir);
     },
-    filename: function (req, file, cb) {
+    filename: function(req, file, cb) {
         cb(null, file.originalname);
     }
 });
@@ -49,18 +51,43 @@ seller_route.get('/', (req, res) => {
     });
 });
 
-seller_route.get('/product', async (req, res) => {
-    var id = req.query.id;
-    var items = await sellerModel.singPro(id);
-    var data = JSON.parse(JSON.stringify(items))[0];
+seller_route.get('/product/:id', async(req, res) => {
+    var id = req.params.id;
+    if (typeof(req.user) == 'undefined')
+        return res.redirect('/product/' + id);
+    let product = await productModel.single(id);
+    product = product[0];
+    if (product.seller_id != req.user.id)
+        return res.redirect('/bidder/product/' + id);
+    let categories = await categoryModel.cateOfProduct(id);
+    product.categories = categories;
+    product.seller_review = "" + await bidderModel.pointReviews(product.seller_id) + "/" + await bidderModel.totalReviews(product.seller_id);
+    let currentPrice = await productModel.currentPrice(id);
+    console.log(currentPrice)
+    if (currentPrice.length > 0) {
+        product.hasWinner = true;
+        product.price = currentPrice[0].price;
+        product.winner_name = currentPrice[0].name;
+        product.winner_review = "" + await bidderModel.pointReviews(currentPrice[0].id) + "/" + await bidderModel.totalReviews(currentPrice[0].id);
+        let bidTimes = await productModel.bidTimes(product.id);
+        product.bidTimes = bidTimes[0].bidTimes;
+    } else {
+        product.price = product.price_start;
+        product.hasWinner = false;
+    }
+    let seller_name = await sellerModel.nameOfSeller(product.seller_id);
+    product.seller_name = seller_name[0].name;
+    product.end_time = utils.formatDuration(product.duration);
+
+
     var bidder = await productModel.autionPro(id);
     res.render('seller/product', {
-        layout: 'seller',
-        data,
+        layout: 'main',
+        product,
         bidder
     });
 });
-seller_route.post('/product', async (req, res) => {
+seller_route.post('/product', async(req, res) => {
     var bidder_id = req.body.idBidder;
     var id = req.body.idAuction;
     var product_id = req.body.idPro;
@@ -77,7 +104,7 @@ seller_route.get('/profile', (req, res) => {
         layout: 'seller'
     });
 });
-seller_route.get('/end', async (req, res) => {
+seller_route.get('/end', async(req, res) => {
     var id = req.user.id;
     var data = await productModel.listEnd(id);
     res.render('seller/product-ended', {
@@ -85,14 +112,14 @@ seller_route.get('/end', async (req, res) => {
         data
     });
 });
-seller_route.get('/add', async (req, res) => {
+seller_route.get('/add', async(req, res) => {
     var items = await sellerModel.cat();
     res.render('seller/product-add', {
         layout: 'seller',
         items
     });
 });
-seller_route.post('/edit', async (req, res) => {
+seller_route.post('/edit', async(req, res) => {
     var id = req.body.idToDes;
     var pro = await productModel.single(id);
     var data = JSON.parse(JSON.stringify(pro))[0];
@@ -107,7 +134,7 @@ seller_route.get('/editDescription', (req, res) => {
     });
 });
 
-seller_route.post('/editDescription', async (req, res) => {
+seller_route.post('/editDescription', async(req, res) => {
     var data = req.body.description;
     var id = req.body.id;
     await productModel.editDes(id, data);
@@ -121,7 +148,7 @@ seller_route.post('/editDescription', async (req, res) => {
     });
 });
 
-seller_route.get('/remaining', async (req, res) => {
+seller_route.get('/remaining', async(req, res) => {
     var get = await sellerModel.sellId(req.user.id);
     var id = JSON.parse(JSON.stringify(get))[0];
     var day = moment().format();
@@ -131,7 +158,7 @@ seller_route.get('/remaining', async (req, res) => {
         items
     });
 });
-seller_route.post('/add', upload.array('fuMain', 5), async (req, res, next) => {
+seller_route.post('/add', upload.array('fuMain', 5), async(req, res, next) => {
     //Lấy id nè
     var get = await sellerModel.sellId(req.user.id);
     var id = JSON.parse(JSON.stringify(get))[0];
@@ -141,7 +168,7 @@ seller_route.post('/add', upload.array('fuMain', 5), async (req, res, next) => {
     var create_at = moment().format();
     var dua = moment().add(7, 'days').format();
     for (var i = 0; i < req.files.length; i++) {
-        fs.rename(req.files[i].path, req.files[i].destination + '/' + String(i + 1) + ".jpg", function (err) {
+        fs.rename(req.files[i].path, req.files[i].destination + '/' + String(i + 1) + ".jpg", function(err) {
             errorcode = err;
         });
     }
@@ -159,12 +186,12 @@ seller_route.post('/add', upload.array('fuMain', 5), async (req, res, next) => {
     );
     var catProId = proId.id + 1;
     var cat = req.body.parent_id;
-    await catModel.addProduct(cat, catProId);
+    await categoryModel.addProduct(cat, catProId);
     res.render('seller/add-success', {
         layout: 'seller'
     });
 });
-seller_route.post('/feedback', async (req, res) => {
+seller_route.post('/feedback', async(req, res) => {
     var data = req.body;
     console.log(data);
     var at = moment().format();

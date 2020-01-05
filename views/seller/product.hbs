@@ -19,14 +19,14 @@
                         <div class="fslider" data-pagi="false" data-arrows="false" data-thumbs="true">
                             <div class="flexslider">
                                 <div class="slider-wrap" data-lightbox="gallery">
-                                    <div class="slide" data-thumb="../images/product/{{data.id}}/1.jpg">
-                                        <a href="../images/product/{{data.id}}/1.jpg"  data-lightbox="gallery-item"><img src="../images/product/{{data.id}}/1.jpg" alt="Pink Printed Dress"></a>
+                                    <div class="slide" data-thumb="/images/product/{{product.id}}/1.jpg">
+                                        <a href="/images/product/{{product.id}}/1.jpg"  data-lightbox="gallery-item"><img src="/images/product/{{product.id}}/1.jpg" alt="Pink Printed Dress"></a>
                                     </div>
-                                    <div class="slide" data-thumb="../images/product/{{data.id}}/2.jpg">
-                                        <a href="../images/product/{{data.id}}/2.jpg"  data-lightbox="gallery-item"><img src="../images/product/{{data.id}}/2.jpg" alt="Pink Printed Dress"></a>
+                                    <div class="slide" data-thumb="/images/product/{{product.id}}/2.jpg">
+                                        <a href="/images/product/{{product.id}}/2.jpg"  data-lightbox="gallery-item"><img src="/images/product/{{product.id}}/2.jpg" alt="Pink Printed Dress"></a>
                                     </div>
-                                    <div class="slide" data-thumb="../images/product/{{data.id}}/3.jpg">
-                                        <a href="../images/product/{{data.id}}/3.jpg"  data-lightbox="gallery-item"><img src="../images/product/{{data.id}}/3.jpg" alt="Pink Printed Dress"></a>
+                                    <div class="slide" data-thumb="/images/product/{{product.id}}/3.jpg">
+                                        <a href="/images/product/{{product.id}}/3.jpg"  data-lightbox="gallery-item"><img src="/images/product/{{product.id}}/3.jpg" alt="Pink Printed Dress"></a>
                                     </div>
                                 </div>
                             </div>
@@ -40,6 +40,7 @@
 
                     <!-- Product Single - Price
                     ============================================= -->
+                    <div class="product-price">Current price: {{product.price}}</div>
                     <!-- Product Single - Price End -->
 
                     <!-- Product Single - Rating
@@ -50,17 +51,27 @@
                     <!-- Product Single - Rating End -->
 
                     <div class="clear"></div>
-                    <div class="line"><h2>{{data.name}}</h2></div>
+                    <div class="line"><h2>{{product.name}}</h2></div>
 
                     <!-- Product Single - Short Description
                     ============================================= -->
                     <h4></h4>
-                    <div>Start Price:{{data.price_start}}</div>
-                    <div>End Price:{{data.price_end}}</div>
-                    <div>Step:{{data.step}}</div>
-                    <div>Buy now:{{data.buy_now}} </div>
-                    <div>Post date: {{data.created_at}}</div>
-                    <div>End time:   </div>
+                    {{!-- <div>Start Price:{{product.price_start}}</div>
+                    <div>End Price:{{product.price_end}}</div>
+                    <div>Step:{{product.step}}</div>
+                    <div>Buy now:{{product.buy_now}} </div>
+                    <div>Post date: {{product.created_at}}</div>
+                    <div>End time:   </div> --}}
+
+
+                    <h5>Buy now: {{product.buy_now}}</h5>
+                    {{#if product.hasWinner}}
+                    <h5>Bid Times: {{product.bidTimes}}</h5>
+                    <h5>Current Winner: {{maskName product.winner_name}}</h5>
+                    <h5>Winner rating: {{product.winner_review}}</h5>
+                    {{/if}}
+                    <h5>Post date: {{formatTime product.created_at}}</h5>
+                    <h5>{{product.end_time}}</h5>
                     <!-- Product Single - Short Description End -->
 
                     <!-- Product Single - Meta
@@ -121,8 +132,8 @@
                             <div class="tab-content clearfix" id="tabs-1">
                                 <h3><b>Description</b></h3>
                                 <div>
-                                    <div>{{{data.description}}}</div>
-                                    <div style="display: none">{{data.id}}</div>
+                                    <div>{{{product.description}}}</div>
+                                    <div style="display: none">{{product.id}}</div>
                                     <button id="edit" type="button" class="btn btn-info" >Edit description</button>
                                 </div>
                                 
@@ -149,7 +160,7 @@
                                                             {{#each bidder}}
                                                                 <tr>
                                                                     <td>{{tim}}</td>
-                                                                    <td>*****{{name}}</td>
+                                                                    <td>{{maskName name}}</td>
                                                                     <td>{{price}}</td>
                                                                     <td>
                                                                         <button type="button" id="delete"class="btn btn-danger delete" data-toggle="tooltip" data-original-title="Delete">Delete</button>
