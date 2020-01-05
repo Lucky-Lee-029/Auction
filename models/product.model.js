@@ -61,9 +61,10 @@ module.exports = {
         product_id: id
     }),
     topBidTimes: _ => db.load(`SELECT * FROM history_auctions LEFT OUTER JOIN products on products.id = history_auctions.product_id  GROUP BY product_id ORDER BY COUNT(*) DESC LIMIT 5`),
-    currentPrice: (id) => db.load(`SELECT * FROM products pd, history_auctions ha
+    currentPrice: (id) => db.load(`SELECT bd.id, ha.price, bd.name FROM  history_auctions ha, products pd, bidders bd
     WHERE pd.duration > NOW() 
     and ha.product_id = pd.id 
+    and bd.id = ha.bidder_id
     and pd.id = ${id}
     and not EXISTS (SELECT * from blocked_auctions ba WHERE ba.product_id = pd.id and ba.bidder_id = ha.bidder_id )
     and not EXISTS (SELECT * from history_auctions ha1 WHERE ha1.product_id = pd.id 
@@ -90,7 +91,7 @@ module.exports = {
         return rows[0].total;
     },
     aboutToEnd: () => db.load("SELECT * FROM `products` WHERE duration > NOW() ORDER BY duration LIMIT 5"),
-    topPrice: () => db.load(`SELECT * FROM products pd, history_auctions ha
+    topPrice: () => db.load(`SELECT * FROM  history_auctions ha, products pd
             WHERE pd.duration > NOW() and ha.product_id = pd.id and not EXISTS(SELECT * from blocked_auctions ba WHERE ba.product_id = pd.id and ba.bidder_id = ha.bidder_id) and not EXISTS(SELECT * from history_auctions ha1 WHERE ha1.product_id = pd.id and ha1.price > ha.price and not EXISTS(SELECT * from blocked_auctions ba1 WHERE ba1.product_id = pd.id and ba1.bidder_id = ha1.bidder_id)) ORDER BY ha.price DESC LIMIT 5 `),
 
     bidTimes: (id) => db.load(`SELECT COUNT(*) as bidTimes FROM history_auctions WHERE product_id = ${id} and status = 1`),

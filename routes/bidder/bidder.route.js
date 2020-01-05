@@ -13,6 +13,15 @@ bidder_route.get('/', (req, res) => {
     //product view for bidder
 bidder_route.get('/product/:id', async(req, res) => {
     const id = req.params.id;
+    if (req.session.bidError) {
+        if (id == req.session.errorOnId) {
+            res.locals.bidError = true;
+            res.locals.errorMessage = req.session.bidMessage;
+            delete req.session.bidError;
+            delete req.session.errorId;
+            delete req.session.bidMessage;
+        }
+    }
     if (typeof(req.user) == 'undefined')
         return res.redirect('/product/' + id);
     let product = await productModel.single(id);
@@ -23,7 +32,6 @@ bidder_route.get('/product/:id', async(req, res) => {
     product.categories = categories;
     product.seller_review = "" + await bidderModel.pointReviews(product.seller_id) + "/" + await bidderModel.totalReviews(product.seller_id);
     let currentPrice = await productModel.currentPrice(id);
-    console.log(currentPrice)
     if (currentPrice.length > 0) {
         product.hasWinner = true;
         product.price = currentPrice[0].price;
@@ -39,13 +47,22 @@ bidder_route.get('/product/:id', async(req, res) => {
     product.seller_name = seller_name[0].name;
     product.end_time = utils.formatDuration(product.duration);
 
-    res.render('bidder/product', { layout: 'main', product, isBidder: true });
+    var userId = req.user.id;
+    var total = await bidderModel.totalReviews(userId);
+    var like = await bidderModel.pointReviews(userId);
+    var canBid = await bidderModel.canBid(userId, product.id);
+    if (canBid.length == 0) canBid = true;
+    else canBid = false;
+    var allowToBid = false;
+    if ((like == total && total == 0) || (like * 100 / total > 80))
+        allowToBid = true;
+    allowToBid = allowToBid && canBid;
+    res.render('bidder/product', { layout: 'main', product, isBidder: true, allowToBid });
 })
 
 bidder_route.post('/bid', async(req, res) => {
     var { price, productId } = req.body;
     //if price is acc and bidder is not be block from bid this then add to dtb
-    console.log(productId, req.user.id);
     var canBid = await bidderModel.canBid(req.user.id, productId);
     if (canBid.length == 0) canBid = true;
     else canBid = false;
@@ -54,7 +71,6 @@ bidder_route.post('/bid', async(req, res) => {
         product = product[0]
         var currentPrice = await productModel.currentPrice(productId);
         currentPrice = currentPrice[0]
-        console.log(product, currentPrice)
             //price is ac
         if (price % product.step == 0 && price > Math.max(currentPrice.price, product.price_start))
             await history_auctionModel.add({
@@ -65,17 +81,19 @@ bidder_route.post('/bid', async(req, res) => {
                 status: 1
             })
         else {
-            // sai giá 
+            req.session.errorOnId = productId;
+            req.session.bidError = true;
+            req.session.bidMessage = "Price is not accepted";
         }
     } else {
-        //set session has bid error
+        req.session.errorOnId = productId;
+        req.session.bidError = true;
+        req.session.bidMessage = "You are not allow to bid";
     }
     res.redirect(`/bidder/product/${productId}`);
 });
 bidder_route.post('/feedback', async(req, res) => {
     var id = req.user.id;
-    console.log(data);
-    console.log(req.body)
     var at = moment().format();
     await bidderModel.feedback(req.body.pro, id, req.body.rating, req.body.message, at);
     var data = await productModel.listWon(id);
@@ -97,9 +115,7 @@ bidder_route.get('/wishlist', (req, res) => {
     // List won
 bidder_route.get('/won', async(req, res) => {
     var id = req.user.id;
-    console.log(id);
     var data = await productModel.listWon(id);
-    console.log(data);
     res.render('bidder/product-won', {
         layout: 'bidder',
         data

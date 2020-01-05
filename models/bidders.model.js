@@ -35,5 +35,5 @@ module.exports = {
         db.load(`INSERT INTO seller_reviews (product_id, bidder_id, love, review, created_at) VALUES (${product}, ${bidder}, ${love}, "${review}","${create}")`)
     },
     canBid: (id, productId) =>
-        db.load(`SELECT * as canBid FROM blocked_auctions WHERE product_id = ${productId} and bidder_id = ${id}`)
+        db.load(`SELECT * FROM blocked_auctions WHERE product_id = ${productId} and bidder_id = ${id}`)
 }
