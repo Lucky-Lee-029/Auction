@@ -101,5 +101,7 @@ module.exports = {
     isWish: async (id,bidder_id) =>{
         const rows= await db.load(`select count(*) as total from wish_lists where product_id=${id} and bidder_id=${bidder_id}`);
         return rows[0].total;
-    }
+    },
+    WishList: (id)=>db.load(`select * from products join wish_lists on products.id=wish_lists.product_id where wish_lists.bidder_id=${id}`),
+    delWish: (id, bidder_id)=>db.load(`DELETE FROM wish_lists WHERE product_id=${id} and bidder_id=${bidder_id}`)
 }

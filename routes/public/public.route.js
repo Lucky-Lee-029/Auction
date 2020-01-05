@@ -49,7 +49,6 @@ route.get('/', async(req, res) => {
         //get current time
         product.remaining_time = utils.formatDuration(product.duration);
     }
-    console.log(topPrice);
 
     res.render('index', {
         topBidTimes,
@@ -90,8 +89,16 @@ route.get('/category/:id', async(req, res) => {
     for (parent of data) {
         parent.end_time = utils.formatDuration(parent.duration);
     }
+    if(req.user){
+        user_id=req.user.id;
+    }
+    else{
+        user_id=0;
+    }
+    console.log(user_id);
     const cate= await categoryModel.single(id);
     res.render('list_product', {
+        user_id,
         data,
         cate: cate[0],
         page_numbers,
