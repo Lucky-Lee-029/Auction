@@ -151,7 +151,7 @@
 
                                     </div>
                                     <div class="form-actions">
-                                        <button type="submit" class="btn btn-success" id="submit"> <i class="fa fa-check"></i>Upload</button>
+                                        <button type="submit" class="btn btn-success" id="submit" onclick="check()"> <i class="fa fa-check"></i>Upload</button>
                                         <button type="reset" class="btn btn-inverse">Cancel</button>
                                     </div>
                                 </form>
@@ -163,7 +163,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 
 <script>
-    $("#submit").click(function(){
+    function check(){
         var $fileUpload = $("#fumain");
         console.log($fileUpload.get(0).files.length);
         if (parseInt($fileUpload.get(0).files.length)>7){
@@ -172,5 +172,5 @@
         if (parseInt($fileUpload.get(0).files.length)<3){
          alert("You can only upload a minimum of 3 files");
         }
-    });    
+    };    
 </script>
