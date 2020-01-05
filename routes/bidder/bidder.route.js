@@ -36,22 +36,47 @@ bidder_route.get('/product/:id', async(req, res) => {
 
     res.render('bidder/product', { layout: 'main', product, isBidder: true });
 })
-bidder_route.get('/feedback', (req, res) => {
-    res.render('bidder/feedback', { layout: 'bidder' });
+bidder_route.post('/feedback', async(req, res) => {
+    var id = req.user.id;
+    console.log(data);
+    console.log(req.body)
+    var at = moment().format();
+    await bidderModel.feedback(req.body.pro, id, req.body.rating, req.body.message, at);
+    var data = await productModel.listWon(id);
+    res.render('bidder/product-won', {
+        layout: 'bidder',
+        data
+    });
 })
 bidder_route.get('/bidding', (req, res) => {
-    res.render('bidder/product-bidding', { layout: 'bidder' });
+    res.render('bidder/product-bidding', {
+        layout: 'bidder'
+    });
 })
 bidder_route.get('/wishlist', (req, res) => {
-    res.render('bidder/product-wishlist', { layout: 'main' });
-})
-bidder_route.get('/won', (req, res) => {
-    res.render('bidder/product-won', { layout: 'bidder' });
+        res.render('bidder/product-wishlist', {
+            layout: 'main'
+        });
+    })
+    // List won
+bidder_route.get('/won', async(req, res) => {
+    var id = req.user.id;
+    console.log(id);
+    var data = await productModel.listWon(id);
+    console.log(data);
+    res.render('bidder/product-won', {
+        layout: 'bidder',
+        data
+    });
 })
 bidder_route.get('/password', (req, res) => {
-    res.render('bidder/update-password', { layout: 'main' });
+    res.render('bidder/update-password', {
+        layout: 'main'
+    });
 })
 bidder_route.get('/uplevel', (req, res) => {
-    res.render('bidder/upgrade-to-seller', { layout: 'bidder' });
+    res.render('bidder/upgrade-to-seller', {
+        layout: 'bidder'
+    });
 })
 module.exports = bidder_route;
