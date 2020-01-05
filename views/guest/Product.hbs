@@ -18,14 +18,14 @@
                                     <div class="fslider" data-pagi="false" data-arrows="false" data-thumbs="true">
                                         <div class="flexslider">
                                             <div class="slider-wrap" data-lightbox="gallery">
-                                                <div class="slide" data-thumb="../images/shop/thumbs/dress/3.jpg">
-                                                    <a href="../images/shop/dress/3.jpg" title="Pink Printed Dress - Front View" data-lightbox="gallery-item"><img src="../images/shop/dress/3.jpg" alt="Pink Printed Dress"></a>
+                                                <div class="slide" data-thumb="/images/product/{{product.id}}/1.jpg">
+                                                    <a href="/images/product/{{product.id}}/1.jpg" title="Pink Printed Dress - Front View" data-lightbox="gallery-item"><img src="/images/product/{{product.id}}/1.jpg" alt="Pink Printed Dress"></a>
                                                 </div>
-                                                <div class="slide" data-thumb="../images/shop/thumbs/dress/3-1.jpg">
-                                                    <a href="../images/shop/dress/3-1.jpg" title="Pink Printed Dress - Side View" data-lightbox="gallery-item"><img src="../images/shop/dress/3-1.jpg" alt="Pink Printed Dress"></a>
+                                                <div class="slide" data-thumb="/images/product/{{product.id}}/2.jpg">
+                                                    <a href="/images/product/{{product.id}}/2.jpg" title="Pink Printed Dress - Side View" data-lightbox="gallery-item"><img src="/images/product/{{product.id}}/2.jpg" alt="Pink Printed Dress"></a>
                                                 </div>
-                                                <div class="slide" data-thumb="../images/shop/thumbs/dress/3-2.jpg">
-                                                    <a href="../images/shop/dress/3-2.jpg" title="Pink Printed Dress - Back View" data-lightbox="gallery-item"><img src="../images/shop/dress/3-2.jpg" alt="Pink Printed Dress"></a>
+                                                <div class="slide" data-thumb="/images/product/{{product.id}}/3.jpg">
+                                                    <a href="/images/product/{{product.id}}/3.jpg" title="Pink Printed Dress - Back View" data-lightbox="gallery-item"><img src="/images/product/{{product.id}}/3.jpg" alt="Pink Printed Dress"></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -49,11 +49,14 @@
                                 <h4>{{product.name}}</h4>
                                 <h5>Buy now: {{product.buy_now}}</h5>
                                 <h5>Seller: {{product.seller_name}}</h5>
-                                <h5>Seller's rating: 8/10</h5>
+                                <h5>Seller's rating: {{product.seller_review}}</h5>
+                                {{#if product.hasWinner}}
                                 <h5>Current Winner: {{maskName product.winner_name}}</h5>
-                                <h5>Winner rating: 8/10</h5>
+                                <h5>Bid Times: {{product.bidTimes}}</h5>
+                                <h5>Winner rating: {{product.winner_review}}</h5>
+                                {{/if}}
                                 <h5>Post date: {{formatTime product.created_at}}</h5>
-                                <h5>End time: {{product.end_time}}</h5>
+                                <h5>{{product.end_time}}</h5>
                                 <!-- Product Single - Short Description End -->
 
                                 <!-- Product Single - Meta
@@ -153,9 +156,7 @@
                                     <div class="tab-container">
 
                                         <div class="tab-content clearfix" id="tabs-1">
-                                            <p>Pink printed dress, woven, round neck with a keyhole and buttoned closure at the back, sleeveless, concealed zip up at left side seam, belt loops along waist with slight gathers beneath, brand appliqu?? above
-                                                left front hem, has an attached lining.</p>
-                                            Comes with a white, slim synthetic belt that has a tang clasp.
+                                            {{{product.description}}}
                                         </div>
                                         <div class="tab-content clearfix" id="tabs-2">
 

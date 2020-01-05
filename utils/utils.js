@@ -16,9 +16,9 @@ module.exports = {
                     else
                         remaining = "1 day " + remaining;
                 }
-                return remaining;
+                return "End in: " + remaining;
             } else {
-                return duration.format("HH:mm:ss DD/MM/YYYY");
+                return "End at: " + duration.format("HH:mm:ss DD/MM/YYYY");
             }
         }
     },

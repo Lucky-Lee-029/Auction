@@ -36,15 +36,15 @@ module.exports = {
     productFail: (offset) => db.load(`select * from products WHERE status=0 limit ${config.paginate.limit} offset ${offset}`),
     productSuccess: (offset) => db.load(`select * from products WHERE status=1 limit ${config.paginate.limit} offset ${offset}`),
     productAction: (offset) => db.load(`select * from products WHERE status=2 limit ${config.paginate.limit} offset ${offset}`),
-    countAction: async (id) => {
+    countAction: async(id) => {
         const rows = await db.load(`select count(*) as total from products where status=2`)
         return rows[0].total;
     },
-    countFail: async (id) => {
+    countFail: async(id) => {
         const rows = await db.load(`select count(*) as total from products where status=0`)
         return rows[0].total;
     },
-    countSuccess: async (id) => {
+    countSuccess: async(id) => {
         const rows = await db.load(`select count(*) as total from products where status=1`)
         return rows[0].total;
     },
@@ -61,7 +61,7 @@ module.exports = {
         product_id: id
     }),
     topBidTimes: _ => db.load(`SELECT * FROM history_auctions LEFT OUTER JOIN products on products.id = history_auctions.product_id  GROUP BY product_id ORDER BY COUNT(*) DESC LIMIT 5`),
-    currentPrice: (id) => db.load(`SELECT price, name  from history_auctions JOIN bidders on history_auctions.bidder_id = bidders.id WHERE product_id = ${id} and history_auctions.status = 2 ORDER BY price DESC LIMIT 1`),
+    currentPrice: (id) => db.load(`SELECT price, name, bidders.id as id from history_auctions JOIN bidders on history_auctions.bidder_id = bidders.id WHERE product_id = ${id} and history_auctions.status = 2 ORDER BY price DESC LIMIT 1`),
     delHistory: (id) => {
         db.del('history_auctions', {
             id: id
@@ -77,9 +77,11 @@ module.exports = {
 
     editDes: (id, des) => db.load(`UPDATE products Set description="${des}" WHERE id=${id}`),
 
-    countByCate: async (id) => {
+    countByCate: async(id) => {
         const rows = await db.load(`select count(*) as total from products JOIN product_categories ON products.id=product_categories.product_id WHERE product_categories.category_id=${id}`)
         return rows[0].total;
-    }
-
+    },
+    aboutToEnd: () => db.load("SELECT * FROM `products` WHERE duration > NOW() ORDER BY duration LIMIT 5"),
+    topPrice: () => db.load("SELECT * FROM products pd, history_auctions ha  WHERE pd.duration > NOW() and ha.product_id = pd.id and not EXISTS (SELECT * from history_auctions ha1 WHERE ha1.product_id = pd.id and ha1.price > ha.price) ORDER BY ha.price DESC LIMIT 5"),
+    bidTimes: (id) => db.load(`SELECT COUNT(*) as bidTimes FROM history_auctions WHERE product_id = ${id}`)
 }

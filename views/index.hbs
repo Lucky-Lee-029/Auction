@@ -27,61 +27,19 @@
         <div class="container my-5" id="about-to-end">
             <h3 class="text-warning">Sắp kết thúc: </h3>
             <div class="row justify-content-center justify-content-around">
-                <div class="card border border-warning">
-                    <a href="Product.html"><img src="./images/shop/dress/1.jpg" class="card-img-top " alt="... ">
+                {{#each aboutToEnd}}
+                    <div class="card border border-warning">
+                    <a href="/product/{{id}}"><img src="./images/product/{{id}}/1.jpg" class="card-img-top " alt="... ">
                         <div class="card-body ">
                             <div>
-                                <span class="text-uppercase font-weight-bold">Váy xịn</span>
+                                <span class="text-uppercase font-weight-bold">{{name}}</span>
                             </div>
-                            <div class="price my-2"><span>Current price: </span><span class="current-price font-weight-bold text-danger">1000$</span></div>
-                            <div class="remaining-time"><span class="time">05:00:00</span></div>
+                            <div class="price my-2"><span>Current price: </span><span class="current-price font-weight-bold text-danger">{{current_price}}</span></div>
+                            <div class="remaining-time"><span class="time">{{remaining_time}}</span></div>
                         </div>
                     </a>
                 </div>
-                <div class="card border border-warning">
-                    <a href="Product.html"><img src="./images/shop/shoes/1.jpg" class="card-img-top " alt="... ">
-                        <div class="card-body ">
-                            <div>
-                                <span class="text-uppercase font-weight-bold">Giày xịn</span>
-                            </div>
-                            <div class="price my-2"><span>Current price: </span><span class="current-price font-weight-bold text-danger">1000$</span></div>
-                            <div class="remaining-time"><span class="time">05:00:00</span></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="card border border-warning">
-                    <a href="Product.html"><img src="./images/shop/pants/1.jpg" class="card-img-top " alt="... ">
-                        <div class="card-body ">
-                            <div>
-                                <span class="text-uppercase font-weight-bold">Quần xịn</span>
-                            </div>
-                            <div class="price my-2"><span>Current price: </span><span class="current-price font-weight-bold text-danger">1000$</span></div>
-                            <div class="remaining-time"><span class="time">05:00:00</span></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="card border border-warning">
-                    <a href="Product.html"><img src="./images/shop/dress/2.jpg" class="card-img-top " alt="... ">
-                        <div class="card-body ">
-                            <div>
-                                <span class="text-uppercase font-weight-bold">Váy xịn hơn</span>
-                            </div>
-                            <div class="price my-2"><span>Current price: </span><span class="current-price font-weight-bold text-danger">1000$</span></div>
-                            <div class="remaining-time"><span class="time">05:00:00</span></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="card border border-warning">
-                    <a href="Product.html"><img src="./images/shop/shoes/2.jpg" class="card-img-top " alt="... ">
-                        <div class="card-body ">
-                            <div>
-                                <span class="text-uppercase font-weight-bold">Giày xịn hơn</span>
-                            </div>
-                            <div class="price my-2"><span>Current price: </span><span class="current-price font-weight-bold text-danger">1000$</span></div>
-                            <div class="remaining-time"><span class="time">00:00:5</span></div>
-                        </div>
-                    </a>
-                </div>
+                {{/each}}
             </div>
         </div>
         <div class="container my-5" id="about-to-end">
@@ -105,61 +63,19 @@
         <div class="container my-5" id="about-to-end">
             <h3 class="text-success">Top sản phẩm có giá cao nhất: </h3>
             <div class="row justify-content-center justify-content-around">
-                <div class="card border border-success">
-                    <a href="product.html"><img src="./images/shop/dress/1.jpg" class="card-img-top " alt="... ">
+                {{#each topPrice}}
+                    <div class="card border border-success">
+                    <a href="/product/{{id}}"><img src="./images/product/{{id}}/1.jpg" class="card-img-top " alt="... ">
                         <div class="card-body ">
                             <div>
-                                <span class="text-uppercase font-weight-bold">Váy xịn</span>
+                                <span class="text-uppercase font-weight-bold">{{name}}</span>
                             </div>
-                            <div class="price my-2"><span>Current price: </span><span class="current-price font-weight-bold text-danger">1000$</span></div>
-                            <div class="remaining-time"><span class="time">05:00:00</span></div>
+                            <div class="price my-2"><span>Current price: </span><span class="current-price font-weight-bold text-danger">{{current_price}}</span></div>
+                            <div class="remaining-time"><span class="time">{{remaining_time}}</span></div>
                         </div>
                     </a>
                 </div>
-                <div class="card border border-success">
-                    <a href="Product.html"><img src="./images/shop/shoes/1.jpg" class="card-img-top " alt="... ">
-                        <div class="card-body ">
-                            <div>
-                                <span class="text-uppercase font-weight-bold">Giày xịn</span>
-                            </div>
-                            <div class="price my-2"><span>Current price: </span><span class="current-price font-weight-bold text-danger">1000$</span></div>
-                            <div class="remaining-time"><span class="time">05:00:00</span></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="card border border-success">
-                    <a href="Product.html"><img src="./images/shop/pants/1.jpg" class="card-img-top " alt="... ">
-                        <div class="card-body ">
-                            <div>
-                                <span class="text-uppercase font-weight-bold">Quần xịn</span>
-                            </div>
-                            <div class="price my-2"><span>Current price: </span><span class="current-price font-weight-bold text-danger">1000$</span></div>
-                            <div class="remaining-time"><span class="time">05:00:00</span></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="card border border-success">
-                    <a href="Product.html"><img src="./images/shop/dress/2.jpg" class="card-img-top " alt="... ">
-                        <div class="card-body ">
-                            <div>
-                                <span class="text-uppercase font-weight-bold">Váy xịn hơn</span>
-                            </div>
-                            <div class="price my-2"><span>Current price: </span><span class="current-price font-weight-bold text-danger">1000$</span></div>
-                            <div class="remaining-time"><span class="time">05:00:00</span></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="card border border-success">
-                    <a href="Product.html"><img src="./images/shop/shoes/2.jpg" class="card-img-top " alt="... ">
-                        <div class="card-body ">
-                            <div>
-                                <span class="text-uppercase font-weight-bold">Giày xịn hơn</span>
-                            </div>
-                            <div class="price my-2"><span>Current price: </span><span class="current-price font-weight-bold text-danger">1000$</span></div>
-                            <div class="remaining-time"><span class="time">00:00:5</span></div>
-                        </div>
-                    </a>
-                </div>
+                {{/each}}
             </div>
         </div>
         <!--end body-->
