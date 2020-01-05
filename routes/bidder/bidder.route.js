@@ -1,6 +1,8 @@
 const bidder_route = require('express').Router();
-const bidderModel = require('../../models/bidders.model')
-const productModel = require('../../models/product.model')
+const bidderModel = require('../../models/bidders.model');
+const productModel = require('../../models/product.model');
+const moment = require('moment');
+
 //Home page
 bidder_route.get('/', (req, res) => {
     res.render('bidder/dashboard', {
@@ -13,9 +15,16 @@ bidder_route.get('/product', (req, res) => {
         layout: 'main'
     });
 })
-bidder_route.get('/feedback', (req, res) => {
-    res.render('bidder/feedback', {
-        layout: 'bidder'
+bidder_route.post('/feedback', async (req, res) => {
+    var id = req.user.id;
+    console.log(data);
+    console.log(req.body)
+    var at = moment().format();
+    await bidderModel.feedback(req.body.pro, id, req.body.rating, req.body.message, at);
+    var data = await productModel.listWon(id);
+    res.render('bidder/product-won', {
+        layout: 'bidder',
+        data
     });
 })
 bidder_route.get('/bidding', (req, res) => {
