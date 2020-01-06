@@ -110,5 +110,9 @@ module.exports = {
     orderByName: (id, offset) => db.load(`select * from products JOIN product_categories ON products.id=product_categories.product_id WHERE product_categories.category_id=${id}  order by products.name DESC limit ${config.paginate.limit} offset ${offset}`),
     orderByTime: (id, offset) => db.load(`select * from products JOIN product_categories ON products.id=product_categories.product_id WHERE product_categories.category_id=${id}  order by products.duration DESC limit ${config.paginate.limit} offset ${offset}`),
     orderByCost: (id, offset) => db.load(`select * from products JOIN product_categories ON products.id=product_categories.product_id WHERE product_categories.category_id=${id}  order by products.price_start DESC limit ${config.paginate.limit} offset ${offset}`),
-    biddingList: (id) => db.load(`SELECT p.id as id, p.name as name, p.duration as duration, b.id as me FROM history_auctions h, bidders b, products p WHERE h.bidder_id=b.id and h.product_id=p.id and b.id=${id} and p.duration>now() and h.price = (SELECT MAX(price) FROM history_auctions h1 WHERE h1.bidder_id=b.id and h1.product_id=p.id) `)
+    biddingList: (id) => db.load(`SELECT p.id as id, p.name as name, p.duration as duration, b.id as me FROM history_auctions h, bidders b, products p WHERE h.bidder_id=b.id and h.product_id=p.id and b.id=${id} and p.duration>now() and h.price = (SELECT MAX(price) FROM history_auctions h1 WHERE h1.bidder_id=b.id and h1.product_id=p.id) `),
+    searchByName: (name) => db.load(`SELECT * FROM products WHERE MATCH(name) Against("+${name}*" IN BOOLEAN MODE) limit ${config.paginate.limit} offset ${offset} `),
+    countSearchByName: (name) => db.load(`SELECT count(name) FROM products WHERE MATCH(name) Against("+${name}*" IN BOOLEAN MODE) `),
+    searchByCat: (cat) => db.load(`SELECT * FROM categories WHERE MATCH(name) Against("+${cat}*" IN BOOLEAN MODE) limit ${config.paginate.limit} offset ${offset}`),
+    countSearchByCat: (cat) => db.load(`SELECT count(name) FROM categories WHERE MATCH(name) Against("+${cat}*" IN BOOLEAN MODE) `)
 }
