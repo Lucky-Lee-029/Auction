@@ -239,7 +239,19 @@
 						============================================= -->
                         <div id="top-account">
                             {{#if isAuthenticated}}
-                                <a href="/bidder"><i class="icon-line2-user mr-1 position-relative" style="top: 1px;"></i><span class="d-none d-sm-inline-block font-primary t500">{{user.name}}</span></a>
+                                <div class="dropdown dropleft">
+                                    <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      {{user.name}}
+                                    </a>
+
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                      <a class="dropdown-item" href="/bidder">Bidder Management</a>
+                                      {{#if user.isSeller}}
+                                      <a class="dropdown-item" href="/seller">Seller Management</a>
+                                      {{/if}}
+                                      <a class="dropdown-item" href="/logout">Log Out</a>
+                                    </div>
+                                </div>
                             {{else}}
                             <a href="#modal-register" data-lightbox="inline"><i class="icon-line2-user mr-1 position-relative" style="top: 1px;"></i><span class="d-none d-sm-inline-block font-primary t500">Login</span></a>
                             {{/if}}
