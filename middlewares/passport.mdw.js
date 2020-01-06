@@ -166,7 +166,8 @@ module.exports = function(app, passport) {
     })
 
     app.post('/facebook/set-password', isAuth, async(req, res) => {
-        var entity = req.user;
+        var entity = {};
+        entity.id = req.user.id;
         entity.password = bcrypt.hashSync(req.body.newPassword, config.bcrypt.init);
         await bidderModel.patch(entity);
         res.redirect('/');

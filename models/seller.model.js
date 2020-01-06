@@ -7,15 +7,12 @@ module.exports = {
     single: (id) => db.load(`select * from ${tableName} where id=${id}`),
 
     insert(pro_id, id, name, price_start, price_end, step, auto_renew, description, created_at, duaration) {
-        return db.load(
-            `INSERT INTO products (id, seller_id ,name, price_start, price_end, buy_now, step, auto_renew, description, duration,status, created_at) VALUES
-            (${pro_id},${id},"${name}",${price_start},${price_end},${price_end},${step},${auto_renew},"${description}",'${duaration}',1,'${created_at}')`
-        );
+        return db.add('products', { id: pro_id, seller_id: id, name, price_start, price_end, buy_now: price_end, step, auto_renew, description, duration: duaration, created_at, status: 0 });
     },
     //UPDATE `products` SET `created_at` = '2020-01-01 03:16:15' WHERE `products`.`id` = 2 
     maxId: () => db.load(`SELECT Max(id) as id From products`),
 
-    allActive: (id, day) => db.load(`select * from products where status=1 and seller_id=${id} and duration>"${day}"`),
+    allActive: (id, day) => db.load(`select * from products where seller_id=${id} and duration>now()`),
 
     del: (tableName, condition) => db.del(tableName, condition),
 
@@ -47,11 +44,11 @@ module.exports = {
     },
     add: (id, now, created_at) => {
         const condition = {
-          seller_id: id,
-          expiry_date: now,
-          created_at: created_at
+            seller_id: id,
+            expiry_date: now,
+            created_at: created_at
         };
-        db.add('sellers',condition);
+        db.add('sellers', condition);
     },
     feedback: (product, bidder, love, review, create) => db.load(
         `INSERT INTO bidder_reviews (product_id, bidder_id, love, review, created_at) VALUES (${product}, ${bidder}, ${love}, "${review}","${create}") `
