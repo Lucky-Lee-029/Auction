@@ -7,10 +7,7 @@ module.exports = {
     single: (id) => db.load(`select * from ${tableName} where id=${id}`),
 
     insert(pro_id, id, name, price_start, price_end, step, auto_renew, description, created_at, duaration) {
-        return db.load(
-            `INSERT INTO products (id, seller_id ,name, price_start, price_end, buy_now, step, auto_renew, description, duration,status, created_at) VALUES
-            (${pro_id},${id},"${name}",${price_start},${price_end},${price_end},${step},${auto_renew},"${description}",'${duaration}',1,'${created_at}')`
-        );
+        return db.add('products', { id: pro_id, seller_id: id, name, price_start, price_end, buy_now: price_end, step, auto_renew, description, duration: duaration, created_at, status: 0 });
     },
     //UPDATE `products` SET `created_at` = '2020-01-01 03:16:15' WHERE `products`.`id` = 2 
     maxId: () => db.load(`SELECT Max(id) as id From products`),
@@ -33,15 +30,15 @@ module.exports = {
         // console.log(condition, entity);
         return db.patch(tableName, entity, condition);
     },
-    totalReviews: async (id) => {
+    totalReviews: async(id) => {
         const rows = await db.load(`select count(*) as total from sellers JOIN bidder_reviews ON sellers.id=bidder_reviews.seller_id WHERE sellers.id=${id}`)
         return rows[0].total;
     },
-    pointReviews: async (id) => {
+    pointReviews: async(id) => {
         const rows = await db.load(`select count(*) as total from sellers JOIN bidder_reviews ON sellers.id=bidder_reviews.seller_id WHERE sellers.id=${id} and bidder_reviews.love=1`)
         return rows[0].total;
     },
-    count: async () => {
+    count: async() => {
         const rows = await db.load(`select count(*) as total from sellers`)
         return rows[0].total;
     },
