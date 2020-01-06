@@ -70,12 +70,24 @@ route.get('/faq', (req, res) => {
 
 //Product for each category
 route.get('/category/:id', async (req, res) => {
+    var orderBy = req.query.orderBy;
     const limit = config.paginate.limit1;
     const page = req.query.page || 1;
     if (page < 1) page = 1;
     const offset = (page - 1) * config.paginate.limit;
     const id = req.params.id;
-    const data = await productModel.productCategory(id, offset);
+    var data;
+    if (orderBy == 1) {
+        data = await productModel.orderByName(id, offset);
+    }
+    if (orderBy == 2) {
+        data = await productModel.orderByTime(id, offset);
+    }
+    if (orderBy == 3) {
+        data = await productModel.orderByCost(id, offset);
+    } else {
+        data = await productModel.productCategory(id, offset);
+    }
     const total = await productModel.countByCate(id);
     var now = moment();
     console.log(now);
