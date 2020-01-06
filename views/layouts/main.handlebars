@@ -218,8 +218,16 @@
 						============================================= -->
                         <div id="top-search">
                             <a href="#" id="top-search-trigger"><i class="icon-line-search"></i><i class="icon-line-cross"></i></a>
-                            <form action="search.html" method="get">
-                                <input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
+                            <form action="/search" method="GET" class="d-flex">
+                                
+                                <div class="row">
+                                    <select class="custom-select w-10 col-sm-2 col-form-label align-self-center" name="type">
+                                        <option value="1" selected>Name</option>
+                                        <option value="2">Category</option>
+                                    </select>
+                                    <input type="text" name="search-string" class="form-control col-sm-10" value="" placeholder="Type &amp; Hit Enter..">
+
+                                </div>
                             </form>
                         </div>
                         <!-- #top-search end -->

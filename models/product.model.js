@@ -36,15 +36,15 @@ module.exports = {
     productFail: (offset) => db.load(`select * from products WHERE status=0 limit ${config.paginate.limit} offset ${offset}`),
     productSuccess: (offset) => db.load(`select * from products WHERE status=1 limit ${config.paginate.limit} offset ${offset}`),
     productAction: (offset) => db.load(`select * from products WHERE status=2 limit ${config.paginate.limit} offset ${offset}`),
-    countAction: async (id) => {
+    countAction: async(id) => {
         const rows = await db.load(`select count(*) as total from products where status=2`)
         return rows[0].total;
     },
-    countFail: async (id) => {
+    countFail: async(id) => {
         const rows = await db.load(`select count(*) as total from products where status=0`)
         return rows[0].total;
     },
-    countSuccess: async (id) => {
+    countSuccess: async(id) => {
         const rows = await db.load(`select count(*) as total from products where status=1`)
         return rows[0].total;
     },
@@ -87,7 +87,7 @@ module.exports = {
 
     editDes: (id, des) => db.load(`UPDATE products Set description="${des}" WHERE id=${id}`),
 
-    countByCate: async (id) => {
+    countByCate: async(id) => {
         const rows = await db.load(`select count(*) as total from products JOIN product_categories ON products.id=product_categories.product_id WHERE product_categories.category_id=${id}`)
         return rows[0].total;
     },
@@ -101,7 +101,7 @@ module.exports = {
         product_id: id,
         bidder_id: bidder_id
     }),
-    isWish: async (id, bidder_id) => {
+    isWish: async(id, bidder_id) => {
         const rows = await db.load(`select count(*) as total from wish_lists where product_id=${id} and bidder_id=${bidder_id}`);
         return rows[0].total;
     },
@@ -111,8 +111,8 @@ module.exports = {
     orderByTime: (id, offset) => db.load(`select * from products JOIN product_categories ON products.id=product_categories.product_id WHERE product_categories.category_id=${id}  order by products.duration DESC limit ${config.paginate.limit} offset ${offset}`),
     orderByCost: (id, offset) => db.load(`select * from products JOIN product_categories ON products.id=product_categories.product_id WHERE product_categories.category_id=${id}  order by products.price_start DESC limit ${config.paginate.limit} offset ${offset}`),
     biddingList: (id) => db.load(`SELECT p.id as id, p.name as name, p.duration as duration, b.id as me FROM history_auctions h, bidders b, products p WHERE h.bidder_id=b.id and h.product_id=p.id and b.id=${id} and p.duration>now() and h.price = (SELECT MAX(price) FROM history_auctions h1 WHERE h1.bidder_id=b.id and h1.product_id=p.id) `),
-    searchByName: (name) => db.load(`SELECT * FROM products WHERE MATCH(name) Against("+${name}*" IN BOOLEAN MODE) limit ${config.paginate.limit} offset ${offset} `),
+    searchByName: (name, offset) => db.load(`SELECT * FROM products WHERE MATCH(name) Against("+${name}*" IN BOOLEAN MODE) limit ${config.paginate.limit} offset ${offset} `),
     countSearchByName: (name) => db.load(`SELECT count(name) FROM products WHERE MATCH(name) Against("+${name}*" IN BOOLEAN MODE) `),
-    searchByCat: (cat) => db.load(`SELECT * FROM categories WHERE MATCH(name) Against("+${cat}*" IN BOOLEAN MODE) limit ${config.paginate.limit} offset ${offset}`),
+    searchByCat: (cat, offset) => db.load(`SELECT * FROM products, product_categories WHERE products.id = product_categories.product_id and product_categories.category_id IN(SELECT id FROM categories WHERE MATCH(name) Against("+${cat}*" IN BOOLEAN MODE)) limit ${config.paginate.limit} offset ${offset}`),
     countSearchByCat: (cat) => db.load(`SELECT count(name) FROM categories WHERE MATCH(name) Against("+${cat}*" IN BOOLEAN MODE) `)
 }

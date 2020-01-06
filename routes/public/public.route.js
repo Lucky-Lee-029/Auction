@@ -8,7 +8,7 @@ const config = require('../../config/default.json')
 const moment = require('moment');
 
 //Home page
-route.get('/', async (req, res) => {
+route.get('/', async(req, res) => {
     let topBidTimes = await productModel.topBidTimes();
 
     for (let product of topBidTimes) {
@@ -69,7 +69,7 @@ route.get('/faq', (req, res) => {
 })
 
 //Product for each category
-route.get('/category/:id', async (req, res) => {
+route.get('/category/:id', async(req, res) => {
     var orderBy = req.query.orderBy;
     const limit = config.paginate.limit1;
     const page = req.query.page || 1;
@@ -117,9 +117,10 @@ route.get('/category/:id', async (req, res) => {
     console.log(user_id);
     const cate = await categoryModel.single(id);
     res.render('list_product', {
+        layout: 'main',
         user_id,
         data,
-        cate: cate[0],
+        category: cate[0],
         page_numbers,
         not_prev: +page - 1 === 0,
         not_next: +page === +nPages,
@@ -128,11 +129,75 @@ route.get('/category/:id', async (req, res) => {
     })
 })
 
-route.get('/product/:id', async (req, res) => {
+route.get('/search', async(req, res) => {
+    let type = req.query.type;
+    let key = req.query["search-string"];
+
+    //Lấy page
+    const limit = config.paginate.limit1;
+    const page = req.query.page || 1;
+    if (page < 1) page = 1;
+    const offset = (page - 1) * config.paginate.limit;
+    const id = key;
+
+    //Lấy data
+    var data, total;
+    if (type == 1) {
+        data = await productModel.searchByName(key, offset);
+        total = await productModel.countSearchByName(key);
+
+    } else {
+        data = await productModel.searchByCat(key, offset);
+        total = await productModel.countSearchByCat(key);
+        console.log(data);
+    }
+
+    //Lấy total
+
+
+    var now = moment();
+    console.log(now);
+    for (dat of data) {
+        var time = now.diff(moment(dat.created_at), 'seconds');
+        console.log(time);
+        dat.new = (time < 3600);
+    }
+    console.log(data);
+    let nPages = Math.floor(total / limit);
+    if (total % limit > 0) nPages++;
+    const page_numbers = [];
+    for (i = 1; i <= nPages; i++) {
+        page_numbers.push({
+            value: i,
+            isCurrentPage: i === +page
+        })
+    }
+    for (parent of data) {
+        parent.end_time = utils.formatDuration(parent.duration);
+    }
+    if (req.user) {
+        user_id = req.user.id;
+    } else {
+        user_id = 0;
+    }
+    console.log(user_id);
+    res.render('search-results', {
+        layout: 'main',
+        key,
+        user_id,
+        data,
+        page_numbers,
+        not_prev: +page - 1 === 0,
+        not_next: +page === +nPages,
+        prev_value: +page - 1,
+        next_value: +page + 1,
+    })
+})
+route.get('/product/:id', async(req, res) => {
     const id = req.params.id;
     let product = await productModel.single(id);
     product = product[0];
-    if (typeof (req.user) != 'undefined') {
+    if (typeof(req.user) != 'undefined') {
         if (req.user.id == product.seller_id)
             return res.redirect('/seller/product/' + id);
         return res.redirect('/bidder/product/' + id);
@@ -162,7 +227,7 @@ route.get('/product/:id', async (req, res) => {
 
 });
 
-route.post('/wishlist/add', async (req, res) => {
+route.post('/wishlist/add', async(req, res) => {
     if (req.user) {
         id = req.body.id;
         result = await productModel.isWish(id, req.user.id)
