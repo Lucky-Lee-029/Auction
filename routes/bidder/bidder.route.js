@@ -4,13 +4,11 @@ const productModel = require('../../models/product.model');
 const categoryModel = require('../../models/category.model');
 const sellerModel = require('../../models/seller.model');
 const history_auctionModel = require('../../models/history_auctions.model');
+const upgradeRequestModel = require('../../models/upgrade_request.model');
 const utils = require('../../utils/utils');
 const moment = require('moment');
-//Home page
-bidder_route.get('/', (req, res) => {
-        res.render('bidder/dashboard', { layout: 'admin' });
-    })
-    //product view for bidder
+const bcrypt = require('bcryptjs');
+
 bidder_route.get('/product/:id', async(req, res) => {
     const id = req.params.id;
     if (req.session.bidError) {
@@ -69,6 +67,18 @@ bidder_route.get('/product/:id', async(req, res) => {
     }
     res.render('bidder/product', { layout: 'main', product, allowToBid, bidder: bidders });
 })
+bidder_route.use((req, res, next) => {
+    if (typeof(req.user) == 'undefined') {
+        req.session.loginModal = true;
+        return res.redirect('/');
+    }
+    next();
+});
+//Home page
+bidder_route.get('/', (req, res) => {
+        res.render('bidder/dashboard', { layout: 'bidder' });
+    })
+    //product view for bidder
 
 bidder_route.post('/bid', async(req, res) => {
     var { price, productId } = req.body;
@@ -161,9 +171,24 @@ bidder_route.get('/password', (req, res) => {
         layout: 'main'
     });
 })
-bidder_route.get('/uplevel', (req, res) => {
+bidder_route.get('/uplevel', async(req, res) => {
+    var result = await upgradeRequestModel.single(req.user.id);
+    var requested = false;
+    if (result.length > 0) {
+        requested = true;
+    }
     res.render('bidder/upgrade-to-seller', {
-        layout: 'bidder'
+        layout: 'bidder',
+        requested
     });
 })
+bidder_route.post('/uplevel', async(req, res) => {
+    var { password } = req.body;
+    if (bcrypt.compareSync(password, req.user.password)) {
+        //add to up level list
+        await upgradeRequestModel.add({ bidder_id: req.user.id });
+    }
+    res.redirect('./uplevel');
+})
+
 module.exports = bidder_route;
