@@ -36,15 +36,15 @@ module.exports = {
     productFail: (offset) => db.load(`select * from products WHERE status=0 limit ${config.paginate.limit} offset ${offset}`),
     productSuccess: (offset) => db.load(`select * from products WHERE status=1 limit ${config.paginate.limit} offset ${offset}`),
     productAction: (offset) => db.load(`select * from products WHERE status=2 limit ${config.paginate.limit} offset ${offset}`),
-    countAction: async(id) => {
+    countAction: async (id) => {
         const rows = await db.load(`select count(*) as total from products where status=2`)
         return rows[0].total;
     },
-    countFail: async(id) => {
+    countFail: async (id) => {
         const rows = await db.load(`select count(*) as total from products where status=0`)
         return rows[0].total;
     },
-    countSuccess: async(id) => {
+    countSuccess: async (id) => {
         const rows = await db.load(`select count(*) as total from products where status=1`)
         return rows[0].total;
     },
@@ -104,11 +104,11 @@ module.exports = {
     WHERE p.seller_id=${id} AND p.id=h.product_id AND h.bidder_id=b.id AND 
     h.price=(SELECT price from 
         history_auctions JOIN bidders on history_auctions.bidder_id = bidders.id 
-        WHERE product_id= p.id and history_auctions.status = 1 ORDER BY price DESC LIMIT 1)`),
+        WHERE product_id= p.id ORDER BY price DESC LIMIT 1)`),
 
     editDes: (id, des) => db.load(`UPDATE products Set description="${des}" WHERE id=${id}`),
 
-    countByCate: async(id) => {
+    countByCate: async (id) => {
         const rows = await db.load(`select count(*) as total from products JOIN product_categories ON products.id=product_categories.product_id WHERE product_categories.category_id=${id}`)
         return rows[0].total;
     },
@@ -117,19 +117,19 @@ module.exports = {
             WHERE pd.duration > NOW() and ha.product_id = pd.id and not EXISTS(SELECT * from blocked_auctions ba WHERE ba.product_id = pd.id and ba.bidder_id = ha.bidder_id) and not EXISTS(SELECT * from history_auctions ha1 WHERE ha1.product_id = pd.id and ha1.price > ha.price and not EXISTS(SELECT * from blocked_auctions ba1 WHERE ba1.product_id = pd.id and ba1.bidder_id = ha1.bidder_id)) ORDER BY ha.price DESC LIMIT 5 `),
 
     bidTimes: (id) => db.load(`SELECT COUNT(*) as bidTimes FROM history_auctions WHERE product_id = ${id} and status = 1`),
-    listWon: (id) => db.load(`SELECT b.id as bidder, p.name as name, p.id as id, h.price as price, p.price_start as started, p.price_end as ended, p.step as step, p.seller_id FROM products p, history_auctions h, bidders b WHERE b.id=${id} AND p.id=h.product_id AND h.bidder_id=b.id AND h.price=(SELECT price from history_auctions JOIN bidders on history_auctions.bidder_id = bidders.id WHERE product_id= p.id and history_auctions.status = 1 ORDER BY price DESC LIMIT 1) `),
+    listWon: (id) => db.load(`SELECT b.id as bidder, p.name as name, p.id as id, h.price as price, p.price_start as started, p.price_end as ended, p.step as step, p.seller_id FROM products p, history_auctions h, bidders b WHERE b.id=${id} AND p.id=h.product_id AND h.bidder_id=b.id AND h.price=(SELECT price from history_auctions JOIN bidders on history_auctions.bidder_id = bidders.id WHERE product_id= p.id ORDER BY price DESC LIMIT 1) `),
     addWishlist: (id, bidder_id) => db.add(`wish_lists`, {
         product_id: id,
         bidder_id: bidder_id
     }),
-    isWish: async(id, bidder_id) => {
+    isWish: async (id, bidder_id) => {
         const rows = await db.load(`select count(*) as total from wish_lists where product_id=${id} and bidder_id=${bidder_id}`);
         return rows[0].total;
     },
     WishList: (id) => db.load(`select * from products join wish_lists on products.id=wish_lists.product_id where wish_lists.bidder_id=${id}`),
     delWish: (id, bidder_id) => db.load(`DELETE FROM wish_lists WHERE product_id=${id} and bidder_id=${bidder_id}`),
     biddingList: (id) => db.load(`SELECT p.id as id, p.name as name, p.duration as duration, b.id as me FROM history_auctions h, bidders b, products p WHERE h.bidder_id=b.id and h.product_id=p.id and b.id=${id} and p.duration>now() and h.price = (SELECT MAX(price) FROM history_auctions h1 WHERE h1.bidder_id=b.id and h1.product_id=p.id) `),
-    patchHis: (entity)=> {
+    patchHis: (entity) => {
         const condition = {
             id: entity.id
         };
