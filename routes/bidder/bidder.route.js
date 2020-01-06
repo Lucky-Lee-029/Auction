@@ -141,11 +141,8 @@ bidder_route.post('/bid', async(req, res) => {
                         productModel.patchHis({bidder_id: resultAuto[0].id, id: resultAuto[0].his_id,product_id: product.id, price: pricemax});
                     } 
                     if(result1[0].price<resultAuto[0].price_end && resultAuto[0].id===result1[0].id){
-                        console.log('abc');
                         resultAuto=await productModel.PriceEndsecond(productId, result1[0].id);
-                        console.log(resultAuto[0]);
                         pricemax=resultAuto[0].price_end+product.step;
-                        console.log(pricemax);
                         productModel.patchHis({bidder_id: result1[0].id, id: result1[0].his_id,product_id: product.id, price: pricemax});
 
                     }

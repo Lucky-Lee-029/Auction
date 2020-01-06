@@ -33,19 +33,41 @@ module.exports = {
     },
 
     productImage: id => db.load(`select * from products JOIN product_images on products.id=product_images.product_id WHERE product_images.product_id = ${id}`),
-    productFail: (offset) => db.load(`select * from products WHERE status=0 limit ${config.paginate.limit} offset ${offset}`),
-    productSuccess: (offset) => db.load(`select * from products WHERE status=1 limit ${config.paginate.limit} offset ${offset}`),
-    productAction: (offset) => db.load(`select * from products WHERE status=2 limit ${config.paginate.limit} offset ${offset}`),
-    countAction: async(id) => {
-        const rows = await db.load(`select count(*) as total from products where status=2`)
+    productFail: (offset) => db.load(`select * from products p WHERE duration <NOW() and
+                                                                    not exists(
+                                                                        select *
+                                                                        from history_auctions
+                                                                        where p.id=history_auctions.product_id and not exists(select * from blocked_auctions where his.product_id=product_id and his.bidder_id=bidder_id)
+                                                                        ) 
+                                            limit ${config.paginate.limit} offset ${offset}`),
+    productSuccess: (offset) => db.load(`select * from products p WHERE duration <NOW() and
+                                                                        exists(
+                                                                            select *
+                                                                            from history_auctions
+                                                                            where p.id=history_auctions.product_id and not exists(select * from blocked_auctions where his.product_id=product_id and his.bidder_id=bidder_id)
+                                                                            ) 
+                                            limit ${config.paginate.limit} offset ${offset}`),
+    productAction: (offset) => db.load(`select * from products WHERE duration>NOW() limit ${config.paginate.limit} offset ${offset}`),
+    countAction: async() => {
+        const rows = await db.load(`select count(*) as total from products where duration>NOW()`)
         return rows[0].total;
     },
-    countFail: async(id) => {
-        const rows = await db.load(`select count(*) as total from products where status=0`)
+    countFail: async() => {
+        const rows = await db.load(`select count(*) as total from products p where duration <NOW() and 
+                                     not exists(
+                                        select *
+                                        from history_auctions
+                                        where p.id=history_auctions.product_id and not exists(select * from blocked_auctions where his.product_id=product_id and his.bidder_id=bidder_id)
+                                        )`)
         return rows[0].total;
     },
-    countSuccess: async(id) => {
-        const rows = await db.load(`select count(*) as total from products where status=1`)
+    countSuccess: async() => {
+        const rows = await db.load(`select count(*) as total from products p where duration <NOW() and 
+                                    exists(
+                                        select *
+                                        from history_auctions his
+                                        where p.id=history_auctions.product_id and not exists(select * from blocked_auctions where his.product_id=product_id and his.bidder_id=bidder_id)
+                                        )`)
         return rows[0].total;
     },
 
@@ -70,7 +92,7 @@ module.exports = {
     and not EXISTS (SELECT * from blocked_auctions ba WHERE ba.product_id = pd.id and ba.bidder_id = ha.bidder_id )
     and not EXISTS (SELECT * from history_auctions ha1 WHERE ha1.product_id = pd.id 
                                                        and ha1.price > ha.price
-                                                       and not EXISTS (SELECT * from blocked_auctions ba1 WHERE ba1.product_id = pd.id and ba1.bidder_id = ha1.bidder_id ) 
+                                                       and not EXISTS (SELECT * from blocked_auctions ba1 WHERE ha1.product_id = pd.id and ba1.bidder_id = ha1.bidder_id ) 
                                                 
                    )`),
     PriceEnd: (id) => db.load(`SELECT bd.id, ha.price_end, ha.id as his_id FROM  history_auctions ha, products pd, bidders bd
@@ -136,6 +158,17 @@ module.exports = {
         delete entity.id;
         return db.patch('history_auctions', entity, condition);
     },
+    currentEnd: (id) => db.load(`SELECT bd.id, ha.price, bd.name, ha.price_end as price_end, ha.id as his_id FROM  history_auctions ha, products pd, bidders bd
+    WHERE pd.duration < NOW() 
+    and ha.product_id = pd.id 
+    and bd.id = ha.bidder_id
+    and pd.id = ${id}
+    and not EXISTS (SELECT * from blocked_auctions ba WHERE ba.product_id = pd.id and ba.bidder_id = ha.bidder_id )
+    and not EXISTS (SELECT * from history_auctions ha1 WHERE ha1.product_id = pd.id 
+                                                       and ha1.price > ha.price
+                                                       and not EXISTS (SELECT * from blocked_auctions ba1 WHERE ha1.product_id = pd.id and ba1.bidder_id = ha1.bidder_id ) 
+                                                
+                   )`),
     orderByName: (id, offset) => db.load(`select * from products JOIN product_categories ON products.id=product_categories.product_id WHERE product_categories.category_id=${id}  order by products.name DESC limit ${config.paginate.limit} offset ${offset}`),
     orderByTime: (id, offset) => db.load(`select * from products JOIN product_categories ON products.id=product_categories.product_id WHERE product_categories.category_id=${id}  order by products.duration DESC limit ${config.paginate.limit} offset ${offset}`),
     orderByCost: (id, offset) => db.load(`select * from products JOIN product_categories ON products.id=product_categories.product_id WHERE product_categories.category_id=${id}  order by products.price_start DESC limit ${config.paginate.limit} offset ${offset}`),
