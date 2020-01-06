@@ -20,13 +20,13 @@
                             <div class="flexslider">
                                 <div class="slider-wrap" data-lightbox="gallery">
                                     <div class="slide" data-thumb="/images/product/{{product.id}}/1.jpg">
-                                        <a href="/images/product/{{product.id}}/1.jpg"  data-lightbox="gallery-item"><img src="/images/product/{{product.id}}/1.jpg" alt="Pink Printed Dress"></a>
+                                        <a href="/images/product/{{product.id}}/1.jpg"  data-lightbox="gallery-item"><img src="/images/product/{{product.id}}/1.jpg"></a>
                                     </div>
                                     <div class="slide" data-thumb="/images/product/{{product.id}}/2.jpg">
-                                        <a href="/images/product/{{product.id}}/2.jpg"  data-lightbox="gallery-item"><img src="/images/product/{{product.id}}/2.jpg" alt="Pink Printed Dress"></a>
+                                        <a href="/images/product/{{product.id}}/2.jpg"  data-lightbox="gallery-item"><img src="/images/product/{{product.id}}/2.jpg"></a>
                                     </div>
                                     <div class="slide" data-thumb="/images/product/{{product.id}}/3.jpg">
-                                        <a href="/images/product/{{product.id}}/3.jpg"  data-lightbox="gallery-item"><img src="/images/product/{{product.id}}/3.jpg" alt="Pink Printed Dress"></a>
+                                        <a href="/images/product/{{product.id}}/3.jpg"  data-lightbox="gallery-item"><img src="/images/product/{{product.id}}/3.jpg"></a>
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                     <div>Step:{{data.step}}</div>
                     <div>Buy now:{{data.buy_now}} </div>
                     <div>Post date: {{formatTime data.created_at}}</div>
-                    <div>End time:   </div>
+                    <div>End time: {{data.duration}}  </div>
                     <!-- Product Single - Short Description End -->
 
                     <!-- Product Single - Meta
@@ -121,7 +121,7 @@
 
                             <div class="tab-content clearfix" id="tabs-1">
                                 <h3><b>Description</b></h3>
-                                <div>
+                                <div>   
                                     <div>{{{data.description}}}</div>
                                     <div style="display: none">{{data.id}}</div>
                                     <button id="edit" type="button" class="btn btn-info" >Edit description</button>

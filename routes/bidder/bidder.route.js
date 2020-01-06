@@ -65,7 +65,12 @@ bidder_route.get('/product/:id', async(req, res) => {
     for (var bidder of bidders) {
         bidder.tim = moment(bidder.tim).format("HH:mm:ss DD/MM/YYYYY");
     }
-    res.render('bidder/product', { layout: 'main', product, allowToBid, bidder: bidders });
+    res.render('bidder/product', {
+        layout: 'main',
+        product,
+        allowToBid,
+        bidder: bidders
+    });
 })
 bidder_route.use((req, res, next) => {
     if (typeof(req.user) == 'undefined') {
@@ -81,7 +86,74 @@ bidder_route.get('/', (req, res) => {
     //product view for bidder
 
 bidder_route.post('/bid', async(req, res) => {
-    var { price, productId } = req.body;
+    var {
+        price,
+        productId
+    } = req.body;
+    //if price is acc and bidder is not be block from bid this then add to dtb
+    var canBid = await bidderModel.canBid(req.user.id, productId);
+    if (canBid.length == 0) canBid = true;
+    else canBid = false;
+    if (canBid) {
+        var product = await productModel.single(productId);
+        product = product[0]
+        var currentPrice = await productModel.currentPrice(productId);
+        currentPrice = currentPrice[0]
+            //price is ac
+        if (price % product.step == 0 && price > Math.max(currentPrice.price, product.price_start))
+            await history_auctionModel.add({
+                created_at: moment().format(),
+                product_id: productId,
+                bidder_id: req.user.id,
+                price,
+                status: 1
+            })
+        else {
+            let duration = moment(product.duration, "DD-MM-YYYY-HH-mm-ss");
+            let secondsDiff = duration.diff(moment(), "seconds");
+            if (secondsDiff <= 0) {
+                req.session.errorOnId = productId;
+                req.session.bidError = true;
+                req.session.bidMessage = "Time was up";
+            } else {
+                var currentPrice = await productModel.currentPrice(productId);
+                currentPrice = currentPrice[0]
+                    //price is ac
+                if (price % product.step == 0 && price > Math.max(currentPrice.price, product.price_start)) {
+                    await history_auctionModel.add({
+                        created_at: moment().format(),
+                        product_id: productId,
+                        bidder_id: req.user.id,
+                        price,
+                        status: 1
+                    })
+                    if (product.auto_renew) {
+
+                        if (secondsDiff < 5 * 60) {
+                            let newDuration = duration.add(10, "minutes");
+                            await productModel.patch({
+                                id: product.id,
+                                duration: newDuration
+                            })
+                        }
+
+                    }
+                } else {
+                    req.session.errorOnId = productId;
+                    req.session.bidError = true;
+                    req.session.bidMessage = "Price is not accepted";
+                }
+            }
+        }
+    }
+    res.redirect(`/bidder/product/${productId}`);
+});
+
+bidder_route.post('/bid', async(req, res) => {
+    var {
+        price,
+        productId
+    } = req.body;
     //if price is acc and bidder is not be block from bid this then add to dtb
     var canBid = await bidderModel.canBid(req.user.id, productId);
     if (canBid.length == 0) canBid = true;
@@ -112,7 +184,10 @@ bidder_route.post('/bid', async(req, res) => {
 
                     if (secondsDiff < 5 * 60) {
                         let newDuration = duration.add(10, "minutes");
-                        await productModel.patch({ id: product.id, duration: newDuration })
+                        await productModel.patch({
+                            id: product.id,
+                            duration: newDuration
+                        })
                     }
 
                 }
@@ -129,34 +204,35 @@ bidder_route.post('/bid', async(req, res) => {
     }
     res.redirect(`/bidder/product/${productId}`);
 });
-bidder_route.post('/feedback', async(req, res) => {
+bidder_route.get('/bidding', async(req, res) => {
     var id = req.user.id;
-    var at = moment().format();
-    await bidderModel.feedback(req.body.pro, id, req.body.rating, req.body.message, at);
-    var data = await productModel.listWon(id);
-    res.render('bidder/product-won', {
+    var data = await productModel.biddingList(id);
+    for (product of data) {
+        var price = await productModel.currentPrice(product.id);
+        product.price = price[0].price;
+        product.winner = price[0].name;
+        product.him = (price[0].id == product.me);
+        product.duration = utils.formatDuration(product.duration);
+    }
+    console.log(data);
+    res.render('bidder/product-bidding', {
         layout: 'bidder',
         data
     });
 })
-bidder_route.get('/bidding', (req, res) => {
-    res.render('bidder/product-bidding', {
-        layout: 'bidder'
-    });
-})
-bidder_route.get('/wishlist', async (req, res) => {
+bidder_route.get('/wishlist', async(req, res) => {
     var id = req.user.id;
-    list=await productModel.WishList(id);
+    list = await productModel.WishList(id);
     res.render('bidder/product-wishlist', {
         layout: 'main',
         list
     });
 })
-bidder_route.post('/wishlist/delete', async (req, res) => {
-    var id =req.body.id;
-    var bidder_id=req.user.id;
-    productModel.delWish(id, bidder_id);
-})
+bidder_route.post('/wishlist/delete', async(req, res) => {
+        var id = req.body.id;
+        var bidder_id = req.user.id;
+        productModel.delWish(id, bidder_id);
+    })
     // List won
 bidder_route.get('/won', async(req, res) => {
     var id = req.user.id;

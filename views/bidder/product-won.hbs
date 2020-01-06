@@ -52,7 +52,8 @@
                                                     </td>
                                                     <td>{{price}} VNĐ</td>
                                                     <td>
-                                                        <a href="#mywonModal" class="col-12 btn btn-success mr-1" data-toggle="modal" data-target="#my-wonmodal" id="my-wonmodal">Feedback</a>
+                                                        <button  class="col-6 btn btn-info mr-1 view"  >View</button> 
+                                                        <a href="#mywonModal" class="col-6 btn btn-warning  mr-1" data-toggle="modal" data-target="#my-wonmodal" id="my-wonmodal">Feedback</a>
                                                     </td>
                                                 </tr>
                                             {{/each}}
@@ -126,4 +127,13 @@
         $(".modal-body #sel").val(sel);
         $("#mywonModal").modal('show');
     });
+</script>
+<script>
+    $('.view').on("click", function(){
+        var tr =$(this).parents('tr').first();
+        var child= tr.children();
+        var id=parseInt(child[1].innerHTML);
+        console.log(id);
+        window.location.assign('/bidder/product/'+id);
+    })
 </script>
