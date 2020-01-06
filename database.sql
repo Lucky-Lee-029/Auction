@@ -97,6 +97,7 @@ CREATE TABLE `history_auctions` (
   `price` int(11) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `status`  tinyint(4) NOT NULL DEFAULT '0',
+  `price_end` int(11) unsigned DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `history_auctions_product_id_foreign` (`product_id`),
   KEY `history_auctions_bidder_id_foreign` (`bidder_id`),
