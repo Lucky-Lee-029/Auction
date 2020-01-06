@@ -74,6 +74,7 @@ bidder_route.get('/product/:id', async(req, res) => {
     for (var bidder of bidders) {
         bidder.tim = moment(bidder.tim).format("HH:mm:ss DD/MM/YYYYY");
     }
+    console.log(product);
     res.render('bidder/product', {
         layout: 'main',
         product,

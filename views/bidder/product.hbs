@@ -45,7 +45,8 @@
                         <!-- Product Single - Rating
                         ============================================= -->
                         <div class="product-rating">
-                            <a href="#"><i class="icon-heart"></i></a>
+                            <p style="display: none">{{product.id}}</p>
+                            <a href="#" id="add"><i class="icon-heart"></i></a>
                         </div>
                         <!-- Product Single - Rating End -->
                         <div class="clear"></div>
@@ -138,7 +139,6 @@
                         <h5>Post date: {{formatTime product.created_at}}</h5>
                         <h5>{{product.end_time}}</h5>
                         <!-- Product Single - Short Description End -->
-                        <button><i class="icon-heart">Wish</i></button>
 
                         <!-- Product Single - Meta
                         ============================================= -->
@@ -330,7 +330,7 @@
                                 <a href="product.html"><img src="/images/shop/dress/1-1.jpg" alt="Checked Short Dress"></a>
                                 <div class="product-overlay">
                                     <a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="icon-eye-open"></i></a>
-                                    <a href="#"><i class="icon-heart3"></i></a>
+                                    <a href="javascript:void(0);" id="add"><i class="icon-heart3"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -408,5 +408,14 @@
     {{#if bidError}}
         alert('{{errorMessage}}')
     {{/if}}
+
+    $('#add').on('click', function(){
+        var div =$(this).parents('div').first();
+        var child= div.children();
+        var id=parseInt(child[0].innerHTML);
+        console.log(id);
+        $.post('/wishlist/add', {id:id});
+        div.remove();
+    })
 </script>
 {{/section}}

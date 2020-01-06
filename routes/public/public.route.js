@@ -22,7 +22,6 @@ route.get('/', async (req, res) => {
         product.remaining_time = utils.formatDuration(product.duration);
     }
     topBidTimes.reverse();
-
     //About to end
     let aboutToEnd = await productModel.aboutToEnd();
 
@@ -78,6 +77,14 @@ route.get('/category/:id', async (req, res) => {
     const id = req.params.id;
     const data = await productModel.productCategory(id, offset);
     const total = await productModel.countByCate(id);
+    var now = moment();
+    console.log(now);
+    for (dat of data) {
+        var time = now.diff(moment(dat.created_at), 'seconds');
+        console.log(time);
+        dat.new = (time < 100000);
+    }
+    console.log(data);
     let nPages = Math.floor(total / limit);
     if (total % limit > 0) nPages++;
     const page_numbers = [];
@@ -90,14 +97,13 @@ route.get('/category/:id', async (req, res) => {
     for (parent of data) {
         parent.end_time = utils.formatDuration(parent.duration);
     }
-    if(req.user){
-        user_id=req.user.id;
-    }
-    else{
-        user_id=0;
+    if (req.user) {
+        user_id = req.user.id;
+    } else {
+        user_id = 0;
     }
     console.log(user_id);
-    const cate= await categoryModel.single(id);
+    const cate = await categoryModel.single(id);
     res.render('list_product', {
         user_id,
         data,
@@ -144,12 +150,12 @@ route.get('/product/:id', async (req, res) => {
 
 });
 
-route.post('/wishlist/add', async(req, res) => {
-    if (req.user){
-        id=req.body.id;
-        result= await productModel.isWish(id,req.user.id)
-        if(result===0){
-            productModel.addWishlist(id,req.user.id);
+route.post('/wishlist/add', async (req, res) => {
+    if (req.user) {
+        id = req.body.id;
+        result = await productModel.isWish(id, req.user.id)
+        if (result === 0) {
+            productModel.addWishlist(id, req.user.id);
         }
     }
 });
