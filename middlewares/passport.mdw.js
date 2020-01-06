@@ -2,14 +2,15 @@ const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const bcrypt = require('bcryptjs');
 const bidderModel = require('../models/bidders.model');
+const sellerModel = require('../models/seller.model');
 const config = require('../config/default.json');
 const facebookConfig = require('../config/facebook-login.json');
 var Recaptcha = require('express-recaptcha').RecaptchaV2;
 var recaptcha = new Recaptcha('6LdVh8wUAAAAACNjGKuimXNdTvWOI6ySPQ_9ntBb', '6LdVh8wUAAAAANLiBeI__ch1NzC381x4a2lfw37W');
-module.exports = function (app, passport) {
+module.exports = function(app, passport) {
 
 
-    passport.use('local', new LocalStrategy(async function (email, password, done) {
+    passport.use('local', new LocalStrategy(async function(email, password, done) {
         try {
             let user = await bidderModel.singleByEmail(email);
             if (user.length == 0)
@@ -23,26 +24,28 @@ module.exports = function (app, passport) {
         }
     }));
 
-    passport.serializeUser(function (user, done) {
+    passport.serializeUser(function(user, done) {
         return done(null, user.id);
     });
 
-    passport.deserializeUser(async function (id, done) {
+    passport.deserializeUser(async function(id, done) {
         var user = await bidderModel.single(id);
+        var isSeller = await sellerModel.isSeller(id);
+        user[0].isSeller = (isSeller.length > 0);
         return done(null, user[0]);
     });
 
     // app.post('/login', passport.authenticate('local', { failureRedirect: '/about', successRedirect: '/' }))
 
     app.post('/login', (req, res, next) => {
-        passport.authenticate('local', function (err, user) {
+        passport.authenticate('local', function(err, user) {
             if (err) return next(err);
             if (!user) {
                 req.session.loginModal = true;
                 req.session.loginMessage = "Invalid username or password";
                 return res.redirect(req.query.url);
             }
-            req.logIn(user, function (err) {
+            req.logIn(user, function(err) {
                 if (err) return next(err);
                 return res.redirect(req.query.url);
             })
@@ -61,7 +64,7 @@ module.exports = function (app, passport) {
             captcha: res.recaptcha
         });
     });
-    app.post('/register', recaptcha.middleware.verify, async (req, res) => {
+    app.post('/register', recaptcha.middleware.verify, async(req, res) => {
         if (!req.recaptcha.error) {
             let user = await bidderModel.singleByEmail(req.body.email);
             if (user.length > 0) // existed
@@ -94,24 +97,24 @@ module.exports = function (app, passport) {
         }
     });
     //Check whether email has exists ? 
-    app.post('/validateEmail', async (req, res) => {
-        let user = await bidderModel.singleByEmail(req.body.email);
-        if (user.length == 0)
-            return res.json({
-                valid: true
-            });
-        else
-            return res.json({
-                valid: false
-            });
-    })
-    //login with facebook
+    app.post('/validateEmail', async(req, res) => {
+            let user = await bidderModel.singleByEmail(req.body.email);
+            if (user.length == 0)
+                return res.json({
+                    valid: true
+                });
+            else
+                return res.json({
+                    valid: false
+                });
+        })
+        //login with facebook
     passport.use(new FacebookStrategy({
         clientID: facebookConfig.clientID,
         clientSecret: facebookConfig.clientSecret,
         callbackURL: facebookConfig.callbackURL,
         profileFields: ['id', 'emails', 'name']
-    }, async function (accessToken, refreshToken, profile, cb) {
+    }, async function(accessToken, refreshToken, profile, cb) {
         try {
             let user = await bidderModel.singleByFacebookId(profile.id);
             console.log(user)
@@ -126,6 +129,7 @@ module.exports = function (app, passport) {
                         facebook_id: profile.id,
                         name: profile.name.familyName + " " + profile.name.givenName,
                         email: profile.emails[0].value,
+                        birthday: "2000-1-1"
                     };
                     await bidderModel.add(entity);
                 }
@@ -145,7 +149,7 @@ module.exports = function (app, passport) {
         passport.authenticate('facebook', {
             failureRedirect: '/about'
         }),
-        function (req, res) {
+        function(req, res) {
             if (req.user.password.length == 0)
                 req.session.newFBAccount = true;
             res.redirect('/facebook/set-password');
@@ -161,7 +165,7 @@ module.exports = function (app, passport) {
         res.redirect('/');
     })
 
-    app.post('/facebook/set-password', isAuth, async (req, res) => {
+    app.post('/facebook/set-password', isAuth, async(req, res) => {
         var entity = req.user;
         entity.password = bcrypt.hashSync(req.body.newPassword, config.bcrypt.init);
         await bidderModel.patch(entity);
@@ -174,7 +178,7 @@ module.exports = function (app, passport) {
         res.render('bidder/update-password');
     })
 
-    app.post('/update-password', isAuth, async (req, res) => {
+    app.post('/update-password', isAuth, async(req, res) => {
         if (bcrypt.compareSync(req.body.oldPassword, req.user.password)) {
             var entity = req.user;
             entity.password = bcrypt.hashSync(req.body.newPassword, config.bcrypt.init);

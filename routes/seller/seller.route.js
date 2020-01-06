@@ -44,6 +44,13 @@ var upload = multer({
     storage: storage
 });
 
+seller_route.use((req, res, next) => {
+    if (typeof(req.user) == 'undefined') {
+        req.session.loginModal = true;
+        return res.redirect('/');
+    }
+    next();
+});
 //Home page
 seller_route.get('/', (req, res) => {
     res.render('seller/dashboard', {
@@ -51,7 +58,13 @@ seller_route.get('/', (req, res) => {
     });
 });
 
-seller_route.get('/product/:id', async (req, res) => {
+seller_route.use((req, res, next) => {
+    if (!req.user.isSeller) {
+        return res.redirect('/bidder');
+    }
+    next();
+});
+seller_route.get('/product/:id', async(req, res) => {
     var id = req.params.id;
     if (typeof (req.user) == 'undefined')
         return res.redirect('/product/' + id);
