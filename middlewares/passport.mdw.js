@@ -119,7 +119,6 @@ module.exports = function(app, passport) {
     }, async function(accessToken, refreshToken, profile, cb) {
         try {
             let user = await bidderModel.singleByFacebookId(profile.id);
-            console.log(user)
             if (user.length == 0) {
                 var findByEmail = await bidderModel.singleByEmail(profile.emails[0].value);
                 if (findByEmail.length > 0) { //has account with email
@@ -157,7 +156,6 @@ module.exports = function(app, passport) {
             res.redirect('/facebook/set-password');
         });
     app.get('/facebook/set-password', isAuth, (req, res) => {
-        console.log(req.user);
         if (req.session.newFBAccount) {
             delete req.session.newFBAccount;
             return res.render('bidder/update-password', {
@@ -216,9 +214,16 @@ module.exports = function(app, passport) {
     })
     app.post('/profile/edit', isAuth, (req, res) => {
         var entity=req.body;
-        entity.id=req.user.id;
-        delete entity.point;
-        bidderModel.patch(entity);
+        if(entity.name==='' || entity.birthday==='' || entity.address ===''){
+            req.session.hasupdateError = true;
+            req.session.errorMessage = "NOT NULL";
+        }
+        else{
+            req.session.hasupdateError = false;
+            entity.id=req.user.id;
+            delete entity.point;
+            bidderModel.patch(entity);
+        }
         res.redirect('/profile');
     })
 }

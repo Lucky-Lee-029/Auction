@@ -15,7 +15,7 @@ module.exports = {
     //UPDATE `products` SET `created_at` = '2020-01-01 03:16:15' WHERE `products`.`id` = 2 
     maxId: () => db.load(`SELECT Max(id) as id From products`),
 
-    allActive: (id, day) => db.load(`select * from products where status=1 and seller_id=${id} and duration>"${day}"`),
+    allActive: (id, day) => db.load(`select * from products where seller_id=${id} and duration>now()`),
 
     del: (tableName, condition) => db.del(tableName, condition),
 
@@ -33,21 +33,23 @@ module.exports = {
         // console.log(condition, entity);
         return db.patch(tableName, entity, condition);
     },
-    totalReviews: async(id) => {
+    totalReviews: async (id) => {
         const rows = await db.load(`select count(*) as total from sellers JOIN bidder_reviews ON sellers.id=bidder_reviews.seller_id WHERE sellers.id=${id}`)
         return rows[0].total;
     },
-    pointReviews: async(id) => {
+    pointReviews: async (id) => {
         const rows = await db.load(`select count(*) as total from sellers JOIN bidder_reviews ON sellers.id=bidder_reviews.seller_id WHERE sellers.id=${id} and bidder_reviews.love=1`)
         return rows[0].total;
     },
-    count: async() => {
+    count: async () => {
         const rows = await db.load(`select count(*) as total from sellers`)
         return rows[0].total;
     },
-    add: (id) => {
+    add: (id, now, created_at) => {
         const condition = {
-            seller_id: id
+            seller_id: id,
+            expiry_date: now,
+            created_at: created_at
         };
         db.add('sellers', condition);
     },
