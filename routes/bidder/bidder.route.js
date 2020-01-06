@@ -8,7 +8,15 @@ const upgradeRequestModel = require('../../models/upgrade_request.model');
 const utils = require('../../utils/utils');
 const moment = require('moment');
 const bcrypt = require('bcryptjs');
-
+const nodemailer = require("nodemailer");
+// create mail transporter
+let transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: "greatestauctionever",
+        pass: "greatestauctionever123456789"
+    }
+});
 bidder_route.get('/product/:id', async(req, res) => {
     const id = req.params.id;
     if (req.session.bidError) {
@@ -101,13 +109,33 @@ bidder_route.post('/bid', async(req, res) => {
         currentPrice = currentPrice[0]
             //price is ac
         if (price % product.step == 0 && price > Math.max(currentPrice.price, product.price_start))
-            await history_auctionModel.add({
-                created_at: moment().format(),
-                product_id: productId,
-                bidder_id: req.user.id,
-                price,
-                status: 1
-            })
+            try {
+                var result = await history_auctionModel.add({
+                    created_at: moment().format(),
+                    product_id: productId,
+                    bidder_id: req.user.id,
+                    price,
+                    status: 1
+                })
+                if (result.affectedRows == 1) {
+                    //Gửi mail đặt giá thành công
+                    let mailOptions = {
+                        from: "greatestauctionever@gmail.com",
+                        to: req.user.email,
+                        subject: `Bid successful`,
+                        text: `You had bid successful for product: ${product.name} with price: ${price}`
+                    };
+                    transporter.sendMail(mailOptions, function(error, info) {
+                        if (error) {
+                            throw error;
+                        } else {
+                            console.log(`Email to ${req.user.email} successfully sent!`);
+                        }
+                    });
+                }
+            } catch (e) {
+
+            }
         else {
             let duration = moment(product.duration, "DD-MM-YYYY-HH-mm-ss");
             let secondsDiff = duration.diff(moment(), "seconds");
