@@ -295,5 +295,12 @@ bidder_route.post('/uplevel', async(req, res) => {
     }
     res.redirect('./uplevel');
 })
-
+bidder_route.post('/feedback', async(req, res) => {
+    var data = req.body;
+    var at = moment().format();
+    await bidderModel.feedback(req.body.pro, req.user.id, req.body.rating, req.body.message, at);
+    var id = req.user.id;
+    var data = await productModel.listWon(id);
+    res.redirect('/bidder/won');
+});
 module.exports = bidder_route;

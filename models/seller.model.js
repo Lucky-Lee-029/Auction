@@ -51,7 +51,7 @@ module.exports = {
         db.add('sellers', condition);
     },
     feedback: (product, bidder, love, review, create) => db.load(
-        `INSERT INTO bidder_reviews (product_id, bidder_id, love, review, created_at) VALUES (${product}, ${bidder}, ${love}, "${review}","${create}") `
+        `INSERT INTO bidder_reviews (product_id, seller_id, love, review, created_at) VALUES (${product}, ${bidder}, ${love}, "${review}","${create}") `
     ),
     nameOfSeller: (id) => db.load(`select name from bidders where bidders.id = ${id}`),
     isSeller: (id) => db.load(`select * from sellers where seller_id = ${id} and expiry_date > now() `)
