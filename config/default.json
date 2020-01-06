@@ -14,5 +14,10 @@
     },
     "bcrypt": {
         "init": 10
+    },
+    "nodemailer": {
+        "user": "greatestauctionever",
+        "pass": "greatestauctionever123456789",
+        "email": "greatestauctionever@gmail.com"
     }
 }
