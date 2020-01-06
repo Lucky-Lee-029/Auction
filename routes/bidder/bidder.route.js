@@ -9,12 +9,13 @@ const utils = require('../../utils/utils');
 const moment = require('moment');
 const bcrypt = require('bcryptjs');
 const nodemailer = require("nodemailer");
+const config = require('../../config/default.json');
 // create mail transporter
 let transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-        user: "greatestauctionever",
-        pass: "greatestauctionever123456789"
+        user: config.nodemailer.user,
+        pass: config.nodemailer.pass
     }
 });
 bidder_route.get('/product/:id', async(req, res) => {
@@ -73,6 +74,7 @@ bidder_route.get('/product/:id', async(req, res) => {
     for (var bidder of bidders) {
         bidder.tim = moment(bidder.tim).format("HH:mm:ss DD/MM/YYYYY");
     }
+    console.log(product);
     res.render('bidder/product', {
         layout: 'main',
         product,
@@ -89,8 +91,8 @@ bidder_route.use((req, res, next) => {
 });
 //Home page
 bidder_route.get('/', (req, res) => {
-    res.render('bidder/dashboard', { layout: 'bidder' });
-})
+        res.render('bidder/dashboard', { layout: 'bidder' });
+    })
     //product view for bidder
 
 bidder_route.post('/bid', async(req, res) => {
@@ -120,7 +122,7 @@ bidder_route.post('/bid', async(req, res) => {
                 if (result.affectedRows == 1) {
                     //Gửi mail đặt giá thành công
                     let mailOptions = {
-                        from: "greatestauctionever@gmail.com",
+                        from: config.nodemailer.email,
                         to: req.user.email,
                         subject: `Bid successful`,
                         text: `You had bid successful for product: ${product.name} with price: ${price}`

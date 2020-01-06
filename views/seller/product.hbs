@@ -19,14 +19,14 @@
                         <div class="fslider" data-pagi="false" data-arrows="false" data-thumbs="true">
                             <div class="flexslider">
                                 <div class="slider-wrap" data-lightbox="gallery">
-                                    <div class="slide" data-thumb="/images/product/{{product.id}}/1.jpg">
-                                        <a href="/images/product/{{product.id}}/1.jpg"  data-lightbox="gallery-item"><img src="/images/product/{{product.id}}/1.jpg"></a>
+                                    <div class="slide" data-thumb="/images/product/{{data.id}}/1.jpg">
+                                        <a href="/images/product/{{data.id}}/1.jpg"  data-lightbox="gallery-item"><img src="/images/product/{{data.id}}/1.jpg"></a>
                                     </div>
-                                    <div class="slide" data-thumb="/images/product/{{product.id}}/2.jpg">
-                                        <a href="/images/product/{{product.id}}/2.jpg"  data-lightbox="gallery-item"><img src="/images/product/{{product.id}}/2.jpg"></a>
+                                    <div class="slide" data-thumb="/images/product/{{data.id}}/2.jpg">
+                                        <a href="/images/product/{{data.id}}/2.jpg"  data-lightbox="gallery-item"><img src="/images/product/{{data.id}}/2.jpg"></a>
                                     </div>
-                                    <div class="slide" data-thumb="/images/product/{{product.id}}/3.jpg">
-                                        <a href="/images/product/{{product.id}}/3.jpg"  data-lightbox="gallery-item"><img src="/images/product/{{product.id}}/3.jpg"></a>
+                                    <div class="slide" data-thumb="/images/product/{{data.id}}/3.jpg">
+                                        <a href="/images/product/{{data.id}}/3.jpg"  data-lightbox="gallery-item"><img src="/images/product/{{data.id}}/3.jpg"></a>
                                     </div>
                                 </div>
                             </div>
@@ -40,7 +40,7 @@
 
                     <!-- Product Single - Price
                     ============================================= -->
-                    <div class="product-price">Current price: {{product.price}}</div>
+                    <div class="product-price">Current price: {{data.price}}</div>
                     <!-- Product Single - Price End -->
 
                     <!-- Product Single - Rating
@@ -206,7 +206,7 @@
     });
 </script>
 <script>
-    $('#delete').on("click", function(){
+    $('.delete').on("click", function(){
         var tr =$(this).parents('tr').first();
         var child= tr.children();
         var idBidder=parseInt(child[4].innerHTML);
