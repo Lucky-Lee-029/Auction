@@ -1,3 +1,4 @@
+
 <section id="page-title">
     <div class="container clearfix">
         <ol class="breadcrumb">
@@ -22,7 +23,36 @@
             <!-- Shop ============================================= -->
             <div id="shop" class="shop grid-container clearfix" data-layout="fitRows">
                 {{#each data}}
+                {{#if new}}
+
                 <div class="product clearfix">
+                    <div class="product-image">
+                        <div class="fslider" data-arrows="false">
+                            <div class="flexslider">
+                                <div class="slider-wrap">
+                                    <div class="slide"><a href="/product/{{id}}"><img src="/images/product/{{id}}/1.jpg" alt="Dark Brown Boots"></a></div>
+									<div class="slide"><a href="/product/{{id}}"><img src="/images/product/{{id}}/2.jpg" alt="Dark Brown Boots"></a></div>
+								    <div class="slide"><a href="/product/{{id}}"><img src="/images/product/{{id}}/3.jpg" alt="Dark Brown Boots"></a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-overlay">
+                            <p style="display:none">{{id}}</p>
+                            <a href="javascript:void(0);"  id="add"><i class="icon-heart"></i><span> Wish list</span></a>
+                            {{!-- <a href="/include/ajax/shop-item.hbs" class="item-quick-view" data-lightbox="ajax"><i class="icon-eye"></i><span> Quick View</span></a> --}}
+                        </div>
+                    </div>
+                    <div class="product-desc">
+                        <div class="product-title">
+                            <h3><a href="/product/{{id}}">{{name}} <p style="color:crimson ">New</p> </a></h3>
+                        </div>
+                        <div class="product-price">Price: {{price_start}}-{{price_end}}</div>
+                        {{#if buy_now}}<div class="product-price">Buy now: {{buy_now}}</div>{{/if}}
+                        <div class="product-remaining-time">Remaining time: {{end_time}}</div>
+                    </div>
+                </div>
+                {{else}}
+                 <div class="product clearfix">
                     <div class="product-image">
                         <div class="fslider" data-arrows="false">
                             <div class="flexslider">
@@ -47,7 +77,8 @@
                         {{#if buy_now}}<div class="product-price">Buy now: {{buy_now}}</div>{{/if}}
                         <div class="product-remaining-time">Remaining time: {{end_time}}</div>
                     </div>
-                </div>
+                </div>                             
+                {{/if}}
                 {{/each}}
             </div>
             
