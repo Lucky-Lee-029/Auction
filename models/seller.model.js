@@ -45,11 +45,13 @@ module.exports = {
         const rows = await db.load(`select count(*) as total from sellers`)
         return rows[0].total;
     },
-    add: (id) => {
+    add: (id, now, created_at) => {
         const condition = {
-            seller_id: id
+          seller_id: id,
+          expiry_date: now,
+          created_at: created_at
         };
-        db.add('sellers', condition);
+        db.add('sellers',condition);
     },
     feedback: (product, bidder, love, review, create) => db.load(
         `INSERT INTO bidder_reviews (product_id, bidder_id, love, review, created_at) VALUES (${product}, ${bidder}, ${love}, "${review}","${create}") `

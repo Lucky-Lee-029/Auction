@@ -271,7 +271,11 @@ route.get('/user/upgraderequest/delete/:id', async(req, res) => {
 
 route.post('/user/upgraderequest/add', async(req, res) => {
     const result = await upgradeModel.del(req.body.id);
-    const result1 = await sellerModel.add(req.body.id);
+    var expiry_date =moment(moment(), "DD-MM-YYYY-HH-mm-ss")
+    now=expiry_date.add(10080, "minutes");
+    expiry_date=now.format();
+    created_at=moment().format();
+    const result1 = await sellerModel.add(req.body.id, expiry_date, created_at);
 })
     // End route user
 

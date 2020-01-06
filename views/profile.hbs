@@ -57,6 +57,7 @@
                                                 <label>Adress</label>
                                                 <input type="text" name="address" class="form-control" value="{{user.address}}">
                                             </div>
+                                            <p>{{hasupdateError}}</p>
                                             <button type="submit" class="btn btn-info">Save</button>
                                         </div>
                                     </div>
@@ -103,3 +104,14 @@
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
         </div>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+        {{#if hasupdateError}}
+            alert('{{errorMessage}}')
+        {{/if}}
+    });
+</script>
