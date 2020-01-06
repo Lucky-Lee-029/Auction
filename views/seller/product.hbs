@@ -55,13 +55,16 @@
 
                     <!-- Product Single - Short Description
                     ============================================= -->
-
-                    <div>Start Price:{{data.price_start}}</div>
-                    <div>End Price:{{data.price_end}}</div>
-                    <div>Step:{{data.step}}</div>
-                    <div>Buy now:{{data.buy_now}} </div>
-                    <div>Post date: {{formatTime data.created_at}}</div>
-                    <div>End time: {{data.duration}}  </div>
+                    <h5>Buy now: {{data.buy_now}}</h5>
+                    <h5>Seller: {{maskName data.seller_name}}</h5>
+                    <h5>Seller's rating: {{data.seller_review}}  <a href="#" class="ml-auto">  Chi tiết</a></h5>
+                    {{#if data.hasWinner}}
+                    <h5>Bid Times: {{data.bidTimes}}</h5>
+                    <h5>Current Winner: {{maskName data.winner_name}}</h5>
+                    <h5>Winner rating: {{data.winner_review}}</h5>
+                    {{/if}}
+                    <h5>Post date: {{formatTime data.created_at}}</h5>
+                    <h5>{{data.end_time}}</h5>
                     <!-- Product Single - Short Description End -->
 
                     <!-- Product Single - Meta
