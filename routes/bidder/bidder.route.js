@@ -89,8 +89,8 @@ bidder_route.use((req, res, next) => {
 });
 //Home page
 bidder_route.get('/', (req, res) => {
-        res.render('bidder/dashboard', { layout: 'bidder' });
-    })
+    res.render('bidder/dashboard', { layout: 'bidder' });
+})
     //product view for bidder
 
 bidder_route.post('/bid', async(req, res) => {
@@ -252,7 +252,7 @@ bidder_route.get('/wishlist', async(req, res) => {
     var id = req.user.id;
     list = await productModel.WishList(id);
     res.render('bidder/product-wishlist', {
-        layout: 'main',
+        layout: 'bidder',
         list
     });
 })
@@ -272,7 +272,7 @@ bidder_route.get('/won', async(req, res) => {
 })
 bidder_route.get('/password', (req, res) => {
     res.render('bidder/update-password', {
-        layout: 'main'
+        layout: 'bidder'
     });
 })
 bidder_route.get('/uplevel', async(req, res) => {

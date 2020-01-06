@@ -177,7 +177,7 @@ module.exports = function(app, passport) {
     app.get('/update-password', isAuth, (req, res) => {
         if (req.user.password.length == 0)
             return res.redirect('/facebook/set-password');
-        res.render('bidder/update-password');
+        res.render('bidder/update-password',{layout:'bidder'});
     })
 
     app.post('/update-password', isAuth, async(req, res) => {
@@ -185,7 +185,7 @@ module.exports = function(app, passport) {
             var entity = req.user;
             entity.password = bcrypt.hashSync(req.body.newPassword, config.bcrypt.init);
             await bidderModel.patch(entity);
-            res.redirect('/');
+            res.redirect('/bidder');
         } else {
             //set update password error on session
             res.redirect('/update-password');
@@ -211,7 +211,7 @@ module.exports = function(app, passport) {
         } else {
             point = 100;
         }
-        res.render('profile', {birthday, point, list});
+        res.render('profile', {layout:'bidder',birthday, point, list});
     })
     app.post('/profile/edit', isAuth, (req, res) => {
         var entity=req.body;
