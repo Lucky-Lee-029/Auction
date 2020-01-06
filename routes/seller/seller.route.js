@@ -235,7 +235,6 @@ seller_route.post('/watchreview', (req, res) => {
 seller_route.get('/watchreview', async (req, res) => {
     var id = req.cookies.bidder;
     var review = await reviewModel.viewReview(id);
-
     for (rew of review) {
         rew.good = (rew.love == 1);
     }
