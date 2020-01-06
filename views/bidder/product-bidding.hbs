@@ -39,69 +39,41 @@
                                         </thead>
 
                                         <tbody>
+                                            {{#each data}}
+                                            {{#if him}}
                                             <tr>
-                                                <td>1</td>
-                                                <td>Tiger Nixon</td>
+                                                <td><b style="color:rgb(32, 77, 212)">{{id}}</b></td>
+                                                <td><b style="color:rgb(32, 77, 212)">{{name}}</b></td>
                                                 <td>
-                                                    <img src="../images/shop/dress/3.jpg" height="100px">
-                                                    <img src="../images/shop/dress/3-1.jpg" height="100px">
-                                                    <img src="../images/shop/dress/3-2.jpg" height="100px">
+                                                    <img src="../images/product/{{id}}/1.jpg" height="100px">
+                                                    <img src="../images/product/{{id}}/2.jpg" height="100px">
+                                                    <img src="../images/product/{{id}}/3.jpg" height="100px">
                                                 </td>
-                                                <td>5days 05:05:05</td>
-                                                <td>8.000.000 VND</td>
-                                                <td>abc.xyz</td>
+                                                <td><b style="color:rgb(32, 77, 212)">{{duration}}</b></td>
+                                                <td><b style="color:rgb(32, 77, 212)">{{price}}</b></td>
+                                                <td><b style="color:rgb(32, 77, 212)">{{maskName winner}}</b></td>
                                                 <td>
-                                                    <a href="#" class="col-12 btn btn-success">View</a>
+                                                    <button class="col-12 btn btn-success view">View</button>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Tiger Nixon</td>
+                                            {{else}}
+                                             <tr style="none">
+                                                <td>{{id}}</td>
+                                                <td>{{name}}</td>
                                                 <td>
-                                                    <img src="../images/shop/dress/3.jpg" height="100px">
-                                                    <img src="../images/shop/dress/3-1.jpg" height="100px">
-                                                    <img src="../images/shop/dress/3-2.jpg" height="100px">
+                                                    <img src="../images/product/{{id}}/1.jpg" height="100px">
+                                                    <img src="../images/product/{{id}}/2.jpg" height="100px">
+                                                    <img src="../images/product/{{id}}/3.jpg" height="100px">
                                                 </td>
-
-                                                <td>5days 05:05:05</td>
-                                                <td>8.000.000 VND</td>
-                                                <td>abc.xyz</td>
+                                                <td>{{duration}}</td>
+                                                <td>{{price}}</td>
+                                                <td>{{maskName winner}}</td>
                                                 <td>
-                                                    <a href="#" class="col-12 btn btn-success">View</a>
+                                                    <button class="col-12 btn btn-success view">View</button>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>
-                                                    <img src="../images/shop/dress/3.jpg" height="100px">
-                                                    <img src="../images/shop/dress/3-1.jpg" height="100px">
-                                                    <img src="../images/shop/dress/3-2.jpg" height="100px">
-                                                </td>
-
-                                                <td>5days 05:05:05</td>
-                                                <td>8.000.000 VND</td>
-                                                <td>abc.xyz</td>
-                                                <td>
-                                                    <a href="#" class="col-12 btn btn-success">View</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>
-                                                    <img src="../images/shop/dress/3.jpg" height="100px">
-                                                    <img src="../images/shop/dress/3-1.jpg" height="100px">
-                                                    <img src="../images/shop/dress/3-2.jpg" height="100px">
-                                                </td>
-
-                                                <td>5days 05:05:05</td>
-                                                <td>8.000.000 VND</td>
-                                                <td>abc.xyz</td>
-                                                <td>
-                                                    <a href="#" class="col-12 btn btn-success">View</a>
-                                                </td>
-                                            </tr>
+                                            </tr>                                           
+                                            {{/if}}
+                                            {{/each}}
                                         </tbody>
                                     </table>
                                 </div>
@@ -115,3 +87,13 @@
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
     </div>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script>
+    $('.view').on("click", function(){
+        var tr =$(this).parents('tr').first();
+        var child= tr.children();
+        var id=parseInt(child[0].innerHTML);
+        console.log(id);
+        window.location.assign('/bidder/product/'+id);
+    })
+</script>
