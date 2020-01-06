@@ -74,10 +74,11 @@ bidder_route.get('/product/:id', async(req, res) => {
     for (var bidder of bidders) {
         bidder.tim = moment(bidder.tim).format("HH:mm:ss DD/MM/YYYYY");
     }
-    console.log(product);
+    suggestions=product.price+product.step;
     res.render('bidder/product', {
         layout: 'main',
         product,
+        suggestions: +product.price+product.step,
         allowToBid,
         bidder: bidders
     });
@@ -98,6 +99,7 @@ bidder_route.get('/', (req, res) => {
 bidder_route.post('/bid', async(req, res) => {
     var {
         price,
+        price_end,
         productId
     } = req.body;
     //if price is acc and bidder is not be block from bid this then add to dtb
@@ -108,17 +110,67 @@ bidder_route.post('/bid', async(req, res) => {
         var product = await productModel.single(productId);
         product = product[0]
         var currentPrice = await productModel.currentPrice(productId);
-        currentPrice = currentPrice[0]
+        
+        if(currentPrice.length == 0)
+        currentPrice.price = 0;
+        else
+        currentPrice = currentPrice[0];
             //price is ac
-        if (price % product.step == 0 && price > Math.max(currentPrice.price, product.price_start))
+        if (price % product.step == 0 && price_end % product.step ==0 && (price > Math.max(currentPrice.price, product.price_start) || price_end > Math.max(currentPrice.price, product.price_start)))
             try {
-                var result = await history_auctionModel.add({
-                    created_at: moment().format(),
-                    product_id: productId,
-                    bidder_id: req.user.id,
-                    price,
-                    status: 1
-                })
+                if(price_end>price){
+                    var result = await history_auctionModel.add({
+                        created_at: moment().format(),
+                        product_id: productId,
+                        bidder_id: req.user.id,
+                        price,
+                        price_end,
+                        status: 1
+                    })
+                    result1=await productModel.currentPrice(productId);
+                    console.log(result1[0]);
+                    resultAuto=await productModel.PriceEnd(productId);
+                    console.log(resultAuto);
+                    if(result1[0].price<resultAuto[0].price_end && resultAuto[0].id!=result1[0].id){
+                        if(result1[0].price_end<result1[0].price){
+                            pricemax=result1[0].price +product.step;
+                        }
+                        else{
+                            pricemax=result1[0].price_end+product.step;
+                        }
+                        productModel.patchHis({bidder_id: resultAuto[0].id, id: resultAuto[0].his_id,product_id: product.id, price: pricemax});
+                    } 
+                    if(result1[0].price<resultAuto[0].price_end && resultAuto[0].id===result1[0].id){
+                        console.log('abc');
+                        resultAuto=await productModel.PriceEndsecond(productId, result1[0].id);
+                        console.log(resultAuto[0]);
+                        pricemax=resultAuto[0].price_end+product.step;
+                        console.log(pricemax);
+                        productModel.patchHis({bidder_id: result1[0].id, id: result1[0].his_id,product_id: product.id, price: pricemax});
+
+                    }
+                }
+                else{
+                    var result = await history_auctionModel.add({
+                        created_at: moment().format(),
+                        product_id: productId,
+                        bidder_id: req.user.id,
+                        price,
+                        status: 0
+                    })
+                    result1=await productModel.currentPrice(productId);
+                    resultAuto=await productModel.PriceEnd(productId);
+                    if(result1[0].price<resultAuto[0].price_end && resultAuto[0].id!=result1[0].id){
+                        if(result1[0].price_end<result1[0].price){
+                            pricemax=result1[0].price +product.step;
+                            
+                        }
+                        else{
+                            pricemax=result1[0].price_end+product.step;
+                        }
+                        productModel.patchHis({bidder_id: resultAuto[0].id, id: resultAuto[0].his_id,product_id: product.id, price: pricemax});
+                    } 
+                }
                 if (result.affectedRows == 1) {
                     //Gửi mail đặt giá thành công
                     let mailOptions = {
@@ -147,7 +199,10 @@ bidder_route.post('/bid', async(req, res) => {
                 req.session.bidMessage = "Time was up";
             } else {
                 var currentPrice = await productModel.currentPrice(productId);
-                currentPrice = currentPrice[0]
+                if(currentPrice.length == 0)
+                currentPrice.price = 0;
+                else
+                currentPrice = currentPrice[0];
                     //price is ac
                 if (price % product.step == 0 && price > Math.max(currentPrice.price, product.price_start)) {
                     await history_auctionModel.add({
@@ -179,61 +234,6 @@ bidder_route.post('/bid', async(req, res) => {
     res.redirect(`/bidder/product/${productId}`);
 });
 
-bidder_route.post('/bid', async(req, res) => {
-    var {
-        price,
-        productId
-    } = req.body;
-    //if price is acc and bidder is not be block from bid this then add to dtb
-    var canBid = await bidderModel.canBid(req.user.id, productId);
-    if (canBid.length == 0) canBid = true;
-    else canBid = false;
-    if (canBid) {
-        var product = await productModel.single(productId);
-        product = product[0]
-        let duration = moment(product.duration, "DD-MM-YYYY-HH-mm-ss");
-        let secondsDiff = duration.diff(moment(), "seconds");
-        if (secondsDiff <= 0) {
-            //Time out 
-            req.session.errorOnId = productId;
-            req.session.bidError = true;
-            req.session.bidMessage = "Time was up";
-        } else {
-            var currentPrice = await productModel.currentPrice(productId);
-            currentPrice = currentPrice[0]
-                //price is ac
-            if (price % product.step == 0 && price > Math.max(currentPrice.price, product.price_start)) {
-                await history_auctionModel.add({
-                    created_at: moment().format(),
-                    product_id: productId,
-                    bidder_id: req.user.id,
-                    price,
-                    status: 1
-                })
-                if (product.auto_renew) {
-
-                    if (secondsDiff < 5 * 60) {
-                        let newDuration = duration.add(10, "minutes");
-                        await productModel.patch({
-                            id: product.id,
-                            duration: newDuration
-                        })
-                    }
-
-                }
-            } else {
-                req.session.errorOnId = productId;
-                req.session.bidError = true;
-                req.session.bidMessage = "Price is not accepted";
-            }
-        }
-    } else {
-        req.session.errorOnId = productId;
-        req.session.bidError = true;
-        req.session.bidMessage = "You are not allow to bid";
-    }
-    res.redirect(`/bidder/product/${productId}`);
-});
 bidder_route.get('/bidding', async(req, res) => {
     var id = req.user.id;
     var data = await productModel.biddingList(id);
@@ -244,7 +244,6 @@ bidder_route.get('/bidding', async(req, res) => {
         product.him = (price[0].id == product.me);
         product.duration = utils.formatDuration(product.duration);
     }
-    console.log(data);
     res.render('bidder/product-bidding', {
         layout: 'bidder',
         data

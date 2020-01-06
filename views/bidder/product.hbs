@@ -55,9 +55,14 @@
                                 ============================================= -->
                                 <h4>{{product.name}}</h4>
                                 {{#if allowToBid}}
-                                <form class="form-inline" action="/bidder/bid" method="POST" id="form-bid">
-                                    <div class="form-group col-9 px-0">
-                                        <input type="number" class="form-control w-100" id="inputPrice" name="price" placeholder="Price">
+                                <form action="/bidder/bid" method="POST" id="form-bid">
+                                    <div class="form-group">
+                                        <h1>Price</h1>
+                                        <input type="number" class="form-control w-100" {{#if product.step}}step="{{product.step}}"{{/if}} id="inputPrice" name="price" value="{{suggestions}}" min="product.price">
+                                    </div>
+                                    <div class="form-group">
+                                        <h1>Price end</h1>
+                                        <input type="number" class="form-control w-100" {{#if product.step}}step="{{product.step}}"{{/if}} id="inputPrice" name="price_end">
                                     </div>
                                     <input class="d-none"  name="productId" value="{{product.id}}">
                                     <button type="submit" class="btn btn-primary col-3">Bid</button>
@@ -117,73 +122,6 @@
                                     </div>
                                 </div>
                                 <!-- Product Single - Share End -->
-
-
-                        <!-- Product Single - Short Description
-                        ============================================= -->
-                        <h4>{{product.name}}</h4>
-                        <form class="form-inline">
-                            <div class="form-group col-9 px-0">
-                                <input type="number" class="form-control w-100" id="inputPrice" placeholder="Price">
-                            </div>
-                            <button type="submit" class="btn btn-primary col-3">Bid</button>
-                        </form>
-                        <h5>Buy now: {{product.buy_now}}</h5>
-                        <h5>Seller: {{maskName product.seller_name}}</h5>
-                        <h5>Seller's rating: {{product.seller_review}}  <a href="#" class="ml-auto">  Chi tiết</a></h5>
-                        {{#if product.hasWinner}}
-                        <h5>Bid Times: {{product.bidTimes}}</h5>
-                        <h5>Current Winner: {{maskName product.winner_name}}</h5>
-                        <h5>Winner rating: {{product.winner_review}}</h5>
-                        {{/if}}
-                        <h5>Post date: {{formatTime product.created_at}}</h5>
-                        <h5>{{product.end_time}}</h5>
-                        <!-- Product Single - Short Description End -->
-
-                        <!-- Product Single - Meta
-                        ============================================= -->
-                        <div class="card product-meta mt-5">
-                            <div class="card-body">
-                                <span itemprop="productID" class="sku_wrapper">SKU: <span class="sku">8465415</span></span>
-                                <span class="posted_in">Category: <a href="#" rel="tag">Dress</a>.</span>
-                                <span class="tagged_as">Tags: <a href="#" rel="tag">Pink</a>, <a href="#" rel="tag">Short</a>, <a href="#" rel="tag">Dress</a>, <a href="#" rel="tag">Printed</a>.</span>
-                            </div>
-                        </div>
-                        <!-- Product Single - Meta End -->
-
-                        <!-- Product Single - Share
-                        ============================================= -->
-                        <div class="si-share noborder clearfix">
-                            <span>Share:</span>
-                            <div>
-                                <a href="#" class="social-icon si-borderless si-facebook">
-                                    <i class="icon-facebook"></i>
-                                    <i class="icon-facebook"></i>
-                                </a>
-                                <a href="#" class="social-icon si-borderless si-twitter">
-                                    <i class="icon-twitter"></i>
-                                    <i class="icon-twitter"></i>
-                                </a>
-                                <a href="#" class="social-icon si-borderless si-pinterest">
-                                    <i class="icon-pinterest"></i>
-                                    <i class="icon-pinterest"></i>
-                                </a>
-                                <a href="#" class="social-icon si-borderless si-gplus">
-                                    <i class="icon-gplus"></i>
-                                    <i class="icon-gplus"></i>
-                                </a>
-                                <a href="#" class="social-icon si-borderless si-rss">
-                                    <i class="icon-rss"></i>
-                                    <i class="icon-rss"></i>
-                                </a>
-                                <a href="#" class="social-icon si-borderless si-email3">
-                                    <i class="icon-email3"></i>
-                                    <i class="icon-email3"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- Product Single - Share End -->
-
                     </div>
 
                     <div class="col_one_fifth col_last">
@@ -413,7 +351,6 @@
         var div =$(this).parents('div').first();
         var child= div.children();
         var id=parseInt(child[0].innerHTML);
-        console.log(id);
         $.post('/wishlist/add', {id:id});
         div.remove();
     })
