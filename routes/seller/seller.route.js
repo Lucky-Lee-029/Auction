@@ -217,7 +217,12 @@ seller_route.get('/view-product', async (req, res) => {
     console.log("get view")
     var items = await sellerModel.singPro(id);
     var bidder = await productModel.autionPro(id);
+    bidder[0].tim = moment(bidder[0].tim, "YYYY-MM-DD-hh-mm-ss").format("YYYY-MM-DD hh:mm:ss");
+    console.log(bidder);
     var data = JSON.parse(JSON.stringify(items))[0];
+    data
+    console.log(data);
+    data.duration = moment(data.duration, "YYYY-MM-DD-hh-mm-ss").format("YYYY-MM-DD hh:mm:ss");
     res.render('seller/product', {
         layout: 'seller',
         data,
