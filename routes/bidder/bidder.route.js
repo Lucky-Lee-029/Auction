@@ -161,6 +161,7 @@ bidder_route.get('/password', (req, res) => {
         layout: 'main'
     });
 })
+
 bidder_route.get('/uplevel', (req, res) => {
     res.render('bidder/upgrade-to-seller', {
         layout: 'bidder'
