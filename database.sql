@@ -282,40 +282,5 @@ CREATE TABLE `wish_lists` (
   CONSTRAINT `bidders_bidder_id_wish_list_foreign` FOREIGN KEY (`bidder_id`) REFERENCES `bidders` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ALTER TABLE products ADD FULLTEXT(name);
+ALTER TABLE categories ADD FULLTEXT(name);
