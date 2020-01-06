@@ -63,7 +63,6 @@ seller_route.get('/product/:id', async (req, res) => {
     product.categories = categories;
     product.seller_review = "" + await bidderModel.pointReviews(product.seller_id) + "/" + await bidderModel.totalReviews(product.seller_id);
     let currentPrice = await productModel.currentPrice(id);
-    console.log(currentPrice)
     if (currentPrice.length > 0) {
         product.hasWinner = true;
         product.price = currentPrice[0].price;
@@ -196,7 +195,6 @@ seller_route.post('/add', upload.array('fuMain', 5), async (req, res, next) => {
 });
 seller_route.post('/feedback', async (req, res) => {
     var data = req.body;
-    console.log(data);
     var at = moment().format();
     await sellerModel.feedback(req.body.product, req.body.bidder, req.body.rating, req.body.message, at);
     var id = req.user.id;
