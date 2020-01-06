@@ -263,6 +263,23 @@ seller_route.get('/view-product', async(req, res) => {
     }
     var data = JSON.parse(JSON.stringify(items))[0];
     data.duration = moment(data.duration, "YYYY-MM-DD-hh-mm-ss").format("YYYY-MM-DD hh:mm:ss");
+    //get sellername
+    let seller_name = await sellerModel.nameOfSeller(data.seller_id);
+    data.seller_name = seller_name[0].name;
+    //get price
+    let currentPrice = await productModel.currentPrice(data.id);
+    if (currentPrice.length > 0) {
+        data.hasWinner = true;
+        data.price = currentPrice[0].price;
+        data.winner_name = currentPrice[0].name;
+        data.winner_review = "" + await bidderModel.pointReviews(currentPrice[0].id) + "/" + await bidderModel.totalReviews(currentPrice[0].id);
+        let bidTimes = await productModel.bidTimes(data.id);
+        data.bidTimes = bidTimes[0].bidTimes;
+    } else {
+        data.price = data.price_start;
+        data.hasWinner = false;
+    }
+    console.log(data);
     res.render('seller/product', {
         layout: 'main',
         data,
