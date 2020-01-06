@@ -4,16 +4,12 @@ const productModel = require('../../models/product.model');
 const categoryModel = require('../../models/category.model');
 const sellerModel = require('../../models/seller.model');
 const history_auctionModel = require('../../models/history_auctions.model');
+const upgradeRequestModel = require('../../models/upgrade_request.model');
 const utils = require('../../utils/utils');
 const moment = require('moment');
-//Home page
-bidder_route.get('/', (req, res) => {
-    res.render('bidder/dashboard', {
-        layout: 'admin'
-    });
-})
-//product view for bidder
-bidder_route.get('/product/:id', async (req, res) => {
+const bcrypt = require('bcryptjs');
+
+bidder_route.get('/product/:id', async(req, res) => {
     const id = req.params.id;
     if (req.session.bidError) {
         if (id == req.session.errorOnId) {
@@ -24,7 +20,7 @@ bidder_route.get('/product/:id', async (req, res) => {
             delete req.session.bidMessage;
         }
     }
-    if (typeof (req.user) == 'undefined')
+    if (typeof(req.user) == 'undefined')
         return res.redirect('/product/' + id);
     let product = await productModel.single(id);
     product = product[0];
@@ -76,8 +72,20 @@ bidder_route.get('/product/:id', async (req, res) => {
         bidder: bidders
     });
 })
+bidder_route.use((req, res, next) => {
+    if (typeof(req.user) == 'undefined') {
+        req.session.loginModal = true;
+        return res.redirect('/');
+    }
+    next();
+});
+//Home page
+bidder_route.get('/', (req, res) => {
+        res.render('bidder/dashboard', { layout: 'bidder' });
+    })
+    //product view for bidder
 
-bidder_route.post('/bid', async (req, res) => {
+bidder_route.post('/bid', async(req, res) => {
     var {
         price,
         productId
@@ -91,7 +99,7 @@ bidder_route.post('/bid', async (req, res) => {
         product = product[0]
         var currentPrice = await productModel.currentPrice(productId);
         currentPrice = currentPrice[0]
-        //price is ac
+            //price is ac
         if (price % product.step == 0 && price > Math.max(currentPrice.price, product.price_start))
             await history_auctionModel.add({
                 created_at: moment().format(),
@@ -110,7 +118,7 @@ bidder_route.post('/bid', async (req, res) => {
             } else {
                 var currentPrice = await productModel.currentPrice(productId);
                 currentPrice = currentPrice[0]
-                //price is ac
+                    //price is ac
                 if (price % product.step == 0 && price > Math.max(currentPrice.price, product.price_start)) {
                     await history_auctionModel.add({
                         created_at: moment().format(),
@@ -141,7 +149,7 @@ bidder_route.post('/bid', async (req, res) => {
     res.redirect(`/bidder/product/${productId}`);
 });
 
-bidder_route.post('/bid', async (req, res) => {
+bidder_route.post('/bid', async(req, res) => {
     var {
         price,
         productId
@@ -163,7 +171,7 @@ bidder_route.post('/bid', async (req, res) => {
         } else {
             var currentPrice = await productModel.currentPrice(productId);
             currentPrice = currentPrice[0]
-            //price is ac
+                //price is ac
             if (price % product.step == 0 && price > Math.max(currentPrice.price, product.price_start)) {
                 await history_auctionModel.add({
                     created_at: moment().format(),
@@ -196,7 +204,7 @@ bidder_route.post('/bid', async (req, res) => {
     }
     res.redirect(`/bidder/product/${productId}`);
 });
-bidder_route.get('/bidding', async (req, res) => {
+bidder_route.get('/bidding', async(req, res) => {
     var id = req.user.id;
     var data = await productModel.biddingList(id);
     for (product of data) {
@@ -212,7 +220,7 @@ bidder_route.get('/bidding', async (req, res) => {
         data
     });
 })
-bidder_route.get('/wishlist', async (req, res) => {
+bidder_route.get('/wishlist', async(req, res) => {
     var id = req.user.id;
     list = await productModel.WishList(id);
     res.render('bidder/product-wishlist', {
@@ -220,13 +228,13 @@ bidder_route.get('/wishlist', async (req, res) => {
         list
     });
 })
-bidder_route.post('/wishlist/delete', async (req, res) => {
-    var id = req.body.id;
-    var bidder_id = req.user.id;
-    productModel.delWish(id, bidder_id);
-})
-// List won
-bidder_route.get('/won', async (req, res) => {
+bidder_route.post('/wishlist/delete', async(req, res) => {
+        var id = req.body.id;
+        var bidder_id = req.user.id;
+        productModel.delWish(id, bidder_id);
+    })
+    // List won
+bidder_route.get('/won', async(req, res) => {
     var id = req.user.id;
     var data = await productModel.listWon(id);
     res.render('bidder/product-won', {
@@ -239,9 +247,24 @@ bidder_route.get('/password', (req, res) => {
         layout: 'main'
     });
 })
-bidder_route.get('/uplevel', (req, res) => {
+bidder_route.get('/uplevel', async(req, res) => {
+    var result = await upgradeRequestModel.single(req.user.id);
+    var requested = false;
+    if (result.length > 0) {
+        requested = true;
+    }
     res.render('bidder/upgrade-to-seller', {
-        layout: 'bidder'
+        layout: 'bidder',
+        requested
     });
 })
+bidder_route.post('/uplevel', async(req, res) => {
+    var { password } = req.body;
+    if (bcrypt.compareSync(password, req.user.password)) {
+        //add to up level list
+        await upgradeRequestModel.add({ bidder_id: req.user.id });
+    }
+    res.redirect('./uplevel');
+})
+
 module.exports = bidder_route;

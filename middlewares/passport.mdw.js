@@ -3,7 +3,9 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const bcrypt = require('bcryptjs');
 const bidderModel = require('../models/bidders.model');
 const config = require('../config/default.json');
+const moment=require('moment');
 const facebookConfig = require('../config/facebook-login.json');
+const reviewModel=require('../models/reviews.model');
 var Recaptcha = require('express-recaptcha').RecaptchaV2;
 var recaptcha = new Recaptcha('6LdVh8wUAAAAACNjGKuimXNdTvWOI6ySPQ_9ntBb', '6LdVh8wUAAAAANLiBeI__ch1NzC381x4a2lfw37W');
 module.exports = function (app, passport) {
@@ -195,7 +197,23 @@ module.exports = function (app, passport) {
         }
     }
 
-    app.get('/profile', isAuth, (req, res) => {
-        res.render('profile');
+    app.get('/profile', isAuth,async (req, res) => {
+        birthday= moment(req.user.birthday, 'DD/MM/YYYY').format('YYYY-MM-DD');
+        list =await reviewModel.listReviewBidder(req.user.id);
+        const total = await bidderModel.totalReviews(req.user.id);
+        if (total > 0) {
+            point = await bidderModel.pointReviews(req.user.id);
+            point = (point / total) * 100;
+        } else {
+            point = 100;
+        }
+        res.render('profile', {birthday, point, list});
+    })
+    app.post('/profile/edit', isAuth, (req, res) => {
+        var entity=req.body;
+        entity.id=req.user.id;
+        delete entity.point;
+        bidderModel.patch(entity);
+        res.redirect('/profile');
     })
 }
