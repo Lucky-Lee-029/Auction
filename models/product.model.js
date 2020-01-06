@@ -3,7 +3,7 @@ const config = require('../config/default.json');
 
 //product model
 module.exports = {
-    productCategory: (id, offset) => db.load(`select * from products JOIN product_categories ON products.id=product_categories.product_id WHERE product_categories.category_id=${id} limit ${config.paginate.limit} offset ${offset}`),
+    productCategory: (id, offset) => db.load(`select * from product_categories JOIN products ON products.id=product_categories.product_id WHERE product_categories.category_id=${id} limit ${config.paginate.limit} offset ${offset}`),
 
     all: () => db.load(`select * from products`),
 
@@ -36,15 +36,15 @@ module.exports = {
     productFail: (offset) => db.load(`select * from products WHERE status=0 limit ${config.paginate.limit} offset ${offset}`),
     productSuccess: (offset) => db.load(`select * from products WHERE status=1 limit ${config.paginate.limit} offset ${offset}`),
     productAction: (offset) => db.load(`select * from products WHERE status=2 limit ${config.paginate.limit} offset ${offset}`),
-    countAction: async (id) => {
+    countAction: async(id) => {
         const rows = await db.load(`select count(*) as total from products where status=2`)
         return rows[0].total;
     },
-    countFail: async (id) => {
+    countFail: async(id) => {
         const rows = await db.load(`select count(*) as total from products where status=0`)
         return rows[0].total;
     },
-    countSuccess: async (id) => {
+    countSuccess: async(id) => {
         const rows = await db.load(`select count(*) as total from products where status=1`)
         return rows[0].total;
     },
@@ -108,7 +108,7 @@ module.exports = {
 
     editDes: (id, des) => db.load(`UPDATE products Set description="${des}" WHERE id=${id}`),
 
-    countByCate: async (id) => {
+    countByCate: async(id) => {
         const rows = await db.load(`select count(*) as total from products JOIN product_categories ON products.id=product_categories.product_id WHERE product_categories.category_id=${id}`)
         return rows[0].total;
     },
@@ -122,7 +122,7 @@ module.exports = {
         product_id: id,
         bidder_id: bidder_id
     }),
-    isWish: async (id, bidder_id) => {
+    isWish: async(id, bidder_id) => {
         const rows = await db.load(`select count(*) as total from wish_lists where product_id=${id} and bidder_id=${bidder_id}`);
         return rows[0].total;
     },
