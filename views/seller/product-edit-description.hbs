@@ -35,8 +35,13 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
+                                                    <textarea class="form-control" rows="8" name="oldDes" id="oldDes" style="display: none">{{data.description}}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
                                                     <label class="control-label">Description</label>
-                                                    <textarea class="form-control" rows="8" name="description" id="description">{{data.description}}</textarea>
+                                                    <textarea class="form-control" rows="8" name="description" id="description"></textarea>
                                                     <script>
                                                         CKEDITOR.replace('description');
                                                     </script>

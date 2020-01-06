@@ -58,6 +58,12 @@ bidder_route.get('/product/:id', async(req, res) => {
         allowToBid = true;
     allowToBid = allowToBid && canBid;
     var bidders = await productModel.autionPro(id);
+    let duration = moment(product.duration, "DD-MM-YYYY-HH-mm-ss");
+    let secondsDiff = duration.diff(moment(), "seconds");
+    if (secondsDiff <= 0) {
+        //Time out 
+        allowToBid = false;
+    }
     for (var bidder of bidders) {
         bidder.tim = moment(bidder.tim).format("HH:mm:ss DD/MM/YYYYY");
     }
@@ -73,21 +79,38 @@ bidder_route.post('/bid', async(req, res) => {
     if (canBid) {
         var product = await productModel.single(productId);
         product = product[0]
-        var currentPrice = await productModel.currentPrice(productId);
-        currentPrice = currentPrice[0]
-            //price is ac
-        if (price % product.step == 0 && price > Math.max(currentPrice.price, product.price_start))
-            await history_auctionModel.add({
-                created_at: moment().format(),
-                product_id: productId,
-                bidder_id: req.user.id,
-                price,
-                status: 1
-            })
-        else {
+        let duration = moment(product.duration, "DD-MM-YYYY-HH-mm-ss");
+        let secondsDiff = duration.diff(moment(), "seconds");
+        if (secondsDiff <= 0) {
+            //Time out 
             req.session.errorOnId = productId;
             req.session.bidError = true;
-            req.session.bidMessage = "Price is not accepted";
+            req.session.bidMessage = "Time was up";
+        } else {
+            var currentPrice = await productModel.currentPrice(productId);
+            currentPrice = currentPrice[0]
+                //price is ac
+            if (price % product.step == 0 && price > Math.max(currentPrice.price, product.price_start)) {
+                await history_auctionModel.add({
+                    created_at: moment().format(),
+                    product_id: productId,
+                    bidder_id: req.user.id,
+                    price,
+                    status: 1
+                })
+                if (product.auto_renew) {
+
+                    if (secondsDiff < 5 * 60) {
+                        let newDuration = duration.add(10, "minutes");
+                        await productModel.patch({ id: product.id, duration: newDuration })
+                    }
+
+                }
+            } else {
+                req.session.errorOnId = productId;
+                req.session.bidError = true;
+                req.session.bidMessage = "Price is not accepted";
+            }
         }
     } else {
         req.session.errorOnId = productId;

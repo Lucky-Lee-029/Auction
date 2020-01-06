@@ -51,20 +51,17 @@
                     <!-- Product Single - Rating End -->
 
                     <div class="clear"></div>
-                    <div class="line"><h2>{{product.name}}</h2></div>
+                    <div class="line"><h2>{{data.name}}</h2></div>
 
                     <!-- Product Single - Short Description
                     ============================================= -->
 
-
-                    <h5>Buy now: {{product.buy_now}}</h5>
-                    {{#if product.hasWinner}}
-                    <h5>Bid Times: {{product.bidTimes}}</h5>
-                    <h5>Current Winner: {{maskName product.winner_name}}</h5>
-                    <h5>Winner rating: {{product.winner_review}}</h5>
-                    {{/if}}
-                    <h5>Post date: {{formatTime product.created_at}}</h5>
-                    <h5>{{product.end_time}}</h5>
+                    <div>Start Price:{{data.price_start}}</div>
+                    <div>End Price:{{data.price_end}}</div>
+                    <div>Step:{{data.step}}</div>
+                    <div>Buy now:{{data.buy_now}} </div>
+                    <div>Post date: {{formatTime data.created_at}}</div>
+                    <div>End time:   </div>
                     <!-- Product Single - Short Description End -->
 
                     <!-- Product Single - Meta
@@ -125,8 +122,8 @@
                             <div class="tab-content clearfix" id="tabs-1">
                                 <h3><b>Description</b></h3>
                                 <div>
-                                    <div>{{{product.description}}}</div>
-                                    <div style="display: none">{{product.id}}</div>
+                                    <div>{{{data.description}}}</div>
+                                    <div style="display: none">{{data.id}}</div>
                                     <button id="edit" type="button" class="btn btn-info" >Edit description</button>
                                 </div>
                                 

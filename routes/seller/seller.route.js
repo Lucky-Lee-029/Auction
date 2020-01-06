@@ -120,6 +120,7 @@ seller_route.get('/add', async (req, res) => {
 });
 seller_route.post('/edit', async (req, res) => {
     var id = req.body.idToDes;
+    console.log(id);
     var pro = await productModel.single(id);
     var data = JSON.parse(JSON.stringify(pro))[0];
     res.cookie('edit', data);
@@ -134,7 +135,7 @@ seller_route.get('/editDescription', (req, res) => {
 });
 
 seller_route.post('/editDescription', async (req, res) => {
-    var data = req.body.description;
+    var data = req.body.oldDes + req.body.description;
     var id = req.body.id;
     await productModel.editDes(id, data);
     var items = await sellerModel.singPro(id);
@@ -206,11 +207,14 @@ seller_route.post('/feedback', async (req, res) => {
 });
 seller_route.post('/view-product', async (req, res) => {
     var id = req.body.id;
+    console.log(id);
     res.cookie('id', id);
     res.redirect('./editDescription');
 });
 seller_route.get('/view-product', async (req, res) => {
     var id = req.cookies.id;
+    console.log(id);
+    console.log("get view")
     var items = await sellerModel.singPro(id);
     var bidder = await productModel.autionPro(id);
     var data = JSON.parse(JSON.stringify(items))[0];
