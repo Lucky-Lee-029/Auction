@@ -37,14 +37,14 @@ module.exports = {
                                                                     not exists(
                                                                         select *
                                                                         from history_auctions
-                                                                        where p.id=history_auctions.product_id
+                                                                        where p.id=history_auctions.product_id and not exists(select * from blocked_auctions where his.product_id=product_id and his.bidder_id=bidder_id)
                                                                         ) 
                                             limit ${config.paginate.limit} offset ${offset}`),
     productSuccess: (offset) => db.load(`select * from products p WHERE duration <NOW() and
                                                                         exists(
                                                                             select *
                                                                             from history_auctions
-                                                                            where p.id=history_auctions.product_id
+                                                                            where p.id=history_auctions.product_id and not exists(select * from blocked_auctions where his.product_id=product_id and his.bidder_id=bidder_id)
                                                                             ) 
                                             limit ${config.paginate.limit} offset ${offset}`),
     productAction: (offset) => db.load(`select * from products WHERE duration>NOW() limit ${config.paginate.limit} offset ${offset}`),
@@ -57,7 +57,7 @@ module.exports = {
                                      not exists(
                                         select *
                                         from history_auctions
-                                        where p.id=history_auctions.product_id
+                                        where p.id=history_auctions.product_id and not exists(select * from blocked_auctions where his.product_id=product_id and his.bidder_id=bidder_id)
                                         )`)
         return rows[0].total;
     },
@@ -65,8 +65,8 @@ module.exports = {
         const rows = await db.load(`select count(*) as total from products p where duration <NOW() and 
                                     exists(
                                         select *
-                                        from history_auctions
-                                        where p.id=history_auctions.product_id
+                                        from history_auctions his
+                                        where p.id=history_auctions.product_id and not exists(select * from blocked_auctions where his.product_id=product_id and his.bidder_id=bidder_id)
                                         )`)
         return rows[0].total;
     },
