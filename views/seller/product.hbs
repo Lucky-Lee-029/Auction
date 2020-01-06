@@ -154,7 +154,8 @@
 
                                                                     <td>{{price}}</td>
                                                                     <td>
-                                                                        <button type="button" id="delete"class="btn btn-danger delete" data-toggle="tooltip" data-original-title="Delete">Delete</button>
+                                                                        <button type="button" id="delete" class="btn btn-danger delete" data-toggle="tooltip" data-original-title="Delete">Delete</button>
+                                                                        <button type="button" id="info" class="btn btn-info info">Review</button>
                                                                     </td>
                                                                     <td style="display: none">{{bidder}}</td>
                                                                     <td style="display: none">{{condi}}</td>
@@ -213,5 +214,15 @@
         var idPro=parseInt(child[6].innerHTML)
         $.post('/seller/product', {idBidder:idBidder,idAuction:idAuction,idPro:idPro});
         tr.remove();
+    });
+</script>
+<script>
+    $('#info').on("click", function(){
+        var tr =$(this).parents('tr').first();
+        var child= tr.children();
+        var idBidder=parseInt(child[4].innerHTML);
+        $.post('/seller/watchreview', {idBidder:idBidder}, function(err){
+            window.location.assign('/seller/watchreview');
+        });
     });
 </script>

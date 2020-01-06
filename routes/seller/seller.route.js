@@ -4,6 +4,7 @@ const bidderModel = require('../../models/bidders.model');
 const sellerModel = require('../../models/seller.model');
 const productModel = require('../../models/product.model');
 const categoryModel = require('../../models/category.model.js');
+const reviewModel = require('../../models/reviews.model');
 const utils = require('../../utils/utils');
 const multer = require('multer');
 const cookie = require('cookie-parser');
@@ -44,6 +45,13 @@ var upload = multer({
     storage: storage
 });
 
+seller_route.use((req, res, next) => {
+    if (typeof(req.user) == 'undefined') {
+        req.session.loginModal = true;
+        return res.redirect('/');
+    }
+    next();
+});
 //Home page
 seller_route.get('/', (req, res) => {
     res.render('seller/dashboard', {
@@ -51,7 +59,13 @@ seller_route.get('/', (req, res) => {
     });
 });
 
-seller_route.get('/product/:id', async (req, res) => {
+seller_route.use((req, res, next) => {
+    if (!req.user.isSeller) {
+        return res.redirect('/bidder');
+    }
+    next();
+});
+seller_route.get('/product/:id', async(req, res) => {
     var id = req.params.id;
     if (typeof (req.user) == 'undefined')
         return res.redirect('/product/' + id);
@@ -213,15 +227,12 @@ seller_route.post('/view-product', async (req, res) => {
 });
 seller_route.get('/view-product', async (req, res) => {
     var id = req.cookies.id;
-    console.log(id);
-    console.log("get view")
     var items = await sellerModel.singPro(id);
     var bidder = await productModel.autionPro(id);
-    bidder[0].tim = moment(bidder[0].tim, "YYYY-MM-DD-hh-mm-ss").format("YYYY-MM-DD hh:mm:ss");
-    console.log(bidder);
+    for (bid of bidder) {
+        bid.tim = moment(bid.tim, "YYYY-MM-DD-hh-mm-ss").format("YYYY-MM-DD hh:mm:ss");
+    }
     var data = JSON.parse(JSON.stringify(items))[0];
-    data
-    console.log(data);
     data.duration = moment(data.duration, "YYYY-MM-DD-hh-mm-ss").format("YYYY-MM-DD hh:mm:ss");
     res.render('seller/product', {
         layout: 'seller',
@@ -229,5 +240,22 @@ seller_route.get('/view-product', async (req, res) => {
         bidder
     });
 });
+seller_route.post('/watchreview', (req, res) => {
+    var id = req.body.idBidder;
+    res.cookie("bidder", id);
+    res.redirect('./editDescription');
+})
+seller_route.get('/watchreview', async (req, res) => {
+    var id = req.cookies.bidder;
+    var review = await reviewModel.viewReview(id);
 
+    for (rew of review) {
+        rew.good = (rew.love == 1);
+    }
+    console.log(review);
+    res.render("seller/review", {
+        layout: 'seller',
+        review
+    });
+});
 module.exports = seller_route;

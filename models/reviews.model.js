@@ -13,4 +13,5 @@ module.exports = {
     delBidderReview: id_rev => db.del(bidder_reviews, {
         id: id_rev
     }),
+    viewReview: (id) => db.load(`select * from bidder_reviews where bidder_id=${id}`),
 }

@@ -33,15 +33,15 @@ module.exports = {
         // console.log(condition, entity);
         return db.patch(tableName, entity, condition);
     },
-    totalReviews: async (id) => {
+    totalReviews: async(id) => {
         const rows = await db.load(`select count(*) as total from sellers JOIN bidder_reviews ON sellers.id=bidder_reviews.seller_id WHERE sellers.id=${id}`)
         return rows[0].total;
     },
-    pointReviews: async (id) => {
+    pointReviews: async(id) => {
         const rows = await db.load(`select count(*) as total from sellers JOIN bidder_reviews ON sellers.id=bidder_reviews.seller_id WHERE sellers.id=${id} and bidder_reviews.love=1`)
         return rows[0].total;
     },
-    count: async () => {
+    count: async() => {
         const rows = await db.load(`select count(*) as total from sellers`)
         return rows[0].total;
     },
@@ -54,6 +54,7 @@ module.exports = {
     feedback: (product, bidder, love, review, create) => db.load(
         `INSERT INTO bidder_reviews (product_id, bidder_id, love, review, created_at) VALUES (${product}, ${bidder}, ${love}, "${review}","${create}") `
     ),
-    nameOfSeller: (id) => db.load(`select name from bidders where bidders.id = ${id}`)
+    nameOfSeller: (id) => db.load(`select name from bidders where bidders.id = ${id}`),
+    isSeller: (id) => db.load(`select * from sellers where seller_id = ${id} and expiry_date > now() `)
 
 };
