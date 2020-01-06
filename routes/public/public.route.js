@@ -82,7 +82,7 @@ route.get('/category/:id', async (req, res) => {
     for (dat of data) {
         var time = now.diff(moment(dat.created_at), 'seconds');
         console.log(time);
-        dat.new = (time < 100000);
+        dat.new = (time < 3600);
     }
     console.log(data);
     let nPages = Math.floor(total / limit);
