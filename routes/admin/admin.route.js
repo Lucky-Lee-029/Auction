@@ -93,15 +93,14 @@ route.get('/product/success', async(req, res) => {
     const offset = (page - 1) * config.paginate.limit;
     list = await productModel.productSuccess(offset);
     for (parent of list) {
-        let Image = await productModel.productImage(parent.id);
         let seller = await bidderModel.name(parent.seller_id);
-        let bidder = await productModel.currentPrice(parent.id);
+        let bidder = await productModel.currentEnd(parent.id);
         parent.Price = bidder[0].price;
         parent.Win = bidder[0].name;
-        parent.Image = Image;
         parent.seller = seller[0];
     }
     const total = await productModel.countSuccess();
+    console.total;
     let nPages = Math.floor(total / limit);
     if (total % limit > 0) nPages++;
     const page_numbers = [];
@@ -129,12 +128,11 @@ route.get('/product/fail', async(req, res) => {
     const offset = (page - 1) * config.paginate.limit;
     list = await productModel.productFail(offset);
     for (parent of list) {
-        let Image = await productModel.productImage(parent.id);
         let seller = await bidderModel.name(parent.seller_id);
-        parent.Image = Image;
         parent.seller = seller[0];
     }
     const total = await productModel.countFail();
+    console.log(total);
     let nPages = Math.floor(total / limit);
     if (total % limit > 0) nPages++;
     const page_numbers = [];

@@ -124,7 +124,6 @@ seller_route.post('/product', async(req, res) => {
     //Send mail to blocked user
     let bidder = await bidderModel.single(bidder_id);
     bidder = bidder[0];
-    console.log(bidder);
     let product = await productModel.single(product_id);
     product = product[0];
     let mailOptions = {
